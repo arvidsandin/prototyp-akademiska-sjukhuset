@@ -1,6 +1,10 @@
 <script src="https://unpkg.com/vue@3"></script>
 
-<div id="app"><p :class="valueClass">hi</p>hi</div>
+<div id="app">
+  <div :class="outerDivClass">
+    <span :class="valueClass">hi</span>
+  </div>
+</div>
 
 <script>
   Vue.createApp({
@@ -8,13 +12,25 @@
       return {
         valueClass: 'value',
         headingClass: 'heading',
-        topHeadingClass: 'topHeading'
+        topHeadingClass: 'topHeading',
+        outerDivClass: 'outerDiv',
       }
     }
   }).mount('#app')
 </script>
 
 <style>
+  body{
+    margin: 0;
+  }
+  .outerDiv{
+    width: 100vw;
+    height: 100vh;
+    background-image: url(assets/Bakgrund1.png);
+    background-attachment: fixed;
+    background-size: 100% 100%;
+  }
+
   .topHeading {
     font-size: 10pt;
     font-family: Arial, Helvetica, sans-serif;
