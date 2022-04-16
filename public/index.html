@@ -3,7 +3,8 @@
 
 <div id="app">
   <div :class="outerDivClass">
-    <span :class="valueClass">hi</span>
+    <div :class="innerDivClass">
+    </div>
   </div>
 </div>
 
@@ -15,6 +16,7 @@
         headingClass: 'heading',
         topHeadingClass: 'topHeading',
         outerDivClass: 'outerDiv',
+        innerDivClass: 'innerDiv',
       }
     }
   }).mount('#app')
