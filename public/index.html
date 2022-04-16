@@ -1,4 +1,5 @@
 <script src="https://unpkg.com/vue@3"></script>
+<link rel="stylesheet" href="style.css">
 
 <div id="app">
   <div :class="outerDivClass">
@@ -18,29 +19,3 @@
     }
   }).mount('#app')
 </script>
-
-<style>
-  body{
-    margin: 0;
-  }
-  .outerDiv{
-    width: 100vw;
-    height: 100vh;
-    background-image: url(assets/Bakgrund1.png);
-    background-attachment: fixed;
-    background-size: 100% 100%;
-  }
-
-  .topHeading {
-    font-size: 10pt;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  .heading {
-    font-size: 8pt;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  .value {
-    font-size: 10pt;
-    font-family: 'Times New Roman', Times, serif;
-  }
-</style>
