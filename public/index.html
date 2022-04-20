@@ -4,6 +4,9 @@
 <div id="app">
   <div :class="outerDivClass">
     <div :class="innerDivClass">
+      <div :class="boxAClass"></div>
+      <div :class="boxBClass"></div>
+      <button :class="adminstrationButton">Till Administrering</button>
     </div>
   </div>
 </div>
@@ -17,6 +20,9 @@
         topHeadingClass: 'topHeading',
         outerDivClass: 'outerDiv',
         innerDivClass: 'innerDiv',
+        boxAClass: 'box-A',
+        boxBClass: 'box-B',
+        adminstrationButton: 'administration-button',
       }
     }
   }).mount('#app')
