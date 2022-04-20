@@ -42,6 +42,30 @@ body {
     grid-row-end: 10;
 }
 
+.tab{
+    width: 50%;
+    height: 10%;
+    border: solid 1px grey;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #01579B;
+    color: rgb(180, 180, 180);
+}
+
+.selectedTab{
+    background-color: #fff;
+    color: #000;
+    border-bottom: none;
+}
+
+.tabContent{
+    height: 90%;
+    width: 100%;
+    float: left;
+}
+
 .box-B{
     width: 100%;
     height: 100%;

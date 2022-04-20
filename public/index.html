@@ -4,7 +4,12 @@
 <div id="app">
   <div :class="outerDivClass">
     <div :class="innerDivClass">
-      <div :class="boxAClass"></div>
+      <div :class="boxAClass">
+        <div @click="firstTabSelected=true" class="tab" :class="{ selectedTab: firstTabSelected}">Urval</div>
+        <div @click="firstTabSelected=false" class="tab" :class="{ selectedTab: !firstTabSelected}">Översikt</div>
+        <div v-if="firstTabSelected" class="tabContent" :class="firstTabContent">a</div>
+        <div v-else class="tabContent" :class="secondTabContent">b</div>
+      </div>
       <div :class="boxBClass"></div>
       <button :class="adminstrationButton">Till Administrering</button>
     </div>
@@ -23,6 +28,11 @@
         boxAClass: 'box-A',
         boxBClass: 'box-B',
         adminstrationButton: 'administration-button',
+        selectedTab: 'selectedTab',
+        firstTabContent: '',
+        secondTabContent: '',
+
+        firstTabSelected:true,
       }
     }
   }).mount('#app')
