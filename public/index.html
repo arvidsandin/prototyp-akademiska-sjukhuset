@@ -2,11 +2,11 @@
 <link rel="stylesheet" href="style.css">
 
 <div id="app">
-  <div :class="outerDivClass">
-    <div :class="innerDivClass">
+  <div class="outerDiv">
+    <div class="innerDiv">
       <div :class="boxAClass">
-        <div @click="firstTabSelected=true" class="tab" :class="{ selectedTab: firstTabSelected}">Urval</div>
-        <div @click="firstTabSelected=false" class="tab" :class="{ selectedTab: !firstTabSelected}">Översikt</div>
+        <div @click="firstTabSelected=true" class="tab" :class="{ selectedTab: firstTabSelected}"><span class="topHeading">Urval</span></div>
+        <div @click="firstTabSelected=false" class="tab" :class="{ selectedTab: !firstTabSelected}"><span class="topHeading">Översikt</span></div>
         <div v-if="firstTabSelected" class="tabContent" :class="firstTabContent">a</div>
         <div v-else class="tabContent" :class="secondTabContent">b</div>
       </div>
@@ -20,11 +20,6 @@
   Vue.createApp({
     data() {
       return {
-        valueClass: 'value',
-        headingClass: 'heading',
-        topHeadingClass: 'topHeading',
-        outerDivClass: 'outerDiv',
-        innerDivClass: 'innerDiv',
         boxAClass: 'box-A',
         boxBClass: 'box-B',
         adminstrationButton: 'administration-button',
