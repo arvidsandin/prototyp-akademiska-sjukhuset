@@ -1,5 +1,6 @@
 <script src="https://unpkg.com/vue@3"></script>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="globalStylesheet.css">
+<link rel="stylesheet" href="boxAStylesheet.css">
 
 <div id="app">
   <div class="outerDiv">
@@ -7,8 +8,20 @@
       <div :class="boxAClass">
         <div @click="firstTabSelected=true" class="tab" :class="{ selectedTab: firstTabSelected}"><span class="topHeading">Urval</span></div>
         <div @click="firstTabSelected=false" class="tab" :class="{ selectedTab: !firstTabSelected}"><span class="topHeading">Översikt</span></div>
-        <div v-if="firstTabSelected" class="tabContent" :class="firstTabContent">a</div>
-        <div v-else class="tabContent" :class="secondTabContent">b</div>
+        <div v-if="firstTabSelected" class="tabContent" :class="firstTabContent">
+          <div class="aboveLists heading">
+            <span class="heading">Utdelningstillfälle</span><div class="fakeTimeSelectionBox">08:00 2022-03-04</div>
+          </div>
+          <div class="list topList">
+          
+          </div>
+          <div class="list bottomList">
+            
+          </div>
+        </div>
+        <div v-else class="tabContent" :class="secondTabContent">
+          <!-- TODO -->
+        </div>
       </div>
       <div :class="boxBClass"></div>
       <button :class="adminstrationButton">Till Administrering</button>
