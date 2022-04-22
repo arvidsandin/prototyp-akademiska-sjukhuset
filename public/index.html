@@ -8,23 +8,26 @@
       <div :class="boxAClass">
         <div @click="firstTabSelected=true" class="tab" :class="{ selectedTab: firstTabSelected}"><span class="topHeading">Urval</span></div>
         <div @click="firstTabSelected=false" class="tab" :class="{ selectedTab: !firstTabSelected}"><span class="topHeading">Översikt</span></div>
-        <div v-if="firstTabSelected" class="tabContent" :class="firstTabContent">
+        <div v-if="firstTabSelected" class="tabContent firstTabContent">
           <div class="aboveLists heading">
-            <span class="heading">Utdelningstillfälle</span><div class="fakeTimeSelectionBox">08:00 2022-03-04</div>
+            <span class="heading">Utdelningstillfälle</span><div class="fakeTimeSelectionBox">08:00 2022-03-04 <button>...</button></div>
+            <button>G>></button>
           </div>
           <div class="list topList">
-          
+            <div class="headerRow heading"></div>
+            <div class="valueRow value"></div>
           </div>
           <div class="list bottomList">
-            
+            <div class="headerRow heading"></div>
+            <div class="valueRow value"></div>
           </div>
         </div>
-        <div v-else class="tabContent" :class="secondTabContent">
+        <div v-else class="tabContent secondTabContent">
           <!-- TODO -->
         </div>
       </div>
       <div :class="boxBClass"></div>
-      <button :class="adminstrationButton">Till Administrering</button>
+      <button class="administrationButton">Till Administrering</button>
     </div>
   </div>
 </div>
@@ -35,10 +38,7 @@
       return {
         boxAClass: 'box-A',
         boxBClass: 'box-B',
-        adminstrationButton: 'administration-button',
         selectedTab: 'selectedTab',
-        firstTabContent: '',
-        secondTabContent: '',
 
         firstTabSelected:true,
       }

@@ -40,7 +40,7 @@ body {
     grid-row-end: 9;
 }
 
-.administration-button{
+.administrationButton{
     width: 9em;
     height: 3em;
     margin-left: auto;
