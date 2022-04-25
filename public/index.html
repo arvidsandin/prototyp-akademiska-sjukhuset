@@ -15,8 +15,12 @@
             <button>G>></button>
           </div>
           <div class="list topList">
-            <div class="headerRow heading"></div>
-            <div class="valueRow value"></div>
+            <div class="headerRow heading">
+              <div v-for="(item, index) in medicines[0]">{{item}}</div>
+            </div>
+            <div v-for="index in medicines.length" class="valueRow value">
+              <div v-for="(item, index) in medicines[index]" class="valueCell">{{item}}</div>
+            </div>
           </div>
           <div class="list bottomList">
             <div class="headerRow heading"></div>
@@ -41,19 +45,22 @@
         boxBClass: 'box-B',
         selectedTab: 'selectedTab',
 
+        medicines: [],
         firstTabSelected:true,
       }
     },
     mounted() {
-      fetch('./assets/data/Ordinationer.csv')
+      var medicines = [];
+      fetch('./assets/data/Läkemedel.csv')
         .then(response => response.text())
         .then(text => {
           Papa.parse(text, {
             complete: function (results) {
-              console.log(results);
+              medicines = results.data;
             }
           });
-        })     
+          this.medicines = medicines;
+        })
     }
   }).mount('#app')
 

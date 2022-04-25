@@ -1,0 +1,41 @@
+L�kemedelsId;Namn;Beredningsform;Styrka;Leveranstyp;Kylf�rvaras;I automat;Kan bytas mot;Finns p� ;
+;;;;"V�rden: 1, 2,3 eller 4 .
+1 = via ddm, 2 via beredningsfarmaceut, i
+kodm�rkt p�se. 3= Iordning-
+st�lls av ssk. F�rpackning
+med kod finns. 4= Som 3,
+men f�rpackning med kod
+finns inte.";"0 =(nej) eller 1 (=ja).
+OBS! G�ller bara
+l�kemedel med
+leveranstyp 2,3 eller 4.";"0 eller 1.
+ OBS! g�ller bara l�kemedel med leveranstyp 2, 3 eller 4";"Kommaseparerad
+lista med l�kemedelsId:n
+";"Kommaseparerad
+lista med PlatsId. OBS! g�ller bara l�kemedel med leveranstyp 3 eller 4";
+L1;Latanoprost STADA;�gondroppar;50 mikrogram/ml;4;1;0;;;
+L2;Alendronat Teva Veckotablett;Tablett;70 mg;1;;;;;
+L3;Alvedon;Brustablett;500 mg;3;0;;L26;;
+L4;Enalapril;Tablett;2,5 mg;1;0;;;;
+L5;Furix;Tablett;20 mg;1;0;;;;
+L6;Levaxin;Tablett;125 mikrogram;4;0;0;;;
+L7;Metoprolol;Depottablett;50 mg;1;;;;;
+L8;Movicol;Pulver till oral l�sning i dosp�se;(ingen);3;0;0;;;
+L9;OxyContin;Depottablett;10 mg;1;;;;;
+L10;Simvastatin;Filmdragerad tablett;10 mg;1;;;;;
+L11;Trombyl;Tablett;75 mg;1;;;;;
+L12;Waran;Tablett;2,5 mg;3;0;0;;;
+L13;Fucidin-Hyrdocortison;Kr�m;20 mg/g + 10 mg/g;4;0;0;;;
+L14;Humalog Mix25 KwikPen;Injektionsv�tska, suspension i f�rfylld injektionspenna;100E/ml;3;1;0;;;
+L15;Piperacillin/Tazobactam Fresenius Kabi;Pulver till infusionsv�tska, l�sning;4 g;2;0;0;;;
+L16;Oxascand;Tablett;10 mg;3;0;1;;;
+L17;OxyNorm;Kapsel, h�rd;5 mg;3;0;1;;;
+L18;Primperan;Tablett;10 mg;3;0;0;;;
+L19;Morfin Abcur;Injektionsv�sta, l�sning;1mg/ml;2;0;1;;;
+L20;NovoRapid Penfill;Injektionsv�sta, l�sning i cylinderampull;100E/ml;3;1;0;;;
+L21;Prednisolon Pfizer;Tablett;5 mg;1;;;;;
+L22;Cyklokapron;Injektionsv�tska, l�sning;100 mg/ml;3;0;0;;;
+L23;Vancomycin MIP;Pulver till infusionsv�tska, l�sning;500 mg;3;0;0;;;
+L24;Natriumklorid Fresenius Kabi;Sp�dningsv�tska f�r parenteral anv�ndning;9 mg/ml;3;0;0;;;
+L25;Sterilt vatten APL;Sp�dningsv�tska f�r parenteral anv�ndning;(ingen);3;0;0;;;
+L26;Paracetamol Apofri;Brustablett;500 mg;3;0;0;L3;;
