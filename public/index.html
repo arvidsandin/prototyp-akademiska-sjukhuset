@@ -1,4 +1,5 @@
 <script src="https://unpkg.com/vue@3"></script>
+<script src="./papaparse.min.js"></script>
 <link rel="stylesheet" href="globalStylesheet.css">
 <link rel="stylesheet" href="boxAStylesheet.css">
 
@@ -42,6 +43,18 @@
 
         firstTabSelected:true,
       }
+    },
+    mounted() {
+      fetch('./assets/data/Ordinationer.csv')
+        .then(response => response.text())
+        .then(text => {
+          Papa.parse(text, {
+            complete: function (results) {
+              console.log(results);
+            }
+          });
+        })     
     }
   }).mount('#app')
+
 </script>
