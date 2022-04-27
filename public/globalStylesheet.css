@@ -25,6 +25,8 @@ body {
     padding: 1.5em 2em;
     display: grid;
     gap: 2em;
+    /* (100% - gap * (columns - 1)) / columns */
+    grid-auto-columns: calc((100% - 2em * 8) / 9);
 }
 
 .box-A, .box-B{

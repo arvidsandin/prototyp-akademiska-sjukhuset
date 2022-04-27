@@ -14,14 +14,18 @@
             <span class="heading">Utdelningstillfälle</span><div class="fakeTimeSelectionBox">08:00 2022-03-04 <button>...</button></div>
             <button>G>></button>
           </div>
-          <div class="list topList">
-            <div class="headerRow heading">
-              <div v-for="(item, index) in medicines[0]">{{item}}</div>
-            </div>
-            <div v-for="index in medicines.length" class="valueRow value">
-              <div v-for="(item, index) in medicines[index]" class="valueCell">{{item}}</div>
-            </div>
-          </div>
+          <table class="list topList">
+            <thead>
+              <tr class="headerRow heading">
+                <th v-for="i in topListHeadings">{{ i }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="row in medicines" class="valueRow">
+                <td v-for="index in topListHeadings" class="valueCell value">{{row[index]}}</td>
+              </tr>
+            </tbody>
+          </table>
           <div class="list bottomList">
             <div class="headerRow heading"></div>
             <div class="valueRow value"></div>
@@ -46,20 +50,26 @@
         selectedTab: 'selectedTab',
 
         medicines: [],
+        medicinesHeaders: [],
+        topListHeadings: ['Namn', 'Beredningsform', 'Styrka', 'Leveranstyp', 'Kan bytas mot', 'I automat', 'Kylf�rvaras'],
         firstTabSelected:true,
       }
     },
     mounted() {
       var medicines = [];
+      var medicinesHeaders = []
       fetch('./assets/data/Läkemedel.csv')
         .then(response => response.text())
         .then(text => {
           Papa.parse(text, {
             complete: function (results) {
               medicines = results.data;
-            }
+              medicinesHeaders = results.meta.fields;
+            },
+            header:true
           });
           this.medicines = medicines;
+          this.medicinesHeaders = medicinesHeaders
         })
     }
   }).mount('#app')
