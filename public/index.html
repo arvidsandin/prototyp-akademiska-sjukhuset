@@ -21,7 +21,7 @@
                   <th>Namn</th>
                   <th>Beredningsform</th>
                   <th style="width:11em">Dos</th>
-                  <th style="width:3em">Sta</th>
+                  <th style="width:2em">Sta</th>
                   <th style="width:2em">G</th>
                   <th>Info</th>
                   <th style="width:2em">Aut</th>
@@ -33,7 +33,10 @@
                   <td><div class="valueCell value">{{row['Namn']}}</div></td>
                   <td><div class="valueCell value">{{row['Beredningsform']}}</div></td>
                   <td><div class="valueCell value">{{row['Styrka']}}</div></td>
-                  <td><div class="valueCell value">{{row['Leveranstyp']}}</div></td>
+                  <td><div class="valueCell value" style="overflow:hidden">
+                    <img v-if="row['Leveranstyp']==1" height="21" src="./assets/images/A_Sta_1.png">
+                    <img v-if="row['Leveranstyp']==2" height="21" src="./assets/images/A_Sta_2.png">
+                  </div></td>
                   <td><div class="valueCell value">{{row['G']}}</div></td>
                   <td><div class="valueCell value">{{row['Kan bytas mot']}}</div></td>
                   <td><div class="valueCell value">{{row['I automat']}}</div></td>
@@ -42,9 +45,21 @@
               </tbody>
             </table>
           </div>
-          <div class="list bottomList">
-            <div class="headerRow heading"></div>
-            <div class="valueRow value"></div>
+          <div class="bottomList">
+            <table class="list">
+              <thead>
+                <tr class="headerRow heading">
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="valueRow">
+                  <td>
+                    <div class="valueCell value"></div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
         <div v-else class="tabContent secondTabContent">

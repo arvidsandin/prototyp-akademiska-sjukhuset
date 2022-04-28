@@ -64,14 +64,6 @@
     float: right;
 }
 
-.list{
-    width: 100%;
-    border: solid 1px black;
-    border-collapse: collapse;
-    display: table;
-    table-layout:fixed;
-}
-
 .topList{
     width: 100%;
     height: 51%;
@@ -81,7 +73,16 @@
 .bottomList{
     width: 100%;
     height: 41%;
+    border-top: solid 1em transparent;
     overflow-y: auto;
+}
+
+.list{
+    border: solid 1px black;
+    width: 100%;
+    border-collapse: collapse;
+    display: table;
+    table-layout:fixed;
 }
 
 .headerRow{
@@ -105,7 +106,6 @@
 td{
     padding: 0;
     border: solid 1px black;
-    height: 1.1em;
 }
 .valueCell{
     width: 100%;
