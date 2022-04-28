@@ -14,18 +14,34 @@
             <span class="heading">Utdelningstillfälle</span><div class="fakeTimeSelectionBox">08:00 2022-03-04 <button>...</button></div>
             <button>G>></button>
           </div>
-          <table class="list topList">
-            <thead>
-              <tr class="headerRow heading">
-                <th v-for="i in topListHeadings">{{ i }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="row in medicines" class="valueRow">
-                <td v-for="index in topListHeadings" class="valueCell value">{{row[index]}}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="topList">
+            <table class="list topList">
+              <thead>
+                <tr class="headerRow heading">
+                  <th>Namn</th>
+                  <th>Beredningsform</th>
+                  <th style="width:11em">Dos</th>
+                  <th style="width:3em">Sta</th>
+                  <th style="width:2em">G</th>
+                  <th>Info</th>
+                  <th style="width:2em">Aut</th>
+                  <th style="width:2em">Kyl</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="row in medicines" class="valueRow">
+                  <td><div class="valueCell value">{{row['Namn']}}</div></td>
+                  <td><div class="valueCell value">{{row['Beredningsform']}}</div></td>
+                  <td><div class="valueCell value">{{row['Styrka']}}</div></td>
+                  <td><div class="valueCell value">{{row['Leveranstyp']}}</div></td>
+                  <td><div class="valueCell value">{{row['G']}}</div></td>
+                  <td><div class="valueCell value">{{row['Kan bytas mot']}}</div></td>
+                  <td><div class="valueCell value">{{row['I automat']}}</div></td>
+                  <td><div class="valueCell value">{{row['Kylf�rvaras']}}</div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           <div class="list bottomList">
             <div class="headerRow heading"></div>
             <div class="valueRow value"></div>
