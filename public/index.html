@@ -18,26 +18,26 @@
             <table class="list topList">
               <thead>
                 <tr class="headerRow heading">
-                  <th>Namn</th>
-                  <th>Beredningsform</th>
-                  <th style="width:11em">Dos</th>
+                  <th style="width:50ch">Ordination</th>
+                  <th style="width:35ch">Beredningsform</th>
+                  <th style="width:20ch">Dos</th>
                   <th style="width:2em">Sta</th>
                   <th style="width:2em">G</th>
-                  <th>Info</th>
+                  <th style="width:25ch">Info</th>
                   <th style="width:2em">Aut</th>
                   <th style="width:2em">Kyl</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="row in medicines" class="valueRow">
-                  <td><div class="valueCell value">{{row['Namn']}}</div></td>
+                <tr v-for="(row, index) in currentPatientMedicines" class="valueRow">
+                  <td><div class="valueCell value">{{row['Namn'] + ' ' + row['Styrka']}}</div></td>
                   <td><div class="valueCell value">{{row['Beredningsform']}}</div></td>
-                  <td><div class="valueCell value">{{row['Styrka']}}</div></td>
+                  <td><div class="valueCell value">{{this.currentPatientPrescriptions[index]["Dosering "]}}</div></td>
                   <td><div class="valueCell value" style="overflow:hidden">
                     <img v-if="row['Leveranstyp']==1" height="21" src="./assets/images/A_Sta_1.png">
                     <img v-if="row['Leveranstyp']==2" height="21" src="./assets/images/A_Sta_2.png">
                   </div></td>
-                  <td><div class="valueCell value">{{row['G']}}</div></td>
+                  <td><div class="valueCell value">{{this.currentPatientPrescriptions[index]['G']}}</div></td>
                   <td><div class="valueCell value">{{row['Kan bytas mot']}}</div></td>
                   <td><div class="valueCell value">{{row['I automat']}}</div></td>
                   <td><div class="valueCell value">{{row['Kylf�rvaras']}}</div></td>
@@ -82,26 +82,54 @@
 
         medicines: [],
         medicinesHeaders: [],
+        prescriptions: [],
+        prescriptionsHeaders: [],
+        currentPatientPrescriptions: [],
+        currentPatientMedicines: [],
+        currentPatientId: 'P1',
         topListHeadings: ['Namn', 'Beredningsform', 'Styrka', 'Leveranstyp', 'Kan bytas mot', 'I automat', 'Kylf�rvaras'],
         firstTabSelected:true,
       }
     },
     mounted() {
-      var medicines = [];
-      var medicinesHeaders = []
       fetch('./assets/data/Läkemedel.csv')
-        .then(response => response.text())
-        .then(text => {
-          Papa.parse(text, {
-            complete: function (results) {
-              medicines = results.data;
-              medicinesHeaders = results.meta.fields;
-            },
-            header:true
-          });
-          this.medicines = medicines;
-          this.medicinesHeaders = medicinesHeaders
-        })
+      .then(response => response.text())
+      .then(text => {
+        Papa.parse(text, {
+          complete: results => {
+            this.medicines = results.data;
+            this.medicinesHeaders = results.meta.fields;
+          },
+          header:true
+        });
+      })
+      fetch('./assets/data/Ordinationer.csv')
+      .then(response => response.text())
+      .then(text => {
+        Papa.parse(text, {
+          complete: results => {
+            this.prescriptions = results.data;
+            this.prescriptionsHeaders = results.meta.fields;
+          },
+          header: true
+        });
+      })
+      .then(a => {
+        for (const prescription of this.prescriptions) {
+          if (prescription['PatientId'] == this.currentPatientId) {
+            this.currentPatientPrescriptions.push(prescription);
+            medicineId = prescription['L�kemedelsId']
+            for (const medicine of this.medicines) {
+              if (medicine['L�kemedelsId'] == medicineId) {
+                this.currentPatientMedicines.push(medicine);
+                continue;
+              }
+            }
+          }
+        }
+        console.log(this.currentPatientPrescriptions);
+        console.log(this.currentPatientMedicines);
+      })
     }
   }).mount('#app')
 
