@@ -18,18 +18,18 @@
             <table class="list topList">
               <thead>
                 <tr class="headerRow heading">
-                  <th style="width:50ch">Ordination</th>
+                  <th style="width:50ch; width:20ch">Ordination</th>
                   <th style="width:35ch">Beredningsform</th>
                   <th style="width:20ch">Dos</th>
                   <th style="width:2em">Sta</th>
                   <th style="width:2em">G</th>
-                  <th style="width:25ch">Info</th>
+                  <th style="width:25ch; width:10ch">Info</th>
                   <th style="width:2em">Aut</th>
                   <th style="width:2em">Kyl</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(row, index) in currentPatientMedicines" class="valueRow">
+                <tr v-for="(row, index) in currentPatientMedicines_8oclock" class="valueRow">
                   <td><div class="valueCell value">{{row['Namn'] + ' ' + row['Styrka']}}</div></td>
                   <td><div class="valueCell value">{{row['Beredningsform']}}</div></td>
                   <td><div class="valueCell value">{{this.currentPatientPrescriptions[index]["Dosering "]}}</div></td>
@@ -86,6 +86,8 @@
         prescriptionsHeaders: [],
         currentPatientPrescriptions: [],
         currentPatientMedicines: [],
+        currentPatientMedicines_8oclock: [],
+        currentPatientMedicines_noTime: [],
         currentPatientId: 'P1',
         topListHeadings: ['Namn', 'Beredningsform', 'Styrka', 'Leveranstyp', 'Kan bytas mot', 'I automat', 'Kylf�rvaras'],
         firstTabSelected:true,
@@ -122,6 +124,12 @@
             for (const medicine of this.medicines) {
               if (medicine['L�kemedelsId'] == medicineId) {
                 this.currentPatientMedicines.push(medicine);
+                if(prescription['Aktuell kl 08:00'] == '1'){
+                  this.currentPatientMedicines_8oclock.push(medicine);
+                }
+                else if(prescription['Vid behov'] == '1' || prescription['Ej tidssatta'] == '1'){
+                  this.currentPatientMedicines_noTime.push(medicine);
+                }
                 continue;
               }
             }
@@ -129,8 +137,15 @@
         }
         console.log(this.currentPatientPrescriptions);
         console.log(this.currentPatientMedicines);
+        console.log(this.currentPatientMedicines_8oclock);
       })
-    }
+    },
+    methods: {
+
+    },
+    computed: {
+
+    },
   }).mount('#app')
 
 </script>

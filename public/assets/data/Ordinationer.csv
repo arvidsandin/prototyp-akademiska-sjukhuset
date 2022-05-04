@@ -1,34 +1,34 @@
-OrdinationsId;PatientId;LäkemedelsId;(läkemedelsnamn);Mängd som används vid spädning;Koncentration av huvudsubstans i färdigspädd lösning ;Dosering ;Administrationssätt;Behandlingsorsak;Notera vid administrering;Instruktioner för spädning/blandning;Kommentar;Aktuell kl 08:00;Vid behov;Ej tidssatta
-O1;P1;L1;Latanoprost STADA;;;1 droppe, till natten, tills vidare;I båda ögonen;Mot förhöjt ögontryck;Om du använder något annat ögonpreparat skall du vänta minst 5 minuter mellan de olika preparaten.;;;;;
-O2;P1;L2;Alendronat Teva Veckotablett;;;1 tablett, var 7e dag, tills vidare;Oralt;Mot benskörhet;Intas med vanligt vatten på fastande mage, minst 30 minuter före andra tabletter, mat el dryck.;;;;;
-O3;P1;L3;Alvedon;;;1-2 brustabletter, 4 gånger om dagen, tills vidare;Oralt;;;;;;;
-O4;P1;L4;Enalapril;;;1 tablett, en gånger dagligen, tills vidare;;;;;;;;
-O5;P1;L5;Furix;;;1 tablett, en gånger dagligen, tills vidare;;;;;;;;
+OrdinationsId;PatientId;Lï¿½kemedelsId;(lï¿½kemedelsnamn);Mï¿½ngd som anvï¿½nds vid spï¿½dning;Koncentration av huvudsubstans i fï¿½rdigspï¿½dd lï¿½sning ;Dosering ;Administrationssï¿½tt;Behandlingsorsak;Notera vid administrering;Instruktioner fï¿½r spï¿½dning/blandning;Kommentar;Aktuell kl 08:00;Vid behov;Ej tidssatta
+O1;P1;L1;Latanoprost STADA;;;1 droppe, till natten, tills vidare;I bï¿½da ï¿½gonen;Mot fï¿½rhï¿½jt ï¿½gontryck;Om du anvï¿½nder nï¿½got annat ï¿½gonpreparat skall du vï¿½nta minst 5 minuter mellan de olika preparaten.;;;1;;
+O2;P1;L2;Alendronat Teva Veckotablett;;;1 tablett, var 7e dag, tills vidare;Oralt;Mot benskï¿½rhet;Intas med vanligt vatten pï¿½ fastande mage, minst 30 minuter fï¿½re andra tabletter, mat el dryck.;;;;1;
+O3;P1;L3;Alvedon;;;1-2 brustabletter, 4 gï¿½nger om dagen, tills vidare;Oralt;;;;;;;1
+O4;P1;L4;Enalapril;;;1 tablett, en gï¿½nger dagligen, tills vidare;;;;;;;;
+O5;P1;L5;Furix;;;1 tablett, en gï¿½nger dagligen, tills vidare;;;;;;;;
 O6;P1;L6;Levaxin;;;Enligt schema (alla dagar utom onsdagar), tills vidare;;;;;;;;
-O7;P1;L7;Metoprolol;;;1 tablett, en gånger dagligen, tills vidare;;;;;;0 eller 1;0 eller 1;0 eller 1
-O8;P1;L8;Movicol;;;Enligt särskild ordination (fritext: 1 dospåse 1-3 gånger dagligen beroende på individuellt svar. Vid långvarig behandling kan dosen justeras ner till 1 eller 2 dospåsar dagligen);;;;;;;;
-O9;P1;L9;OxyContin;;;1 depottablett, två gånger dagligen, tills vidare;;;;;;;;
+O7;P1;L7;Metoprolol;;;1 tablett, en gï¿½nger dagligen, tills vidare;;;;;;0 eller 1;0 eller 1;0 eller 1
+O8;P1;L8;Movicol;;;Enligt sï¿½rskild ordination (fritext: 1 dospï¿½se 1-3 gï¿½nger dagligen beroende pï¿½ individuellt svar. Vid lï¿½ngvarig behandling kan dosen justeras ner till 1 eller 2 dospï¿½sar dagligen);;;;;;;;
+O9;P1;L9;OxyContin;;;1 depottablett, tvï¿½ gï¿½nger dagligen, tills vidare;;;;;;;;
 O10;P1;L10;Simvastatin;;;1 tablett, till natten, tills vidare;;;;;;;;
-O11;P1;L11;Trombyl;;;1 tablett, en gånger dagligen, tills vidare;;;;;;;;
+O11;P1;L11;Trombyl;;;1 tablett, en gï¿½nger dagligen, tills vidare;;;;;;;;
 O12;P1;L12;Waran;;;? tablett, till middag, tills vidare;;;;;;;;
-O13;P1;L13;Fucidin-Hyrdocortison;;;Enligt ordination (fritext: Utvärtes enligt ordination);;;;;;;;
+O13;P1;L13;Fucidin-Hyrdocortison;;;Enligt ordination (fritext: Utvï¿½rtes enligt ordination);;;;;;;;
 O14;P1;L14;Humalog Mix25 KwikPen;;;? Enheter, till frukost och till middag, tills vidare;;;;;;;;
 O15;P1;L15;Piperacillin/Tazobactam Fresenius Kabi;4 g;0,03 g/ml;60 ml (2 g), var 7e timme, tills vidare;;;;;;;;
-O15;P1;L24;Natriumkloridlösning;20 ml;;;;;;;;;;
-O15;P1;L24;Natriumkloridlösning;100 ml;;;;;;;;;;
-O16;P1;;Furix;;;1 tablett, 1-2 gånger om dagen, tills vidare;;;;;;;;
-O17;P1;;Oxascand;;;1 tablett, vid behov men max 3 gånger per dag, tills vidare;;Mot smärta;;;;;;
-O18;P1;;Oxynorm;;;1 kapsel, vid behov men max 6 gånger per dag, tills vidare;;;;;;;;
-O19;P1;;Primperan;;;1 tablett, vid behov men max 3 gånger per dag, tills vidare;;;;;;;;
-O20;P1;;Morfin Abcur;1 ml;1 mg/ml;;Intramuskulär injektion;Mot smärta;Ges långsamt intramuskulärt.;"A. Drag upp 1 ml Morfin 10 mg/ml injektionsvätska i spruta.
+O15;P1;L24;Natriumkloridlï¿½sning;20 ml;;;;;;;;;;
+O15;P1;L24;Natriumkloridlï¿½sning;100 ml;;;;;;;;;;
+O16;P1;;Furix;;;1 tablett, 1-2 gï¿½nger om dagen, tills vidare;;;;;;;;
+O17;P1;;Oxascand;;;1 tablett, vid behov men max 3 gï¿½nger per dag, tills vidare;;Mot smï¿½rta;;;;;;
+O18;P1;;Oxynorm;;;1 kapsel, vid behov men max 6 gï¿½nger per dag, tills vidare;;;;;;;;
+O19;P1;;Primperan;;;1 tablett, vid behov men max 3 gï¿½nger per dag, tills vidare;;;;;;;;
+O20;P1;;Morfin Abcur;1 ml;1 mg/ml;;Intramuskulï¿½r injektion;Mot smï¿½rta;Ges lï¿½ngsamt intramuskulï¿½rt.;"A. Drag upp 1 ml Morfin 10 mg/ml injektionsvï¿½tska i spruta.
 
-B. Späd med 9 ml Natriumklorid 9 mg/ml spädningsvätska för parenteralt bruk.
+B. Spï¿½d med 9 ml Natriumklorid 9 mg/ml spï¿½dningsvï¿½tska fï¿½r parenteralt bruk.
     Slutkoncentration = 1 mg/ml.
 
-Ges som intravenös injektion.";;;;
-O20;P1;;Natriumkloridlösning;9 ml;;;;;;Som ovan.;;;;
-O21;P1;;NovoRapid Pennfill;;;? E vid behov mkax 20 E per dag, tills vidare;;Snabbverkande insulin  vid diabetes;Tas till måltid samt vid behov enligt ordination.;;;;;
-O22;P1;;Prednisolon (pausad);;;1 tablett, 1 gånger dagligen, tills vidare. ;;;;;;;;
+Ges som intravenï¿½s injektion.";;;;
+O20;P1;;Natriumkloridlï¿½sning;9 ml;;;;;;Som ovan.;;;;
+O21;P1;;NovoRapid Pennfill;;;? E vid behov mkax 20 E per dag, tills vidare;;Snabbverkande insulin  vid diabetes;Tas till mï¿½ltid samt vid behov enligt ordination.;;;;;
+O22;P1;;Prednisolon (pausad);;;1 tablett, 1 gï¿½nger dagligen, tills vidare. ;;;;;;;;
 ;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;
@@ -39,8 +39,8 @@ O22;P1;;Prednisolon (pausad);;;1 tablett, 1 gånger dagligen, tills vidare. ;;;;;
 ;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;
 ;;"OBS! Det kan vara flera
-läkemedel i en ordination
+lï¿½kemedel i en ordination
 t ex aktiv substans och
-spädningsvätska. I dessa
+spï¿½dningsvï¿½tska. I dessa
 fall blir det flera rader
-per OrdinationsId och PatientId. Dock skall huvudsubstansen alltid skrivas först i en sådan lista";;;;;;;;;;;;
+per OrdinationsId och PatientId. Dock skall huvudsubstansen alltid skrivas fï¿½rst i en sï¿½dan lista";;;;;;;;;;;;
