@@ -15,15 +15,15 @@
             <button>G>></button>
           </div>
           <div class="topList">
-            <table class="list topList">
+            <table class="list">
               <thead>
                 <tr class="headerRow heading">
-                  <th style="width:50ch; width:20ch">Ordination</th>
+                  <th style="width:50ch; width: 40ch">Ordination</th>
                   <th style="width:35ch">Beredningsform</th>
                   <th style="width:20ch">Dos</th>
                   <th style="width:2em">Sta</th>
                   <th style="width:2em">G</th>
-                  <th style="width:25ch; width:10ch">Info</th>
+                  <th style="width:25ch">Info</th>
                   <th style="width:2em">Aut</th>
                   <th style="width:2em">Kyl</th>
                 </tr>
@@ -49,14 +49,29 @@
             <table class="list">
               <thead>
                 <tr class="headerRow heading">
-                  <th></th>
+                  <th style="width:50ch; width: 40ch">Ej tidssatta ordinationer</th>
+                  <th style="width:35ch">Bered.form</th>
+                  <th style="width:20ch">Dos</th>
+                  <th style="width:2em">Sta</th>
+                  <th style="width:2em">G</th>
+                  <th style="width:25ch">Info</th>
+                  <th style="width:2em">Aut</th>
+                  <th style="width:2em">Kyl</th>
                 </tr>
               </thead>
               <tbody>
-                <tr class="valueRow">
-                  <td>
-                    <div class="valueCell value"></div>
-                  </td>
+                <tr v-for="(row, index) in currentPatientMedicines_noTime" class="valueRow">
+                  <td><div class="valueCell value">{{row['Namn'] + ' ' + row['Styrka']}}</div></td>
+                  <td><div class="valueCell value">{{row['Beredningsform']}}</div></td>
+                  <td><div class="valueCell value">{{this.currentPatientPrescriptions[index]["Dosering "]}}</div></td>
+                  <td><div class="valueCell value" style="overflow:hidden">
+                    <img v-if="row['Leveranstyp']==1" height="21" src="./assets/images/A_Sta_1.png">
+                    <img v-if="row['Leveranstyp']==2" height="21" src="./assets/images/A_Sta_2.png">
+                  </div></td>
+                  <td><div class="valueCell value">{{this.currentPatientPrescriptions[index]['G']}}</div></td>
+                  <td><div class="valueCell value">{{row['Kan bytas mot']}}</div></td>
+                  <td><div class="valueCell value">{{row['I automat']}}</div></td>
+                  <td><div class="valueCell value">{{row['Kylf�rvaras']}}</div></td>
                 </tr>
               </tbody>
             </table>

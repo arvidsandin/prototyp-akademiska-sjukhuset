@@ -4,7 +4,7 @@
     display: grid;
     grid-auto-rows: 10%;
     grid-column-start: 1;
-    grid-column-end: 6;
+    grid-column-end: 7;
     grid-row-start: 1;
     grid-row-end: 10;
 }
@@ -100,7 +100,6 @@
 
 .valueRow{
     width: 100%;
-    height: 1.5em;
     background-color: rgb(255, 255, 255);
 }
 td{
@@ -109,10 +108,9 @@ td{
 }
 .valueCell{
     width: 100%;
-    height: 100%;
+    height: 1.7em;
     overflow-y: auto;
     padding: 1px;
-    
 }
 
 .selectedRow{
