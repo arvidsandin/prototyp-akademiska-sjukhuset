@@ -13,7 +13,7 @@
         <div v-if="firstTabSelected" class="tabContent firstTabContent">
           <div class="aboveLists heading">
             <span class="heading">Utdelningstillfälle</span><div class="fakeTimeSelectionBox">08:00 2022-03-04 <button>...</button></div>
-            <img v-if="!boxBActive" @click="boxBActive = !boxBActive" id="G_expand" class="G" src="./assets/images/Expand.png"></img>
+            <img v-if="selectedRow == null" id="G_expand" class="G" src="./assets/images/Expand.png"></img>
           </div>
           <div class="topList">
             <table class="list">
@@ -30,7 +30,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(row, index) in currentPatientMedicines_8oclock" class="valueRow">
+                <tr @click="selectRow(row)" v-for="(row, index) in currentPatientMedicines_8oclock" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
                   <td><div class="valueCell value">{{row['Namn'] + ' ' + row['Styrka']}}</div></td>
                   <td><div class="valueCell value">{{row['Beredningsform']}}</div></td>
                   <td><div class="valueCell value">{{this.currentPatientPrescriptions[index]["Dosering "]}}</div></td>
@@ -61,7 +61,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(row, index) in currentPatientMedicines_noTime" class="valueRow">
+                <tr @click="selectRow(row)" v-for="(row, index) in currentPatientMedicines_noTime" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
                   <td><div class="valueCell value">{{row['Namn'] + ' ' + row['Styrka']}}</div></td>
                   <td><div class="valueCell value">{{row['Beredningsform']}}</div></td>
                   <td><div class="valueCell value">{{this.currentPatientPrescriptions[index]["Dosering "]}}</div></td>
@@ -84,7 +84,7 @@
       </div>
       <div class="boxB">
         <div class="boxB_top">
-          <img v-if="boxBActive" @click="boxBActive = !boxBActive" id="G_contract" class="G" src="./assets/images/contract.png"></img>
+          <img v-if="selectedRow != null" @click="selectedRow = null" id="G_contract" class="G" src="./assets/images/contract.png"></img>
         </div>
         <div class="boxB_Content">
 
@@ -99,8 +99,6 @@
   Vue.createApp({
     data() {
       return {
-        selectedTab: 'selectedTab',
-
         medicines: [],
         medicinesHeaders: [],
         prescriptions: [],
@@ -110,8 +108,8 @@
         currentPatientMedicines_8oclock: [],
         currentPatientMedicines_noTime: [],
         currentPatientId: 'P1',
-        boxBActive: false,
         firstTabSelected:true,
+        selectedRow: null,
       }
     },
     mounted() {
@@ -162,7 +160,12 @@
       })
     },
     methods: {
-
+      selectRow: function(row){
+        this.selectedRow = row;
+      },
+      isSelectedRow: function(row){
+        return this.selectedRow == row;
+      }
     },
     computed: {
 
