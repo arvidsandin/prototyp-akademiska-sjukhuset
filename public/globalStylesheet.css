@@ -29,20 +29,26 @@ body {
     grid-template-rows: repeat(9, 1fr);
 }
 
-.box-A, .box-B{
+.boxA, .boxB{
     border: solid 1px black;
 }
 
-.box-B{
-    width: 100%;
+
+#G_expand{
+    float: right;
+}
+#G_contract{
+    float: right;
+}
+.G{
+    float: right;
     height: 100%;
-    grid-column-start: 7;
-    grid-column-end: 10;
-    grid-row-start: 1;
-    grid-row-end: 9;
+}
+.G:hover{
+    cursor: pointer;
 }
 
-.administrationButton{
+#administrationButton{
     width: 9em;
     height: 3em;
     margin-left: auto;

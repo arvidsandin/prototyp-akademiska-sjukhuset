@@ -2,17 +2,18 @@
 <script src="./papaparse.min.js"></script>
 <link rel="stylesheet" href="globalStylesheet.css">
 <link rel="stylesheet" href="boxAStylesheet.css">
+<link rel="stylesheet" href="boxBStylesheet.css">
 
 <div id="app">
   <div class="outerDiv">
     <div class="innerDiv">
-      <div :class="boxAClass">
+      <div class="boxA">
         <div @click="firstTabSelected=true" class="tab" :class="{ selectedTab: firstTabSelected}"><span class="topHeading">Urval</span></div>
         <div @click="firstTabSelected=false" class="tab" :class="{ selectedTab: !firstTabSelected}"><span class="topHeading">Översikt</span></div>
         <div v-if="firstTabSelected" class="tabContent firstTabContent">
           <div class="aboveLists heading">
             <span class="heading">Utdelningstillfälle</span><div class="fakeTimeSelectionBox">08:00 2022-03-04 <button>...</button></div>
-            <button>G>></button>
+            <img v-if="!boxBActive" @click="boxBActive = !boxBActive" id="G_expand" class="G" src="./assets/images/Expand.png"></img>
           </div>
           <div class="topList">
             <table class="list">
@@ -81,8 +82,15 @@
           <!-- TODO -->
         </div>
       </div>
-      <div :class="boxBClass"></div>
-      <button class="administrationButton">Till Administrering</button>
+      <div class="boxB">
+        <div class="boxB_top">
+          <img v-if="boxBActive" @click="boxBActive = !boxBActive" id="G_contract" class="G" src="./assets/images/contract.png"></img>
+        </div>
+        <div class="boxB_Content">
+
+        </div>
+      </div>
+      <button id="administrationButton">Till Administrering</button>
     </div>
   </div>
 </div>
@@ -91,8 +99,6 @@
   Vue.createApp({
     data() {
       return {
-        boxAClass: 'box-A',
-        boxBClass: 'box-B',
         selectedTab: 'selectedTab',
 
         medicines: [],
@@ -104,7 +110,7 @@
         currentPatientMedicines_8oclock: [],
         currentPatientMedicines_noTime: [],
         currentPatientId: 'P1',
-        topListHeadings: ['Namn', 'Beredningsform', 'Styrka', 'Leveranstyp', 'Kan bytas mot', 'I automat', 'Kylf�rvaras'],
+        boxBActive: false,
         firstTabSelected:true,
       }
     },
