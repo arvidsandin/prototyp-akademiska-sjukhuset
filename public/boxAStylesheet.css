@@ -43,7 +43,7 @@
     height: 8%;
 }
 
-.aboveLists > * {
+.aboveLists > :is(span, div) {
     float: left;
 }
 
@@ -56,6 +56,15 @@
 
 .fakeTimeSelectionBox > button{
     float: right;
+}
+
+.G {
+    float: right;
+    height: 100%;
+}
+
+.G:hover {
+    cursor: pointer;
 }
 
 .topList{

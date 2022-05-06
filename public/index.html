@@ -13,7 +13,8 @@
         <div v-if="firstTabSelected" class="tabContent firstTabContent">
           <div class="aboveLists heading">
             <span class="heading">Utdelningstillfälle</span><div class="fakeTimeSelectionBox">08:00 2022-03-04 <button>...</button></div>
-            <img v-if="selectedRow == null" id="G_expand" class="G" src="./assets/images/Expand.png"></img>
+            <img v-if="!g_expanded" @click="g_expanded = !g_expanded" id="G_expand" class="G" src="./assets/images/Expand.png"></img>
+            <img v-else @click="g_expanded = !g_expanded" id="G_contract" class="G" src="./assets/images/contract.png"></img>
           </div>
           <div class="topList">
             <table class="list">
@@ -83,12 +84,7 @@
         </div>
       </div>
       <div class="boxB">
-        <div class="boxB_top">
-          <img v-if="selectedRow != null" @click="selectedRow = null" id="G_contract" class="G" src="./assets/images/contract.png"></img>
-        </div>
-        <div class="boxB_Content">
 
-        </div>
       </div>
       <button id="administrationButton">Till Administrering</button>
     </div>
@@ -109,6 +105,7 @@
         currentPatientMedicines_noTime: [],
         currentPatientId: 'P1',
         firstTabSelected:true,
+        g_expanded: false,
         selectedRow: null,
       }
     },
@@ -163,7 +160,12 @@
     },
     methods: {
       selectRow: function(row){
-        this.selectedRow = row;
+        if (this.selectedRow == row) {
+          this.selectedRow = null;
+        }
+        else{
+          this.selectedRow = row;
+        }
       },
       isSelectedRow: function(row){
         return this.selectedRow == row;

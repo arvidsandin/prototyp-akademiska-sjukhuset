@@ -33,21 +33,6 @@ body {
     border: solid 1px black;
 }
 
-
-#G_expand{
-    float: right;
-}
-#G_contract{
-    float: right;
-}
-.G{
-    float: right;
-    height: 100%;
-}
-.G:hover{
-    cursor: pointer;
-}
-
 #administrationButton{
     width: 9em;
     height: 3em;
