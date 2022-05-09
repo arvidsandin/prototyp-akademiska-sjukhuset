@@ -75,6 +75,19 @@
                   <td><div class="valueCell value">{{row['I automat']}}</div></td>
                   <td><div class="valueCell value">{{row['Kylförvaras']}}</div></td>
                 </tr>
+                <tr @click="selectRow(row)" v-for="(row, index) in generalMedicines" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
+                  <td><div class="valueCell value">{{row['Namn'] + ' ' + row['Styrka']}}</div></td>
+                  <td><div class="valueCell value">{{row['Beredningsform, kortversion'] != '' ? row['Beredningsform, kortversion'] : row['Beredningsform']}}</div></td>
+                  <td><div class="valueCell value">{{this.generalPrescriptions[index]["Dosering"]}}</div></td>
+                  <td><div class="valueCell value" style="overflow:hidden">
+                    <img v-if="row['Leveranstyp']==1" height="21" src="./assets/images/A_Sta_1.png">
+                    <img v-if="row['Leveranstyp']==2" height="21" src="./assets/images/A_Sta_2.png">
+                  </div></td>
+                  <td><div class="valueCell value">{{this.generalPrescriptions[index]['G']}}</div></td>
+                  <td><div class="valueCell value">{{row['Kan bytas mot']}}</div></td>
+                  <td><div class="valueCell value">{{row['I automat']}}</div></td>
+                  <td><div class="valueCell value">{{row['Kylförvaras']}}</div></td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -99,6 +112,8 @@
         medicinesHeaders: [],
         prescriptions: [],
         prescriptionsHeaders: [],
+        generalPrescriptions: [],
+        generalMedicines:[],
         currentPatientPrescriptions: [],
         currentPatientMedicines: [],
         currentPatientMedicines_8oclock: [],
@@ -132,6 +147,16 @@
           header: true
         });
       })
+      fetch('./assets/data/Generella_ordinationer.csv')
+        .then(response => response.text())
+        .then(text => {
+          Papa.parse(text, {
+            complete: results => {
+              this.generalPrescriptions = results.data;
+            },
+            header: true
+          });
+        })
       .then(a => {
         for (const prescription of this.prescriptions) {
           if (prescription['PatientId'] == this.currentPatientId) {
@@ -139,7 +164,6 @@
             medicineId = prescription['LäkemedelsId']
             for (const medicine of this.medicines) {
               if (medicine['LäkemedelsId'] == medicineId) {
-                console.log(prescription);
                 this.currentPatientMedicines.push(medicine);
                 if(prescription['Aktuell kl 08:00'] == '1'){
                   this.currentPatientMedicines_8oclock.push(medicine);
@@ -152,8 +176,18 @@
             }
           }
         }
+        for (const prescription of this.generalPrescriptions) {
+            medicineId = prescription['LäkemedelsId']
+            for (const medicine of this.medicines) {
+              if (medicine['LäkemedelsId'] == medicineId) {
+                this.generalMedicines.push(medicine);
+            }
+          }
+        }
         console.log(this.currentPatientPrescriptions);
+        console.log(this.generalPrescriptions);
         console.log(this.currentPatientMedicines);
+        console.log(this.generalMedicines);
         console.log(this.currentPatientMedicines_8oclock);
         console.log(this.currentPatientMedicines_noTime);
       })
