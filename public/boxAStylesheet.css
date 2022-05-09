@@ -81,7 +81,6 @@
 }
 
 .list{
-    border: solid 1px black;
     width: 100%;
     border-collapse: collapse;
     display: table;
@@ -97,8 +96,6 @@
 .headerRow > *{
     padding-right: 1em;
     height: 100%;
-    border-left: solid black 1px;
-    border-right: solid black 1px;
 }
 
 .valueRow{
@@ -107,7 +104,6 @@
 }
 td{
     padding: 0;
-    border: solid 1px black;
 }
 .valueCell{
     width: 100%;
