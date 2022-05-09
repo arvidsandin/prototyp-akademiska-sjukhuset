@@ -39,7 +39,7 @@
                     <img v-if="row['Leveranstyp']==1" height="21" src="./assets/images/A_Sta_1.png">
                     <img v-if="row['Leveranstyp']==2" height="21" src="./assets/images/A_Sta_2.png">
                   </div></td>
-                  <td><div class="valueCell value">{{this.currentPatientPrescriptions[index]['G']}}</div></td>
+                  <td><div class="valueCell value">{{row['G']}}</div></td>
                   <td><div class="valueCell value">{{row['Kan bytas mot']}}</div></td>
                   <td><div class="valueCell value">{{row['I automat']}}</div></td>
                   <td><div class="valueCell value">{{row['Kylförvaras']}}</div></td>
@@ -70,7 +70,7 @@
                     <img v-if="row['Leveranstyp']==1" height="21" src="./assets/images/A_Sta_1.png">
                     <img v-if="row['Leveranstyp']==2" height="21" src="./assets/images/A_Sta_2.png">
                   </div></td>
-                  <td><div class="valueCell value">{{this.currentPatientPrescriptions[index]['G']}}</div></td>
+                  <td><div class="valueCell value">{{row['G']}}</div></td>
                   <td><div class="valueCell value">{{row['Kan bytas mot']}}</div></td>
                   <td><div class="valueCell value">{{row['I automat']}}</div></td>
                   <td><div class="valueCell value">{{row['Kylförvaras']}}</div></td>
@@ -83,7 +83,7 @@
                     <img v-if="row['Leveranstyp']==1" height="21" src="./assets/images/A_Sta_1.png">
                     <img v-if="row['Leveranstyp']==2" height="21" src="./assets/images/A_Sta_2.png">
                   </div></td>
-                  <td><div class="valueCell value">{{this.generalPrescriptions[index]['G']}}</div></td>
+                  <td><div class="valueCell value">{{row['G']}}</div></td>
                   <td><div class="valueCell value">{{row['Kan bytas mot']}}</div></td>
                   <td><div class="valueCell value">{{row['I automat']}}</div></td>
                   <td><div class="valueCell value">{{row['Kylförvaras']}}</div></td>
@@ -109,9 +109,7 @@
     data() {
       return {
         medicines: [],
-        medicinesHeaders: [],
         prescriptions: [],
-        prescriptionsHeaders: [],
         generalPrescriptions: [],
         generalMedicines:[],
         currentPatientPrescriptions: [],
@@ -131,7 +129,6 @@
         Papa.parse(text, {
           complete: results => {
             this.medicines = results.data;
-            this.medicinesHeaders = results.meta.fields;
           },
           header:true
         });
@@ -142,7 +139,6 @@
         Papa.parse(text, {
           complete: results => {
             this.prescriptions = results.data;
-            this.prescriptionsHeaders = results.meta.fields;
           },
           header: true
         });
@@ -164,12 +160,13 @@
             medicineId = prescription['LäkemedelsId']
             for (const medicine of this.medicines) {
               if (medicine['LäkemedelsId'] == medicineId) {
+                medicineCopy = this.addCustomProperties(medicine);
                 this.currentPatientMedicines.push(medicine);
                 if(prescription['Aktuell kl 08:00'] == '1'){
-                  this.currentPatientMedicines_8oclock.push(medicine);
+                  this.currentPatientMedicines_8oclock.push(medicineCopy);
                 }
                 else if(prescription['Vid behov'] == '1' || prescription['Ej tidssatta'] == '1'){
-                  this.currentPatientMedicines_noTime.push(medicine);
+                  this.currentPatientMedicines_noTime.push(medicineCopy);
                 }
                 continue;
               }
@@ -180,7 +177,8 @@
             medicineId = prescription['LäkemedelsId']
             for (const medicine of this.medicines) {
               if (medicine['LäkemedelsId'] == medicineId) {
-                this.generalMedicines.push(medicine);
+                medicineCopy = this.addCustomProperties(medicine);
+                this.generalMedicines.push(medicineCopy);
             }
           }
         }
@@ -203,6 +201,13 @@
       },
       isSelectedRow: function(row){
         return this.selectedRow == row;
+      },
+      addCustomProperties(medicine){
+        medicineCopy = JSON.parse(JSON.stringify(medicine));
+        medicineCopy['valt'] = medicineCopy['Leveranstyp'] <= 2;
+        medicineCopy['G'] = medicineCopy['valt'] ? 'G' : 'g';
+        if (medicineCopy['Kan bytas mot'] == '') { medicineCopy['G'] = '' };
+        return medicineCopy;
       }
     },
     computed: {
