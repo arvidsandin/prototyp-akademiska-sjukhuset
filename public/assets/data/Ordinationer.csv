@@ -1,49 +1,34 @@
-OrdinationsId;PatientId;LäkemedelsId;(läkemedelsnamn);Mängd som används vid spädning;Koncentration av huvudsubstans i färdigspädd lösning ;Dosering ;Kortform Dosering;Administrationssätt;Behandlingsorsak;Notera vid administrering;Instruktioner för spädning/blandning;Kommentar;Aktuell kl 08:00;Vid behov;Ej tidssatta
-O1;P1;L1;Latanoprost STADA;;;1 droppe, till natten, tills vidare;1droppe tn;I båda ögonen;Mot förhöjt ögontryck;Om du använder något annat ögonpreparat skall du vänta minst 5 minuter mellan de olika preparaten.;;;0;;
-O2;P1;L2;Alendronat Teva Veckotablett;;;1 tablett, var 7e dag, tills vidare;1 var 7d;Oralt;Mot benskörhet;Intas med vanligt vatten på fastande mage, minst 30 minuter före andra tabletter, mat el dryck.;;;1;0;0
-O3;P1;L3;Alvedon;;;1-2 brustabletter, 4 gånger om dagen, tills vidare;1-2x4 tv;Oralt;Mot smärta;;;;1;0;0
-O4;P1;L4;Enalapril;;;1 tablett, en gånger dagligen, tills vidare;1x1 tv;Oralt;Mot högt blodtryck;;;;1;0;0
-O5;P1;L5;Furix;;;1 tablett, en gånger dagligen, tills vidare;1x1 tc;Oralt;Mot högt blodtryck;;;;1;0;0
-O6;P1;L6;Levaxin;;;Enligt schema (alla dagar utom onsdagar), tills vidare;eo tv;Oralt;Sköldkörtelhormon;;;;1;0;0
-O7;P1;L7;Metoprolol;;;1 tablett, en gånger dagligen, tills vidare;1x1 tv;Oralt;Mot högt blodtryck;;;;1;0;0
-O8;P1;L8;Movicol;;;Enligt särskild ordination (fritext: 1 dospåse 1-3 gånger dagligen beroende på individuellt svar. Vid långvarig behandling kan dosen justeras ner till 1 eller 2 dospåsar dagligen);eo;Oralt;För tarmmotiliteten;;;;1;0;0
-O9;P1;L9;OxyContin;;;1 depottablett, två gånger dagligen, tills vidare;1x2 tv;Oralt;Mot smärta;;;;1;0;0
-O10;P1;L10;Simvastatin;;;1 tablett, till natten, tills vidare;1 tn;Oralt;Blodfettsänkande;;;;0;0;0
-O11;P1;L11;Trombyl;;;1 tablett, en gånger dagligen, tills vidare;1x1 tv;Oralt;Blodförtunnande;;;;1;0;0
-O12;P1;L12;Waran;;;? tablett, till middag, tills vidare;?tm tv;Oralt;Blodförtunnande;;;;0;0;0
-O13;P1;L13;Fucidin-Hyrdocortison;;;Enligt ordination (fritext: Utvärtes enligt ordination);eo;Utvärtes;Mot utslag;;;;1;0;0
-O14;P1;L14;Humalog Mix25 KwikPen;;;? Enheter, till frukost och till middag, tills vidare;?tf tm tv;Subkutan injektion;Insulin, för diabetes;Kontrollera blodglukos före administrering. tas före måltid.;;;1;0;0
+OrdinationsId;PatientId;LäkemedelsId;(läkemedelsnamn);Mängd som används vid spädning;Koncentration av huvudsubstans i färdigspädd lösning ;Dosering ;Kortform Dosering;Administrationssätt;Behandlingsorsak;Notera vid administrering;Instruktioner för spädning/blandning;Kommentar;Aktuell kl 08:00;Vid behov;Ej tidssatta;Har utbyte skett
+O1;P1;L1;Latanoprost STADA;;;1 droppe, till natten, tills vidare;1droppe tn;I båda ögonen;Mot förhöjt ögontryck;Om du använder något annat ögonpreparat skall du vänta minst 5 minuter mellan de olika preparaten.;;;0;;;0
+O2;P1;L2;Alendronat Teva Veckotablett;;;1 tablett, var 7e dag, tills vidare;1 var 7d;Oralt;Mot benskörhet;Intas med vanligt vatten på fastande mage, minst 30 minuter före andra tabletter, mat el dryck.;;;1;0;0;1
+O3;P1;L3;Alvedon;;;1-2 brustabletter, 4 gånger om dagen, tills vidare;1-2x4 tv;Oralt;Mot smärta;;;;1;0;0;0
+O4;P1;L4;Enalapril;;;1 tablett, en gånger dagligen, tills vidare;1x1 tv;Oralt;Mot högt blodtryck;;;;1;0;0;0
+O5;P1;L5;Furix;;;1 tablett, en gånger dagligen, tills vidare;1x1 tc;Oralt;Mot högt blodtryck;;;;1;0;0;0
+O6;P1;L6;Levaxin;;;Enligt schema (alla dagar utom onsdagar), tills vidare;eo tv;Oralt;Sköldkörtelhormon;;;;1;0;0;
+O7;P1;L7;Metoprolol;;;1 tablett, en gånger dagligen, tills vidare;1x1 tv;Oralt;Mot högt blodtryck;;;;1;0;0;1
+O8;P1;L8;Movicol;;;Enligt särskild ordination (fritext: 1 dospåse 1-3 gånger dagligen beroende på individuellt svar. Vid långvarig behandling kan dosen justeras ner till 1 eller 2 dospåsar dagligen);eo;Oralt;För tarmmotiliteten;;;;1;0;0;0
+O9;P1;L9;OxyContin;;;1 depottablett, två gånger dagligen, tills vidare;1x2 tv;Oralt;Mot smärta;;;;1;0;0;
+O10;P1;L10;Simvastatin;;;1 tablett, till natten, tills vidare;1 tn;Oralt;Blodfettsänkande;;;;0;0;0;0
+O11;P1;L11;Trombyl;;;1 tablett, en gånger dagligen, tills vidare;1x1 tv;Oralt;Blodförtunnande;;;;1;0;0;0
+O12;P1;L12;Waran;;;? tablett, till middag, tills vidare;?tm tv;Oralt;Blodförtunnande;;;;0;0;0;0
+O13;P1;L13;Fucidin-Hyrdocortison;;;Enligt ordination (fritext: Utvärtes enligt ordination);eo;Utvärtes;Mot utslag;;;;1;0;0;0
+O14;P1;L14;Humalog Mix25 KwikPen;;;? Enheter, till frukost och till middag, tills vidare;?tf tm tv;Subkutan injektion;Insulin, för diabetes;Kontrollera blodglukos före administrering. tas före måltid.;;;1;0;0;
 O15;P1;L15;Piperacillin/Tazobactam Fresenius Kabi;4 g;0,03 g/ml;60 ml (2 g), var 7e timme, tills vidare;60 ml (2g) var 7t;Intravenös infusion;Mot infektion;Prov för plasmakoncentration tas precis före administrering.;"A. tillsätt 20 ml sterilt vatten till flaskan.
 B. lös upp pulvret fullständigt.
 C. späd lösningen i 150 ml natriumklorid 9 mg/ml (0,9%) injektionsvätska, lösning
-D. koppla aggregat för Braun infusionspump.";;0;0;0
-O15;P1;L24;Natriumkloridlösning;20 ml;;;;;Tillsats;;;;0;0;0
-O15;P1;L24;Natriumkloridlösning;100 ml;;;;;Tillsats;;;;0;0;0
-O16;P1;;Furix;;;1 tablett, 1-2 gånger om dagen, tills vidare;1x1-2 tv;Oralt;Mot högt blodtryck;;;;1;0;0
-O17;P1;;Oxascand;;;1 tablett, vid behov men max 3 gånger per dag, tills vidare;1vb max3/d tv;Oralt;Mot oro;;;;0;1;1
-O18;P1;;Oxynorm;;;1 kapsel, vid behov men max 6 gånger per dag, tills vidare;1vb max6/d tv;Oralt;Mot smärta;;;;0;1;1
-O19;P1;;Primperan;;;1 tablett, vid behov men max 3 gånger per dag, tills vidare;1vb max3/d tv;Oralt;Mot illamående;;;;0;1;1
-O20;P1;;Morfin Abcur;1 ml;1 mg/ml;;;Intramuskulär injektion;Mot smärta;Ges långsamt intramuskulärt.;"A. Drag upp 1 ml Morfin 10 mg/ml injektionsvätska i spruta.
+D. koppla aggregat för Braun infusionspump.";;0;0;0;0
+O15;P1;L24;Natriumkloridlösning;20 ml;;;;;Tillsats;;;;0;0;0;0
+O15;P1;L24;Natriumkloridlösning;100 ml;;;;;Tillsats;;;;0;0;0;0
+O16;P1;L5;Furix;;;1 tablett, 1-2 gånger om dagen, tills vidare;1x1-2 tv;Oralt;Mot högt blodtryck;;;;1;0;0;
+O17;P1;L16;Oxascand;;;1 tablett, vid behov men max 3 gånger per dag, tills vidare;1vb max3/d tv;Oralt;Mot oro;;;;0;1;1;0
+O18;P1;L17;Oxynorm;;;1 kapsel, vid behov men max 6 gånger per dag, tills vidare;1vb max6/d tv;Oralt;Mot smärta;;;;0;1;1;0
+O19;P1;L18;Primperan;;;1 tablett, vid behov men max 3 gånger per dag, tills vidare;1vb max3/d tv;Oralt;Mot illamående;;;;0;1;1;0
+O20;P1;L19;Morfin Abcur;1 ml;1 mg/ml;;;Intramuskulär injektion;Mot smärta;Ges långsamt intramuskulärt.;"A. Drag upp 1 ml Morfin 10 mg/ml injektionsvätska i spruta.
 
 B. Späd med 9 ml Natriumklorid 9 mg/ml spädningsvätska för parenteralt bruk.
     Slutkoncentration = 1 mg/ml.
 
-Ges som intravenös injektion.";;0;1;1
-O20;P1;;Natriumkloridlösning;9 ml;;;;;Tillsats;;Som ovan.;;0;0;0
-O21;P1;;NovoRapid Pennfill;;;? E vid behov mkax 20 E per dag, tills vidare;;Subkutan injektion;Snabbverkande insulin  vid diabetes;Tas till måltid samt vid behov enligt ordination. Kontrollera blodglukos vid administrering.;;;1;1;0
-O22;P1;;Prednisolon (pausad);;;1 tablett, 1 gånger dagligen, tills vidare. ;1x1 tv;Oralt;Mot inflammation;;;;1;0;0
-;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;
-;;"OBS! Det kan vara flera
-läkemedel i en ordination
-t ex aktiv substans och
-spädningsvätska. I dessa
-fall blir det flera rader
-per OrdinationsId och PatientId. Dock skall huvudsubstansen alltid skrivas först i en sådan lista";;;;;;;;;;;;;
+Ges som intravenös injektion.";;0;1;1;0
+O20;P1;L24;Natriumkloridlösning;9 ml;;;;;Tillsats;;Som ovan.;;0;0;0;0
+O21;P1;;NovoRapid Pennfill;;;? E vid behov mkax 20 E per dag, tills vidare;;Subkutan injektion;Snabbverkande insulin  vid diabetes;Tas till måltid samt vid behov enligt ordination. Kontrollera blodglukos vid administrering.;;;1;1;0;0
+O22;P1;;Prednisolon (pausad);;;1 tablett, 1 gånger dagligen, tills vidare. ;1x1 tv;Oralt;Mot inflammation;;;;1;0;0;0

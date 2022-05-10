@@ -1,7 +1,7 @@
-OrdinationsId;LäkemedelsId;Dosering;Uppmärksamma vid administrering;Instruktioner för spädning/blandning;Kommentar
-GD1;L31;1-2 tabletter vb i 3d;Akut ges 4 mg, därefter 2 mg efter varje avföring.;;
-GD2;L32;1-2 tuggtabletter v.b. i 3d;;;
-GD3;L33;10 ml vb i 3d;;Omskakas före användning;
-GD4;L34;120 ml vb i 3d;;;
-GD5;L35;10-20 droppar vb i 3d;;;
-GD6;L36;1 tablett vb i 3d; försiktighet iakttas vid behandling av äldre, patienter med nedsatt lever- och njurfunktion, kontrollera provsvar före administrering vid misstanke.;;
+OrdinationsId;LäkemedelsId;Dosering;Kortform dosering;Uppmärksamma vid administrering;Instruktioner för spädning/blandning;Kommentar
+GD1;L31;1-2 tabletter vb i 3d;1-2vb i max3d;Akut ges 4 mg, därefter 2 mg efter varje avföring.;;
+GD2;L32;1-2 tuggtabletter v.b. i 3d;1-2vb i max3d;;;
+GD3;L33;10 ml vb i 3d;10 ml vb i max3d;;Omskakas före användning;
+GD4;L34;120 ml vb i 3d;120 ml vb i max3d;;;
+GD5;L35;10-20 droppar vb i 3d;10-20 dr vb i max3d;;;
+GD6;L36;1 tablett vb i 3d;1vb i max3d; försiktighet iakttas vid behandling av äldre, patienter med nedsatt lever- och njurfunktion, kontrollera provsvar före administrering vid misstanke.;;
