@@ -40,9 +40,9 @@
                     <img v-if="row['Leveranstyp']==2" height="21" src="./assets/images/A_Sta_2.png">
                   </div></td>
                   <td><div class="valueCell value">{{row['G']}}</div></td>
-                  <td><div class="valueCell value">{{row['Kan bytas mot']}}</div></td>
-                  <td><div class="valueCell value">{{row['I automat']}}</div></td>
-                  <td><div class="valueCell value">{{row['Kylförvaras']}}</div></td>
+                  <td><div class="valueCell value">{{row['Info']}}</div></td>
+                  <td><div class="valueCell value">{{row['I automat'] == '1' ? '1' : ''}}</div></td>
+                  <td><div class="valueCell value">{{row['Kylförvaras'] == '1' ? '1' : ''}}</div></td>
                 </tr>
               </tbody>
             </table>
@@ -71,22 +71,22 @@
                     <img v-if="row['Leveranstyp']==2" height="21" src="./assets/images/A_Sta_2.png">
                   </div></td>
                   <td><div class="valueCell value">{{row['G']}}</div></td>
-                  <td><div class="valueCell value">{{row['Kan bytas mot']}}</div></td>
-                  <td><div class="valueCell value">{{row['I automat']}}</div></td>
-                  <td><div class="valueCell value">{{row['Kylförvaras']}}</div></td>
+                  <td><div class="valueCell value">{{row['Info']}}</div></td>
+                  <td><div class="valueCell value">{{row['I automat'] == '1' ? '1' : ''}}</div></td>
+                  <td><div class="valueCell value">{{row['Kylförvaras'] == '1' ? '1' : ''}}</div></td>
                 </tr>
                 <tr @click="selectRow(row)" v-for="(row, index) in generalMedicines" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
                   <td><div class="valueCell value">{{row['Namn'] + ' ' + row['Styrka']}}</div></td>
                   <td><div class="valueCell value">{{row['Beredningsform, kortversion'] != '' ? row['Beredningsform, kortversion'] : row['Beredningsform']}}</div></td>
-                  <td><div class="valueCell value">{{this.generalPrescriptions[index]["Dosering"]}}</div></td>
+                  <td><div class="valueCell value">{{this.generalPrescriptions[index]["Kortform Dosering"]}}</div></td>
                   <td><div class="valueCell value" style="overflow:hidden">
                     <img v-if="row['Leveranstyp']==1" height="21" src="./assets/images/A_Sta_1.png">
                     <img v-if="row['Leveranstyp']==2" height="21" src="./assets/images/A_Sta_2.png">
                   </div></td>
                   <td><div class="valueCell value">{{row['G']}}</div></td>
-                  <td><div class="valueCell value">{{row['Kan bytas mot']}}</div></td>
-                  <td><div class="valueCell value">{{row['I automat']}}</div></td>
-                  <td><div class="valueCell value">{{row['Kylförvaras']}}</div></td>
+                  <td><div class="valueCell value">{{row['Info']}}</div></td>
+                  <td><div class="valueCell value">{{row['I automat'] == '1' ? '1' : ''}}</div></td>
+                  <td><div class="valueCell value">{{row['Kylförvaras'] == '1' ? '1' : ''}}</div></td>
                 </tr>
               </tbody>
             </table>
@@ -160,8 +160,8 @@
             medicineId = prescription['LäkemedelsId']
             for (const medicine of this.medicines) {
               if (medicine['LäkemedelsId'] == medicineId) {
-                medicineCopy = this.addCustomProperties(medicine);
-                this.currentPatientMedicines.push(medicine);
+                medicineCopy = this.addCustomProperties(medicine, prescription);
+                this.currentPatientMedicines.push(medicineCopy);
                 if(prescription['Aktuell kl 08:00'] == '1'){
                   this.currentPatientMedicines_8oclock.push(medicineCopy);
                 }
@@ -177,7 +177,7 @@
             medicineId = prescription['LäkemedelsId']
             for (const medicine of this.medicines) {
               if (medicine['LäkemedelsId'] == medicineId) {
-                medicineCopy = this.addCustomProperties(medicine);
+                medicineCopy = this.addCustomProperties(medicine, prescription);
                 this.generalMedicines.push(medicineCopy);
             }
           }
@@ -202,11 +202,18 @@
       isSelectedRow: function(row){
         return this.selectedRow == row;
       },
-      addCustomProperties(medicine){
+      addCustomProperties(medicine, prescription, isPersonalPrescription){
         medicineCopy = JSON.parse(JSON.stringify(medicine));
-        medicineCopy['valt'] = medicineCopy['Leveranstyp'] <= 2;
-        medicineCopy['G'] = medicineCopy['valt'] ? 'G' : 'g';
-        if (medicineCopy['Kan bytas mot'] == '') { medicineCopy['G'] = '' };
+        medicineCopy['Läkemedel valt'] = medicineCopy['Leveranstyp'] <= 2;
+        medicineCopy['G'] = medicineCopy['Läkemedel valt'] ? 'G' : 'g';
+        if (prescription['Har utbyte skett'] == '0') { medicineCopy['G'] = '' };
+        if (medicineCopy['G'] == '' || 
+            (medicineCopy['G'] == 'g' &&
+            medicineCopy['Kan bytas mot'] != '' &&
+            // I am very sorry about this following line
+            this.medicines.filter(med => med['LäkemedelsId'] == (medicineCopy['Kan bytas mot'].split(', ')[0]))[0]['Finns på'].split(', ').filter(locationId => locationId=='PL1')).length > 0) {
+          medicineCopy['Info'] = 'Finns';
+        }
         return medicineCopy;
       }
     },
