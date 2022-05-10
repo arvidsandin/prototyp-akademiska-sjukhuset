@@ -34,12 +34,25 @@
     width: 100%;
     padding: 0 1em 1em;
     background-color: rgb(255, 255, 255);
+    z-index: 2;
+}
+
+.tabContentExpanded{
+    width: fit-content;
+    width: calc(100% + 500px);
+}
+
+.firstTabContent {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    position: relative;
 }
 
 .aboveLists{
     padding: 1em;
-    padding-left: 15%;
-    width: 100%;
+    padding-left: 150px;
+    width: 1036px;
     height: 8%;
 }
 
@@ -59,8 +72,11 @@
 }
 
 .G {
-    float: right;
-    height: 100%;
+    position: absolute;
+    z-index: 3;
+    height: 32px;
+    top: 1em;
+    right: 1em;
 }
 
 .G:hover {
@@ -68,13 +84,13 @@
 }
 
 .topList{
-    width: 100%;
+    width: 1036px;
     height: 51%;
     overflow-y: auto;
 }
 
 .bottomList{
-    width: 100%;
+    width: 1036px;
     height: 41%;
     border-top: solid 1em transparent;
     overflow-y: auto;
@@ -114,4 +130,12 @@ td{
 
 .selectedRow{
     background-color: rgb(255, 255, 153);
+}
+
+.G-content {
+    border-left: 0;
+    height: 100%;
+    width: 500px;
+    background-color: white;
+    z-index: 2;
 }
