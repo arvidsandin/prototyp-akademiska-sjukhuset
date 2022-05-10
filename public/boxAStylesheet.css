@@ -13,7 +13,6 @@
     grid-row-start: 1;
     grid-row-end: 2;
     height: 100%;
-    outline: solid 1px black;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -24,6 +23,11 @@
 .selectedTab {
     background-color: #fff;
     color: #000;
+}
+
+.inactiveTab {
+    color: rgb(180, 180, 180);
+    /* background-color: rgb(100, 100, 100); */
 }
 
 .tabContent {
