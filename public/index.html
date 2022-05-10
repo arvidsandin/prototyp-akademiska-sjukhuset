@@ -39,10 +39,17 @@
                     <img v-if="row['Leveranstyp']==1" height="21" src="./assets/images/A_Sta_1.png">
                     <img v-if="row['Leveranstyp']==2" height="21" src="./assets/images/A_Sta_2.png">
                   </div></td>
-                  <td><div class="valueCell value">{{row['G']}}</div></td>
+                  <td><div class="valueCell value">
+                    <img v-if="row['G'] == 'G'" height="21" src="./assets/images/A_G_1.png">
+                    <img v-if="row['G'] == 'g'" height="21" src="./assets/images/A_G_2.png">
+                  </div></td>
                   <td><div class="valueCell value">{{row['Info']}}</div></td>
-                  <td><div class="valueCell value">{{row['I automat'] == '1' ? '1' : ''}}</div></td>
-                  <td><div class="valueCell value">{{row['Kylförvaras'] == '1' ? '1' : ''}}</div></td>
+                  <td><div class="valueCell value">
+                    <img v-if="row['I automat'] == '1'" height="21" src="./assets/images/A_Aut.png">
+                  </div></td>
+                  <td><div class="valueCell value">
+                    <img v-if="row['Kylförvaras'] == '1'" height="21" src="./assets/images/A_Kyl.png">
+                  </div></td>
                 </tr>
               </tbody>
             </table>
@@ -70,10 +77,17 @@
                     <img v-if="row['Leveranstyp']==1" height="21" src="./assets/images/A_Sta_1.png">
                     <img v-if="row['Leveranstyp']==2" height="21" src="./assets/images/A_Sta_2.png">
                   </div></td>
-                  <td><div class="valueCell value">{{row['G']}}</div></td>
+                  <td><div class="valueCell value">
+                    <img v-if="row['G'] == 'G'" height="21" src="./assets/images/A_G_1.png">
+                    <img v-if="row['G'] == 'g'" height="21" src="./assets/images/A_G_2.png">
+                  </div></td>
                   <td><div class="valueCell value">{{row['Info']}}</div></td>
-                  <td><div class="valueCell value">{{row['I automat'] == '1' ? '1' : ''}}</div></td>
-                  <td><div class="valueCell value">{{row['Kylförvaras'] == '1' ? '1' : ''}}</div></td>
+                  <td><div class="valueCell value">
+                    <img v-if="row['I automat'] == '1'" height="21" src="./assets/images/A_Aut.png">
+                  </div></td>
+                  <td><div class="valueCell value">
+                    <img v-if="row['Kylförvaras'] == '1'" height="21" src="./assets/images/A_Kyl.png">
+                  </div></td>
                 </tr>
                 <tr @click="selectRow(row)" v-for="(row, index) in generalMedicines" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
                   <td><div class="valueCell value">{{row['Namn'] + ' ' + row['Styrka']}}</div></td>
@@ -83,10 +97,17 @@
                     <img v-if="row['Leveranstyp']==1" height="21" src="./assets/images/A_Sta_1.png">
                     <img v-if="row['Leveranstyp']==2" height="21" src="./assets/images/A_Sta_2.png">
                   </div></td>
-                  <td><div class="valueCell value">{{row['G']}}</div></td>
+                  <td><div class="valueCell value">
+                    <img v-if="row['G'] == 'G'" height="21" src="./assets/images/A_G_1.png">
+                    <img v-if="row['G'] == 'g'" height="21" src="./assets/images/A_G_2.png">
+                  </div></td>
                   <td><div class="valueCell value">{{row['Info']}}</div></td>
-                  <td><div class="valueCell value">{{row['I automat'] == '1' ? '1' : ''}}</div></td>
-                  <td><div class="valueCell value">{{row['Kylförvaras'] == '1' ? '1' : ''}}</div></td>
+                  <td><div class="valueCell value">
+                    <img v-if="row['I automat'] == '1'" height="21" src="./assets/images/A_Aut.png">
+                  </div></td>
+                  <td><div class="valueCell value">
+                    <img v-if="row['Kylförvaras'] == '1'" height="21" src="./assets/images/A_Kyl.png">
+                  </div></td>
                 </tr>
               </tbody>
             </table>
