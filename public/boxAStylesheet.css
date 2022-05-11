@@ -43,7 +43,7 @@
 
 .tabContentExpanded{
     width: fit-content;
-    width: calc(100% + 500px);
+    width: calc(100% + 400px);
 }
 
 .firstTabContent {
@@ -96,7 +96,7 @@
 .bottomList{
     width: 1036px;
     height: 41%;
-    border-top: solid 1em transparent;
+    padding-top: 1em;
     overflow-y: auto;
 }
 
@@ -139,8 +139,11 @@ td{
 
 .G-content {
     border-left: 0;
+    border: solid 1px black;
+    padding: 1em;
     height: 100%;
-    width: 500px;
+    margin: 4% 0 0 1em;
+    width: calc(400px - 1em);
     background-color: white;
     z-index: 2;
 }

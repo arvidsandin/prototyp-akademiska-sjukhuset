@@ -113,7 +113,25 @@
             </table>
           </div>
           <div v-if="g_expanded" class="G-Content">
-
+            <div v-for="(medicine, index) in currentPatientMedicines_8oclock.filter(med => med['G'] == 'g')">
+              <span class="topHeading">{{ medicine['Namn'] }}</span>
+              <table class="list">
+                <thead>
+                  <tr class="headerRow heading">
+                    <th>Läkemedel</th>
+                    <th>Platser</th>
+                  </tr>
+                  <tr v-for="(replacementMedicine, index) in getReplacingMedicines(medicine)" class="valueRow">
+                    <td>
+                      <div class="valueCell value">{{ replacementMedicine['Namn'] }}</div>
+                    </td>
+                    <td>
+                      <div class="valueCell value">{{ replacementMedicine['Finns på'] }}</div>
+                    </td>
+                  </tr>
+                </thead>
+              </table>
+            </div>
           </div>
         </div>
         <div v-else class="tabContent secondTabContent">
@@ -234,15 +252,27 @@
         medicineCopy['Läkemedel valt'] = medicineCopy['Leveranstyp'] <= 2;
         medicineCopy['G'] = medicineCopy['Läkemedel valt'] ? 'G' : 'g';
         if (prescription['Har utbyte skett'] == '0') { medicineCopy['G'] = '' };
-        if (medicineCopy['G'] == '' || 
-            (medicineCopy['G'] == 'g' &&
+        if (medicineCopy['G'] == '' || (
+            medicineCopy['G'] == 'g' &&
             medicineCopy['Kan bytas mot'] != '' &&
             // I am very sorry about this following line
             this.medicines.filter(med => med['LäkemedelsId'] == (medicineCopy['Kan bytas mot'].split(', ')[0]))[0]['Finns på'].split(', ').filter(locationId => locationId=='PL1')).length > 0) {
           medicineCopy['Info'] = 'Finns';
         }
         return medicineCopy;
-      }
+      },
+      getReplacingMedicines(medicine){
+        result = [];
+        for (medicineID of medicine['Kan bytas mot'].split(', ')) {
+          for (med of this.medicines){
+            if (medicineID == med['LäkemedelsId']) {
+              result.push(med);
+              continue;
+            }
+          }
+        }
+        return result;
+      },
     },
     computed: {
 

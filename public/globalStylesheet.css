@@ -33,7 +33,7 @@ body {
 }
 
 #administrationButton{
-    width: 9em;
+    width: 15em;
     height: 3em;
     margin-left: auto;
     grid-column-start: 6;
