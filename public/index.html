@@ -35,20 +35,20 @@
                   <td><div class="valueCell value">{{row['Namn'] + ' ' + row['Styrka']}}</div></td>
                   <td><div class="valueCell value">{{row['Beredningsform, kortversion'] != '' ? row['Beredningsform, kortversion'] : row['Beredningsform']}}</div></td>
                   <td><div class="valueCell value">{{this.currentPatientPrescriptions[index]["Kortform Dosering"]}}</div></td>
-                  <td><div class="valueCell value" style="overflow:hidden">
-                    <img v-if="row['Leveranstyp']==1" height="21" src="./assets/images/A_Sta_1.png">
-                    <img v-if="row['Leveranstyp']==2" height="21" src="./assets/images/A_Sta_2.png">
+                  <td><div class="valueCell valueCellImg value">
+                    <img v-if="row['Leveranstyp']==1" height="18" src="./assets/images/A_Sta_1.png">
+                    <img v-if="row['Leveranstyp']==2" height="18" src="./assets/images/A_Sta_2.png">
                   </div></td>
-                  <td><div class="valueCell value">
-                    <img v-if="row['G'] == 'G'" height="21" src="./assets/images/A_G_1.png">
-                    <img v-if="row['G'] == 'g'" height="21" src="./assets/images/A_G_2.png">
+                  <td><div class="valueCell valueCellImg value">
+                    <img v-if="row['G'] == 'G'" height="18" src="./assets/images/A_G_1.png">
+                    <img v-if="row['G'] == 'g'" height="18" src="./assets/images/A_G_2.png">
                   </div></td>
                   <td><div class="valueCell value">{{row['Info']}}</div></td>
-                  <td><div class="valueCell value">
-                    <img v-if="row['I automat'] == '1'" height="21" src="./assets/images/A_Aut.png">
+                  <td><div class="valueCell valueCellImg value">
+                    <img v-if="row['I automat'] == '1'" height="18" src="./assets/images/A_Aut.png">
                   </div></td>
-                  <td><div class="valueCell value">
-                    <img v-if="row['Kylförvaras'] == '1'" height="21" src="./assets/images/A_Kyl.png">
+                  <td><div class="valueCell valueCellImg value">
+                    <img v-if="row['Kylförvaras'] == '1'" height="18" src="./assets/images/A_Kyl.png">
                   </div></td>
                 </tr>
               </tbody>
@@ -73,40 +73,40 @@
                   <td><div class="valueCell value">{{row['Namn'] + ' ' + row['Styrka']}}</div></td>
                   <td><div class="valueCell value">{{row['Beredningsform, kortversion'] != '' ? row['Beredningsform, kortversion'] : row['Beredningsform']}}</div></td>
                   <td><div class="valueCell value">{{this.currentPatientPrescriptions[index]["Kortform Dosering"]}}</div></td>
-                  <td><div class="valueCell value" style="overflow:hidden">
-                    <img v-if="row['Leveranstyp']==1" height="21" src="./assets/images/A_Sta_1.png">
-                    <img v-if="row['Leveranstyp']==2" height="21" src="./assets/images/A_Sta_2.png">
+                  <td><div class="valueCell valueCellImg value">
+                    <img v-if="row['Leveranstyp']==1" height="18" src="./assets/images/A_Sta_1.png">
+                    <img v-if="row['Leveranstyp']==2" height="18" src="./assets/images/A_Sta_2.png">
                   </div></td>
-                  <td><div class="valueCell value">
-                    <img v-if="row['G'] == 'G'" height="21" src="./assets/images/A_G_1.png">
-                    <img v-if="row['G'] == 'g'" height="21" src="./assets/images/A_G_2.png">
+                  <td><div class="valueCell valueCellImg value">
+                    <img v-if="row['G'] == 'G'" height="18" src="./assets/images/A_G_1.png">
+                    <img v-if="row['G'] == 'g'" height="18" src="./assets/images/A_G_2.png">
                   </div></td>
                   <td><div class="valueCell value">{{row['Info']}}</div></td>
-                  <td><div class="valueCell value">
-                    <img v-if="row['I automat'] == '1'" height="21" src="./assets/images/A_Aut.png">
+                  <td><div class="valueCell valueCellImg value">
+                    <img v-if="row['I automat'] == '1'" height="18" src="./assets/images/A_Aut.png">
                   </div></td>
-                  <td><div class="valueCell value">
-                    <img v-if="row['Kylförvaras'] == '1'" height="21" src="./assets/images/A_Kyl.png">
+                  <td><div class="valueCell valueCellImg value">
+                    <img v-if="row['Kylförvaras'] == '1'" height="18" src="./assets/images/A_Kyl.png">
                   </div></td>
                 </tr>
                 <tr @click="selectRow(row)" v-for="(row, index) in generalMedicines" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
                   <td><div class="valueCell value">{{row['Namn'] + ' ' + row['Styrka']}}</div></td>
                   <td><div class="valueCell value">{{row['Beredningsform, kortversion'] != '' ? row['Beredningsform, kortversion'] : row['Beredningsform']}}</div></td>
                   <td><div class="valueCell value">{{this.generalPrescriptions[index]["Kortform Dosering"]}}</div></td>
-                  <td><div class="valueCell value" style="overflow:hidden">
-                    <img v-if="row['Leveranstyp']==1" height="21" src="./assets/images/A_Sta_1.png">
-                    <img v-if="row['Leveranstyp']==2" height="21" src="./assets/images/A_Sta_2.png">
+                  <td><div class="valueCell valueCellImg value">
+                    <img v-if="row['Leveranstyp']==1" height="18" src="./assets/images/A_Sta_1.png">
+                    <img v-if="row['Leveranstyp']==2" height="18" src="./assets/images/A_Sta_2.png">
                   </div></td>
-                  <td><div class="valueCell value">
-                    <img v-if="row['G'] == 'G'" height="21" src="./assets/images/A_G_1.png">
-                    <img v-if="row['G'] == 'g'" height="21" src="./assets/images/A_G_2.png">
+                  <td><div class="valueCell valueCellImg value">
+                    <img v-if="row['G'] == 'G'" height="18" src="./assets/images/A_G_1.png">
+                    <img v-if="row['G'] == 'g'" height="18" src="./assets/images/A_G_2.png">
                   </div></td>
                   <td><div class="valueCell value">{{row['Info']}}</div></td>
-                  <td><div class="valueCell value">
-                    <img v-if="row['I automat'] == '1'" height="21" src="./assets/images/A_Aut.png">
+                  <td><div class="valueCell valueCellImg value">
+                    <img v-if="row['I automat'] == '1'" height="18" src="./assets/images/A_Aut.png">
                   </div></td>
-                  <td><div class="valueCell value">
-                    <img v-if="row['Kylförvaras'] == '1'" height="21" src="./assets/images/A_Kyl.png">
+                  <td><div class="valueCell valueCellImg value">
+                    <img v-if="row['Kylförvaras'] == '1'" height="18" src="./assets/images/A_Kyl.png">
                   </div></td>
                 </tr>
               </tbody>

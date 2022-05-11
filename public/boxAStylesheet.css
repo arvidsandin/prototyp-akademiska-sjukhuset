@@ -133,6 +133,11 @@ td{
     line-height: 1.7em;
 }
 
+.valueCellImg {
+    overflow: hidden;
+    padding: 2px;
+}
+
 .selectedRow{
     background-color: rgb(255, 255, 153);
 }
