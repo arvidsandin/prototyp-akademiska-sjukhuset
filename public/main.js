@@ -48,14 +48,14 @@ Vue.createApp({
                     header: true
                 });
             })
-            .then(a => {
+            .then(() => {
                 for (const prescription of this.prescriptions) {
                     if (prescription['PatientId'] == this.currentPatientId) {
                         this.currentPatientPrescriptions.push(prescription);
-                        medicineId = prescription['LäkemedelsId']
+                        let medicineId = prescription['LäkemedelsId']
                         for (const medicine of this.medicines) {
                             if (medicine['LäkemedelsId'] == medicineId) {
-                                medicineCopy = this.addCustomProperties(medicine, prescription);
+                                let medicineCopy = this.addCustomProperties(medicine, prescription);
                                 this.currentPatientMedicines.push(medicineCopy);
                                 if (prescription['Aktuell kl 08:00'] == '1') {
                                     this.currentPatientMedicines_8oclock.push(medicineCopy);
@@ -65,16 +65,16 @@ Vue.createApp({
                                     this.currentPatientMedicines_noTime.push(medicineCopy);
                                     this.currentPatientPrescriptions_noTime.push(prescription);
                                 }
-                                continue;
+                                break;
                             }
                         }
                     }
                 }
                 for (const prescription of this.generalPrescriptions) {
-                    medicineId = prescription['LäkemedelsId']
+                    const medicineId = prescription['LäkemedelsId']
                     for (const medicine of this.medicines) {
                         if (medicine['LäkemedelsId'] == medicineId) {
-                            medicineCopy = this.addCustomProperties(medicine, prescription);
+                            let medicineCopy = this.addCustomProperties(medicine, prescription);
                             this.generalMedicines.push(medicineCopy);
                         }
                     }
@@ -102,11 +102,11 @@ Vue.createApp({
         isSelectedRow: function (row) {
             return this.selectedRow == row;
         },
-        addCustomProperties(medicine, prescription, isPersonalPrescription) {
-            medicineCopy = JSON.parse(JSON.stringify(medicine));
+        addCustomProperties(medicine, prescription) {
+            let medicineCopy = JSON.parse(JSON.stringify(medicine));
             medicineCopy['Läkemedel valt'] = medicineCopy['Leveranstyp'] <= 2;
             medicineCopy['G'] = medicineCopy['Läkemedel valt'] ? 'G' : 'g';
-            if (prescription['Har utbyte skett'] == '0') { medicineCopy['G'] = '' };
+            if (prescription['Har utbyte skett'] == '0') { medicineCopy['G'] = '' }
             if (medicineCopy['G'] == '' || (
                 medicineCopy['G'] == 'g' &&
                 medicineCopy['Kan bytas mot'] != '' &&
@@ -118,12 +118,12 @@ Vue.createApp({
             return medicineCopy;
         },
         getReplacingMedicines(medicine) {
-            result = [];
-            for (medicineID of medicine['Kan bytas mot'].split(', ')) {
-                for (med of this.medicines) {
+            let result = [];
+            for (const medicineID of medicine['Kan bytas mot'].split(', ')) {
+                for (const med of this.medicines) {
                     if (medicineID == med['LäkemedelsId']) {
                         result.push(med);
-                        continue;
+                        break;
                     }
                 }
             }
