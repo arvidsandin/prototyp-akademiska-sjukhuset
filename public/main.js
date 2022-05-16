@@ -1,6 +1,7 @@
 Vue.createApp({
     data() {
         return {
+            locations: [],
             medicines: [],
             prescriptions: [],
             generalPrescriptions: [],
@@ -44,6 +45,17 @@ Vue.createApp({
                 Papa.parse(text, {
                     complete: results => {
                         this.generalPrescriptions = results.data;
+                    },
+                    header: true
+                });
+            })
+
+        fetch('./assets/data/Platser.csv')
+            .then(response => response.text())
+            .then(text => {
+                Papa.parse(text, {
+                    complete: results => {
+                        this.locations = results.data;
                     },
                     header: true
                 });
@@ -106,15 +118,27 @@ Vue.createApp({
             let medicineCopy = JSON.parse(JSON.stringify(medicine));
             medicineCopy['Läkemedel valt'] = medicineCopy['Leveranstyp'] <= 2;
             medicineCopy['G'] = medicineCopy['Läkemedel valt'] ? 'G' : 'g';
+            medicineCopy['Info'] = '';
+            medicineCopy['Övrigt'] = '';
             if (prescription['Har utbyte skett'] == '0') { medicineCopy['G'] = '' }
             if (medicineCopy['G'] == '' || (
                 medicineCopy['G'] == 'g' &&
                 medicineCopy['Kan bytas mot'] != '' &&
                 // I am very sorry about this following line
-                this.medicines.filter(med => med['LäkemedelsId'] == (medicineCopy['Kan bytas mot'].split(', ')[0]))[0]['Finns på'].split(', ').filter(locationId => locationId == 'PL1').length > 0)) {
+                this.getReplacingMedicines(medicine).filter( med => med['Finns på'].split(', ').filter(locationId => locationId == 'PL1').length > 0).length > 0)) {
                 medicineCopy['Info'] = 'Finns';
             }
-            medicineCopy['Övrigt'] = '';
+            else if (medicineCopy['G'] == 'g' && medicineCopy['Kan bytas mot'] != ''){
+                let locationNames = [];
+                for (const med of this.getReplacingMedicines(medicine)){
+                    console.log(med);
+                    for (const location of this.getPlaces_sorted(med)) {
+                        locationNames.push(location['Namn']);
+                    }
+                }
+                // TODO: filter locationNames for duplicates
+                medicineCopy['Info'] = locationNames.slice(0, 3).join(', ');
+            }
             return medicineCopy;
         },
         getReplacingMedicines(medicine) {
@@ -128,6 +152,25 @@ Vue.createApp({
                 }
             }
             return result;
+        },
+        getPlaces_sorted(medicine){
+            let result = [];
+            for (const locationID of medicine['Finns på'].split(', ')){
+                for (const location of this.locations) {
+                    if (locationID == location['PlatsId']){
+                        result.push(location)
+                    }
+                }
+            }
+            let result_sorted = [];
+            for (const locationDistance of ['1', '2', '3']) {
+                for (const location of result) {
+                    if (locationDistance == location['Gångavstånd till testavdelning']) {
+                        result_sorted.push(location)
+                    }
+                }
+            }
+            return result_sorted;
         },
         rightClick(row) {
             if (row['Övrigt'] == '') {

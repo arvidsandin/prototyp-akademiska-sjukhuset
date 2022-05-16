@@ -1,0 +1,7 @@
+PlatsId;Namn;Kortnamn;Typ;Gångavstånd till testavdelning
+PL1;Avdelning 65C;A 65C;1;1
+PL2;Avdelning 65D;A 65D;1;1
+PL3;Avdelning 17 A;A 17A;1;2
+PL4;Förråd ing 70;F i 70;2;1
+PL5;Förråd ing 85;F i 85;2;3
+PL6;Förråd ing 10;F i 10;2;3

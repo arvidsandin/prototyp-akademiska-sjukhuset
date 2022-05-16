@@ -1,7 +1,7 @@
-LäkemedelsId;Namn;Beredningsform;Beredningsform, kortversion;Styrka;Leveranstyp;Kylförvaras;I automat;Kan bytas mot;Finns på ;;;;
+LäkemedelsId;Namn;Beredningsform;Beredningsform, kortversion;Styrka;Leveranstyp;Kylförvaras;I automat;Kan bytas mot;Finns på;;;;
 L1;Latanoprost STADA;Ögondroppar;;50 mikrogram/ml;4;1;0;L27;PL3, PL5, PL6;;;;
 L2;Alendronat Teva Veckotablett;Tablett;;70 mg;1;;;L28, L29;;;;;
-L3;Alvedon;Brustablett;;500 mg;3;0;;L26;PL1, PL2, PL3;;;;
+L3;Alvedon;Brustablett;;500 mg;3;0;0;L26;PL1, PL2, PL3;;;;
 L4;Enalapril;Tablett;;2,5 mg;1;0;;;;;;;
 L5;Furix;Tablett;;20 mg;1;0;;;;;;;
 L6;Levaxin;Tablett;;125 mikrogram;4;0;0;;PL1, PL2  ;;;;
