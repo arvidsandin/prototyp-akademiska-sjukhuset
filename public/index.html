@@ -1,12 +1,14 @@
 <script src="https://unpkg.com/vue@3"></script>
 <script src="./papaparse.min.js"></script>
+<script src="./assets/contextMenu/contextMenu.js"></script>
 <link rel="stylesheet" href="globalStylesheet.css">
 <link rel="stylesheet" href="boxAStylesheet.css">
 <link rel="stylesheet" href="boxBStylesheet.css">
+<link rel="stylesheet" href="contextMenu.css">
 
 <body>
   <div id="app">
-    <div class="outerDiv">
+    <div class="outerDiv" @click="hideMenu">
       <div class="innerDiv">
         <div class="boxA">
           <div @click="firstTabSelected=true" class="tab" :class="{ selectedTab: firstTabSelected}"><span class="topHeading">Urval</span></div>
@@ -32,7 +34,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr @click="selectRow(row)" @contextmenu.prevent="rightClick(row)" v-for="(row, index) in currentPatientMedicines_8oclock" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
+                <tr @click="selectRow(row)" @contextmenu.prevent="rightClick($event, row)" v-for="(row, index) in currentPatientMedicines_8oclock" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
                   <td><div class="valueCell value">{{row['Namn'] + ' ' + row['Styrka']}}</div></td>
                   <td><div class="valueCell value">{{row['Beredningsform, kortversion'] != '' ? row['Beredningsform, kortversion'] : row['Beredningsform']}}</div></td>
                   <td><div class="valueCell value">{{this.currentPatientPrescriptions[index]["Kortform Dosering"]}}</div></td>
@@ -72,7 +74,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr @click="selectRow(row)" @contextmenu.prevent="rightClick(row)" v-for="(row, index) in currentPatientMedicines_noTime.concat(generalMedicines)" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
+                <tr @click="selectRow(row)" @contextmenu.prevent="rightClick($event, row)" v-for="(row, index) in currentPatientMedicines_noTime.concat(generalMedicines)" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
                   <td><div class="valueCell value">{{row['Namn'] + ' ' + row['Styrka']}}</div></td>
                   <td><div class="valueCell value">{{row['Beredningsform, kortversion'] != '' ? row['Beredningsform, kortversion'] : row['Beredningsform']}}</div></td>
                   <td><div class="valueCell value">{{this.currentPatientPrescriptions_noTime.concat(generalPrescriptions)[index]["Kortform Dosering"]}}</div></td>
@@ -129,6 +131,12 @@
       <button id="administrationButton">Till Administrering</button>
     </div>
   </div>
+</div>
+<div id="contextMenu" class="context-menu" style="display: none">
+  <ul class="menu">
+    <li><a href="#">Hoppa över</a></li>
+    <li><a href="#">Avvakta</a></li>
+  </ul>
 </div>
 <script src="./main.js"></script>
 </body>

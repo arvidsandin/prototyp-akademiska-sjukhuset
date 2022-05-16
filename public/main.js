@@ -172,17 +172,32 @@ Vue.createApp({
             }
             return result_sorted;
         },
-        rightClick(row) {
-            if (row['Övrigt'] == '') {
-                row['Övrigt'] = 'Hoppa över';
+        rightClick(e, b) {
+            if (document.getElementById("contextMenu").style.display == "block") {
+                this.hideMenu();
             }
-            else if (row['Övrigt'] == 'Hoppa över') {
-                row['Övrigt'] = 'Avvakta';
-            }
-            else {
-                row['Övrigt'] = '';
-            }
+            var menu = document.getElementById("contextMenu")
+            menu.style.display = 'block';
+            menu.style.left = e.pageX + "px";
+            menu.style.top = e.pageY + "px";
+            
         },
+        hideMenu() {
+            document.getElementById("contextMenu")
+                .style.display = "none"
+            }
+        // rightClick(row) {
+        //     rightClick(e);
+        //     if (row['Övrigt'] == '') {
+        //         row['Övrigt'] = 'Hoppa över';
+        //     }
+        //     else if (row['Övrigt'] == 'Hoppa över') {
+        //         row['Övrigt'] = 'Avvakta';
+        //     }
+        //     else {
+        //         row['Övrigt'] = '';
+        //     }
+        // },
     },
     computed: {
 
