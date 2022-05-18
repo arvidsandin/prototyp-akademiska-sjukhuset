@@ -7,8 +7,8 @@
 <link rel="stylesheet" href="contextMenu.css">
 
 <body>
-  <div id="app">
-    <div class="outerDiv" @click="hideMenu">
+  <div id="app" @click="hideMenu">
+    <div class="outerDiv">
       <div class="innerDiv">
         <div class="boxA">
           <div @click="firstTabSelected=true" class="tab" :class="{ selectedTab: firstTabSelected}"><span class="topHeading">Urval</span></div>
@@ -130,13 +130,13 @@
       </div>
       <button id="administrationButton">Till Administrering</button>
     </div>
+    <div id="contextMenu" class="context-menu" style="display: none">
+      <ul class="menu">
+        <li @click="rightClickedRow['Övrigt'] = 'Hoppa över'; hideMenu()"><a href="#">Hoppa över</a></li>
+        <li @click="rightClickedRow['Övrigt'] = 'Avvakta'; hideMenu()"><a href="#">Avvakta</a></li>
+      </ul>
+    </div>
   </div>
-</div>
-<div id="contextMenu" class="context-menu" style="display: none">
-  <ul class="menu">
-    <li><a href="#">Hoppa över</a></li>
-    <li><a href="#">Avvakta</a></li>
-  </ul>
 </div>
 <script src="./main.js"></script>
 </body>

@@ -16,6 +16,7 @@ Vue.createApp({
             firstTabSelected: true,
             g_expanded: false,
             selectedRow: null,
+            rightClickedRow: null,
         }
     },
     mounted() {
@@ -141,6 +142,8 @@ Vue.createApp({
                 }
                 medicineCopy['Info'] = locationNames.join(', ');
             }
+            
+            medicineCopy['Övrigt'] = '';
 
             return medicineCopy;
         },
@@ -175,32 +178,21 @@ Vue.createApp({
             }
             return result_sorted;
         },
-        rightClick(e, b) {
+        rightClick(event, row) {
+            this.rightClickedRow = row;
             if (document.getElementById("contextMenu").style.display == "block") {
                 this.hideMenu();
             }
             var menu = document.getElementById("contextMenu")
             menu.style.display = 'block';
-            menu.style.left = e.pageX + "px";
-            menu.style.top = e.pageY + "px";
+            menu.style.left = event.pageX + "px";
+            menu.style.top = event.pageY + "px";
             
         },
         hideMenu() {
-            document.getElementById("contextMenu")
-                .style.display = "none"
-        }
-        // rightClick(row) {
-        //     rightClick(e);
-        //     if (row['Övrigt'] == '') {
-        //         row['Övrigt'] = 'Hoppa över';
-        //     }
-        //     else if (row['Övrigt'] == 'Hoppa över') {
-        //         row['Övrigt'] = 'Avvakta';
-        //     }
-        //     else {
-        //         row['Övrigt'] = '';
-        //     }
-        // },
+            document.getElementById("contextMenu").style.display = "none";
+            this.rightClickedRow = null;
+        },
     },
     computed: {
 
