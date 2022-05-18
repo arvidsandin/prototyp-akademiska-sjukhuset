@@ -116,29 +116,32 @@ Vue.createApp({
         },
         addCustomProperties(medicine, prescription) {
             let medicineCopy = JSON.parse(JSON.stringify(medicine));
-            medicineCopy['Läkemedel valt'] = medicineCopy['Leveranstyp'] <= 2;
+            medicineCopy['Läkemedel valt'] = medicineCopy['Leveranstyp'] <= '2';
+
             medicineCopy['G'] = medicineCopy['Läkemedel valt'] ? 'G' : 'g';
+            if (medicine['Finns på'].split(', ').filter(locationId => locationId == 'PL1').length > 0) { medicineCopy['G'] = '' }
+            
             medicineCopy['Info'] = '';
-            medicineCopy['Övrigt'] = '';
-            if (prescription['Har utbyte skett'] == '0') { medicineCopy['G'] = '' }
-            if (medicineCopy['G'] == '' || (
-                medicineCopy['G'] == 'g' &&
-                medicineCopy['Kan bytas mot'] != '' &&
-                // I am very sorry about this following line
-                this.getReplacingMedicines(medicine).filter( med => med['Finns på'].split(', ').filter(locationId => locationId == 'PL1').length > 0).length > 0)) {
-                medicineCopy['Info'] = 'Finns';
-            }
-            else if (medicineCopy['G'] == 'g' && medicineCopy['Kan bytas mot'] != ''){
-                let locationNames = [];
-                for (const med of this.getReplacingMedicines(medicine)){
-                    console.log(med);
-                    for (const location of this.getPlaces_sorted(med)) {
-                        locationNames.push(location['Namn']);
+            let replacementExists = false;
+            if (medicineCopy['G'] != '' && medicineCopy['Läkemedel valt']) {
+                for (const replMed of this.getReplacingMedicines(medicineCopy)) {
+                    if (this.getPlaces_sorted(replMed)['PlatsId'] == 'PL1'){
+                        replacementExists = true;
                     }
                 }
-                // TODO: filter locationNames for duplicates
-                medicineCopy['Info'] = locationNames.slice(0, 3).join(', ');
             }
+            if (replacementExists) {
+                medicineCopy['Info'] = 'Finns';
+                
+            }
+            else{
+                let locationNames = [];
+                for (const location of this.getPlaces_sorted(medicineCopy)) {
+                    locationNames.push(location['Kortnamn']);
+                }
+                medicineCopy['Info'] = locationNames.join(', ');
+            }
+
             return medicineCopy;
         },
         getReplacingMedicines(medicine) {
@@ -185,7 +188,7 @@ Vue.createApp({
         hideMenu() {
             document.getElementById("contextMenu")
                 .style.display = "none"
-            }
+        }
         // rightClick(row) {
         //     rightClick(e);
         //     if (row['Övrigt'] == '') {
