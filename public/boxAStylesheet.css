@@ -128,9 +128,11 @@ td{
 .valueCell{
     width: 100%;
     height: 1.7em;
-    overflow-y: auto;
     padding: 0 1px;
     line-height: 1.7em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .valueCellImg {

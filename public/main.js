@@ -123,6 +123,7 @@ Vue.createApp({
             if (medicine['Finns på'].split(', ').filter(locationId => locationId == 'PL1').length > 0) { medicineCopy['G'] = '' }
             
             medicineCopy['Info'] = '';
+            medicineCopy['Info Långform'] = '';
             let replacementExists = false;
             if (medicineCopy['G'] != '' && medicineCopy['Läkemedel valt']) {
                 for (const replMed of this.getReplacingMedicines(medicineCopy)) {
@@ -133,14 +134,17 @@ Vue.createApp({
             }
             if (replacementExists) {
                 medicineCopy['Info'] = 'Finns';
-                
+                medicineCopy['Info Långform'] = 'Finns';
             }
             else{
                 let locationNames = [];
+                let locationNamesLong = [];
                 for (const location of this.getPlaces_sorted(medicineCopy)) {
                     locationNames.push(location['Kortnamn']);
+                    locationNamesLong.push(location['Namn']);
                 }
                 medicineCopy['Info'] = locationNames.join(', ');
+                medicineCopy['Info Långform'] = locationNamesLong.join(', ')
             }
             
             medicineCopy['Övrigt'] = '';
