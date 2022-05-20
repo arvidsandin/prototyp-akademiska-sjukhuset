@@ -7,16 +7,16 @@
 <link rel="stylesheet" href="contextMenu.css">
 
 <body>
-  <div id="app" @click="hideMenu">
-    <div class="outerDiv">
+  <div id="app" >
+    <div class="outerDiv" @click="hideMenu">
       <div class="innerDiv">
         <div class="boxA">
           <div @click="firstTabSelected=true" class="tab" :class="{ selectedTab: firstTabSelected}"><span class="topHeading">Urval</span></div>
-          <div @click="firstTabSelected=false" class="tab" :class="{ selectedTab: !firstTabSelected, inactiveTab: g_expanded}"><span class="topHeading">Översikt</span></div>
+          <div @click="!g_expanded ? firstTabSelected=false : null" class="tab" :class="{ selectedTab: !firstTabSelected, inactiveTab: g_expanded}"><span class="topHeading">Översikt</span></div>
           <div v-if="firstTabSelected" class="tabContent firstTabContent" :class="{ tabContentExpanded: g_expanded}">
             <div class="aboveLists heading">
               <span class="heading">Utdelningstillfälle</span><div class="fakeTimeSelectionBox">08:00 2022-03-04 <button>...</button></div>
-              <img v-if="!g_expanded" @click="g_expanded = !g_expanded" id="G_expand" class="G" src="./assets/images/Expand.png"></img>
+              <img v-if="!g_expanded" @click="g_expanded = !g_expanded; selectedRow = null" id="G_expand" class="G" src="./assets/images/Expand.png"></img>
               <img v-else @click="g_expanded = !g_expanded" id="G_contract" class="G" src="./assets/images/contract.png"></img>
             </div>
             <div class="topList">
@@ -24,7 +24,7 @@
                 <thead>
                 <tr class="headerRow heading">
                   <th style="width:50ch; width: 40ch">Ordination</th>
-                  <th style="width:35ch">Beredningsform</th>
+                  <th style="width:35ch; width:30ch">Beredningsform</th>
                   <th style="width:20ch">Dos</th>
                   <th style="width:2em">Sta</th>
                   <th style="width:2em">G</th>
@@ -64,7 +64,7 @@
               <thead>
                 <tr class="headerRow heading">
                   <th style="width:50ch; width: 40ch">Ej tidssatta ordinationer</th>
-                  <th style="width:35ch">Bered.form</th>
+                  <th style="width:35ch; width:30ch">Bered.form</th>
                   <th style="width:20ch">Dos</th>
                   <th style="width:2em">Sta</th>
                   <th style="width:2em">G</th>
@@ -129,13 +129,13 @@
         <img v-if="selectedRow != null" src="./assets/images/AtoB_arrow_active.png">
         <img v-else src="./assets/images/AtoB_arrow_inactive.png">
       </div>
-      <div class="boxB">
+      <div class="boxB" :class="{ inactive: selectedRow == null}">
 
       </div>
       <button id="administrationButton">Till Administrering</button>
     </div>
     <div id="contextMenu" class="context-menu" style="display: none">
-      <ul class="menu">
+      <ul class="menu heading">
         <li @click="rightClickedRow['Övrigt'] = 'Hoppa över'; hideMenu()"><a href="#">Hoppa över</a></li>
         <li @click="rightClickedRow['Övrigt'] = 'Avvakta'; hideMenu()"><a href="#">Avvakta</a></li>
       </ul>

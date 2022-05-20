@@ -183,6 +183,7 @@ Vue.createApp({
             return result_sorted;
         },
         rightClick(event, row) {
+            if (this.g_expanded) { return }
             this.rightClickedRow = row;
             if (document.getElementById("contextMenu").style.display == "block") {
                 this.hideMenu();

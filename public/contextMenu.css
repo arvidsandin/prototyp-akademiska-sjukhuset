@@ -1,4 +1,4 @@
-ul {
+.context-menu > ul {
     list-style: none;
 }
 
@@ -10,14 +10,12 @@ ul {
 .menu {
     display: flex;
     flex-direction: column;
-    background-color: #fff;
-    border-radius: 10px;
+    background-color: rgb(242, 242, 242);
     box-shadow: 0 10px 20px rgb(64 64 64 / 5%);
-    padding: 10px 0;
+    padding: 0;
 }
 
 .menu>li>a {
-    font: inherit;
     border: 0;
     padding: 10px 30px 10px 15px;
     width: 100%;
@@ -26,10 +24,9 @@ ul {
     position: relative;
     text-decoration: unset;
     color: #000;
-    font-weight: 500;
 }
 
 .menu>li>a:hover {
-    background: #f1f3f7;
-    color: #4b00ff;
+    background: rgb(230, 230, 230);
+    color: rgb(30, 30, 30);
 }
