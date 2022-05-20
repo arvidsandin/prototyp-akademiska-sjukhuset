@@ -1,4 +1,4 @@
-OrdinationsId;LäkemedelsId;Dosering;Kortform dosering;Uppmärksamma vid administrering;Instruktioner för spädning/blandning;Kommentar
+OrdinationsId;LäkemedelsId;Dosering;Kortform Dosering;Uppmärksamma vid administrering;Instruktioner för spädning/blandning;Kommentar
 GD1;L31;1-2 tabletter vb i 3d;1-2vb i max3d;Akut ges 4 mg, därefter 2 mg efter varje avföring.;;
 GD2;L32;1-2 tuggtabletter v.b. i 3d;1-2vb i max3d;;;
 GD3;L33;10 ml vb i 3d;10 ml vb i max3d;;Omskakas före användning;
