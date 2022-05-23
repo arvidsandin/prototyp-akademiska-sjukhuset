@@ -185,12 +185,13 @@ Vue.createApp({
         rightClick(event, row) {
             if (this.g_expanded) { return }
             this.rightClickedRow = row;
+            this.selectedRow = row;
             if (document.getElementById("contextMenu").style.display == "block") {
                 this.hideMenu();
             }
             var menu = document.getElementById("contextMenu")
             menu.style.display = 'block';
-            menu.style.left = event.pageX + "px";
+            menu.style.left = (event.pageX + 1) + "px";
             menu.style.top = event.pageY + "px";
             
         },

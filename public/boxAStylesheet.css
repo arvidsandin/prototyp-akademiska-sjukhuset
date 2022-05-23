@@ -55,13 +55,13 @@
 
 .aboveLists{
     padding: 1.2em;
-    padding-left: 150px;
-    width: 970px;
+    width: calc(970px / 2);
+    display: flex;
+    justify-content: center;
     height: 8%;
 }
 
 .aboveLists > :is(span, div) {
-    float: left;
     display: flex;
     align-items: center;
     justify-content: right;

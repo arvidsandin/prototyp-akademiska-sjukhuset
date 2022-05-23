@@ -13,6 +13,7 @@
     background-color: rgb(242, 242, 242);
     box-shadow: 0 10px 20px rgb(64 64 64 / 5%);
     padding: 0;
+    margin: 0;
 }
 
 .menu>li>a {
