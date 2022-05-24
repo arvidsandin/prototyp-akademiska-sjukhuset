@@ -118,36 +118,45 @@ Vue.createApp({
         addCustomProperties(medicine, prescription) {
             let medicineCopy = JSON.parse(JSON.stringify(medicine));
             medicineCopy['Läkemedel valt'] = medicineCopy['Leveranstyp'] <= '2';
-
-            medicineCopy['G'] = medicineCopy['Läkemedel valt'] ? 'G' : 'g';
-            if (medicine['Finns på'].split(', ').filter(locationId => locationId == 'PL1').length > 0) { medicineCopy['G'] = '' }
-            
+            medicineCopy['Övrigt'] = '';
             medicineCopy['Info'] = '';
             medicineCopy['Info Långform'] = '';
-            let replacementExists = false;
-            if (medicineCopy['G'] != '' && medicineCopy['Läkemedel valt']) {
-                for (const replMed of this.getReplacingMedicines(medicineCopy)) {
-                    if (this.getPlaces_sorted(replMed)['PlatsId'] == 'PL1'){
-                        replacementExists = true;
-                    }
-                }
+            
+            //Endast 'G' om 'Har utbyte skett' är 1
+            if (medicineCopy['Läkemedel valt']) {
+                medicineCopy['G'] = prescription['Har utbyte skett'] == '1' ? 'G' : '';
+                //Vid stort G, Info är namnet på det utbytta läkemedlet
             }
-            if (replacementExists) {
+            else if (this.getPlaces_sorted(medicine)[0]?.['PlatsId'] == 'PL1') {
+                medicineCopy['G'] = '';
                 medicineCopy['Info'] = 'Finns';
                 medicineCopy['Info Långform'] = 'Finns';
             }
-            else{
+            else {
+                medicineCopy['G'] = '';
+                if (medicineCopy['Kan bytas mot'] != '') {
+                    medicineCopy['G'] = 'g';
+                    for (const replMed of this.getReplacingMedicines(medicineCopy)) {
+                        if (this.getPlaces_sorted(replMed)[0]?.['PlatsId'] == 'PL1') {
+                            medicineCopy['Info'] = 'Utbyte finns';
+                            medicineCopy['Info Långform'] = 'Utbyte finns';
+                            return medicineCopy;
+                        }
+                    }
+                }
                 let locationNames = [];
                 let locationNamesLong = [];
-                for (const location of this.getPlaces_sorted(medicineCopy)) {
+                this.getPlaces_sorted(medicineCopy).every((location) => {
                     locationNames.push(location['Kortnamn']);
                     locationNamesLong.push(location['Namn']);
-                }
+                });
                 medicineCopy['Info'] = locationNames.join(', ');
-                medicineCopy['Info Långform'] = locationNamesLong.join(', ')
+                medicineCopy['Info Långform'] = locationNamesLong.join(', ');
+                if (medicineCopy['Info'] == '') {
+                    medicineCopy['Info'] = 'Saknas';
+                    medicineCopy['Info Långform'] = 'Saknas';                        
+                }
             }
-            
-            medicineCopy['Övrigt'] = '';
 
             return medicineCopy;
         },
