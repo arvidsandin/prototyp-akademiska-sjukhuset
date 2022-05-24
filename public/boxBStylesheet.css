@@ -6,8 +6,48 @@
     grid-row-start: 1;
     grid-row-end: 9;
     background-color: white;
+    padding: 1em;
+    border: solid black 1px;
 }
 
 .inactive {
     color: rgb(180, 180, 180);
+}
+
+.boxBContent {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    /* padding: 1em; */
+}
+
+.boxBHeading {
+    margin: 0;
+    padding: 0 1px;
+    line-height: 1.7em;
+}
+
+.boxBData {
+    margin: 0;
+    /* height: 1.7em; */
+    padding: 0 1px;
+    line-height: 1.7em;
+}
+
+.dataBox {
+    border: solid black 1px;
+    min-height: 1.7em;
+}
+
+.buttonContainer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+}
+
+.buttonContainer > button {
+    padding: 0.5em 1em;
 }

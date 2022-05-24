@@ -101,6 +101,9 @@ Vue.createApp({
             })
     },
     methods: {
+        debug(){
+            console.log(prescriptions.filter(presc => presc['OrdinationsId'] == selectedRow.prescription['OrdinationsId']))
+        },
         selectRow: function (row) {
             if (this.g_expanded) {
                 return;
@@ -121,6 +124,7 @@ Vue.createApp({
             medicineCopy['Övrigt'] = '';
             medicineCopy['Info'] = '';
             medicineCopy['Info Långform'] = '';
+            medicineCopy.prescription = prescription;
             
             //Endast 'G' om 'Har utbyte skett' är 1
             if (medicineCopy['Läkemedel valt']) {
