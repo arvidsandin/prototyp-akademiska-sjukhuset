@@ -131,45 +131,71 @@
       </div>
       <div class="boxB" :class="{ inactive: selectedRow == null}">
         <div v-if="selectedRow != null" class="boxBContent">
-          <h1 class="heading boxBHeading">Läkemedel</h1>
-          <p class="value boxBData">{{ selectedRow['Namn'] }}</p>
-          <h1 class="heading boxBHeading">Beredningsform</h1>
-          <p class="value boxBData">{{ selectedRow['Beredningsform'] }}</p>
-          <h1 class="heading boxBHeading">Styrka</h1>
-          <p class="value boxBData">{{ selectedRow['Styrka'] }}</p>
-          <h1 class="heading boxBHeading">Slutlig Konc</h1>
-          <p class="value boxBData">{{ selectedRow.prescription['Koncentration av huvudsubstans i färdigspädd lösning'] }}</p>
-          <h1 class="heading boxBHeading">Behandlingsorsak</h1>
-          <p class="value boxBData">{{ selectedRow.prescription['Behandlingsorsak'] }}</p>
-          <h1 class="heading boxBHeading">Hämtas Via</h1>
-          <p class="value boxBData">{{ '?' }}</p>
-          <h1 class="heading boxBHeading">Kylförvaring</h1>
-          <p class="value boxBData">{{ selectedRow['Kylförvaras'] ? 'Ja' : 'Nej' }}</p>
-          <h1 class="heading boxBHeading">Möjliga utbyten</h1>
-          <div class="dataBox">
-            <p v-for="medicine in getReplacingMedicines(selectedRow)" class="value boxBData">
-              {{ medicine['Namn'] }}
-              {{ getPlaces_sorted(medicine).map(loc=>loc['Kortnamn']).join(', ') }}
-            </p>
+          <div class="headingAndDataContainer grid-span-4">
+            <h1 class="heading boxBHeading">Läkemedel</h1>
+            <p class="value boxBData">{{ selectedRow['Namn'] }}</p>
           </div>
-          <h1 class="heading boxBHeading">Dosering</h1>
-          <p class="value boxBData">{{ selectedRow.prescription['Dosering'] }}</p>
-          <h1 class="heading boxBHeading">Administrationssätt</h1>
-          <p class="value boxBData">{{ selectedRow['Administrationssätt'] }}</p>
-          <h1 class="heading boxBHeading">Notera vid administrering</h1>
-          <p class="value boxBData">{{ selectedRow['Notera vid administrering'] }}</p>
-          <h1 class="heading boxBHeading">Ingående substanser</h1>
-          <div class="dataBox">
-            <p v-for="prescription in prescriptions.filter(presc => presc['OrdinationsId'] == selectedRow.prescription['OrdinationsId'])" class="value boxBData">
-              {{ prescription['(läkemedelsnamn)'] }}
-              {{ prescription['Mängd som används vid spädning'] }}
-            </p>
+          <div class="headingAndDataContainer grid-span-4">
+            <h1 class="heading boxBHeading">Beredningsform</h1>
+            <p class="value boxBData">{{ selectedRow['Beredningsform'] }}</p>
           </div>
-          <h1 class="heading boxBHeading">Instruktioner för spädning/blandning</h1>
-          <div class="dataBox">
-            <p class="value boxBData">{{ selectedRow.prescription['Instruktioner för spädning/blandning']}}</p>
+          <div class="headingAndDataContainer grid-span-1">
+            <h1 class="heading boxBHeading">Styrka</h1>
+            <p class="value boxBData">{{ selectedRow['Styrka'] }}</p>
           </div>
-          <div class="buttonContainer">
+          <div class="headingAndDataContainer grid-span-1">
+            <h1 class="heading boxBHeading">Slutlig Konc</h1>
+            <p class="value boxBData">{{ selectedRow.prescription['Koncentration av huvudsubstans i färdigspädd lösning'] }}</p>
+          </div>
+          <div class="headingAndDataContainer grid-span-2">
+            <h1 class="heading boxBHeading">Behandlingsorsak</h1>
+            <p class="value boxBData">{{ selectedRow.prescription['Behandlingsorsak'] }}</p>
+          </div>
+          <div class="headingAndDataContainer grid-span-2">
+            <h1 class="heading boxBHeading">Hämtas Via</h1>
+            <p class="value boxBData">{{ '?' }}</p>
+          </div>
+          <div class="headingAndDataContainer grid-span-2">
+            <h1 class="heading boxBHeading">Kylförvaring</h1>
+            <p class="value boxBData">{{ selectedRow['Kylförvaras'] ? 'Ja' : 'Nej' }}</p>
+          </div>
+          <div class="headingAndDataContainer grid-span-4">
+            <h1 class="heading boxBHeading">Möjliga utbyten</h1>
+            <div class="data_multipleLines">
+              <p v-for="medicine in getReplacingMedicines(selectedRow)" class="value boxBData">
+                {{ medicine['Namn'] }}
+                {{ getPlaces_sorted(medicine).map(loc=>loc['Kortnamn']).join(', ') }}
+              </p>
+            </div>
+          </div>
+          <div class="headingAndDataContainer grid-span-4">
+            <h1 class="heading boxBHeading">Dosering</h1>
+            <p class="value boxBData">{{ selectedRow.prescription['Dosering'] }}</p>
+          </div>
+          <div class="headingAndDataContainer grid-span-4">
+            <h1 class="heading boxBHeading">Administrationssätt</h1>
+            <p class="value boxBData">{{ selectedRow['Administrationssätt'] }}</p>
+          </div>
+          <div class="headingAndDataContainer grid-span-4">
+            <h1 class="heading boxBHeading">Notera vid administrering</h1>
+            <p class="value boxBData">{{ selectedRow['Notera vid administrering'] }}</p>
+          </div>
+          <div class="headingAndDataContainer grid-span-4">
+            <h1 class="heading boxBHeading">Ingående substanser</h1>
+            <div class="data_multipleLines">
+              <p v-for="prescription in prescriptions.filter(presc => presc['OrdinationsId'] == selectedRow.prescription['OrdinationsId'])" class="value boxBData">
+                {{ prescription['(läkemedelsnamn)'] }}
+                {{ prescription['Mängd som används vid spädning'] }}
+              </p>
+            </div>
+          </div>
+          <div class="headingAndDataContainer grid-span-4">
+            <h1 class="heading boxBHeading">Instruktioner för spädning/blandning</h1>
+            <div class="data_multipleLines">
+              <p class="value boxBData">{{ selectedRow.prescription['Instruktioner för spädning/blandning']}}</p>
+            </div>
+          </div>
+          <div class="buttonContainer grid-span-4">
             <button>Anteckning</button>
             <button>Hoppa över</button>
             <button>Avvakta</button>
