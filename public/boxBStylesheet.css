@@ -57,7 +57,7 @@
 
 .anteckning {
     overflow-y: hidden;
-    text-overflow: ellipsis;
+    word-wrap: break-word;
 }
 
 .boxB button {
