@@ -69,3 +69,12 @@ body {
     font-size: 10pt;
     font-family: 'Times New Roman', Times, serif;
 }
+
+button{
+    background-color: rgb(255, 242, 204);
+    border: solid black 1px;
+}
+
+button:hover{
+    filter: brightness(0.95);
+}

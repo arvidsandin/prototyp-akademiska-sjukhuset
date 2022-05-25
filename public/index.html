@@ -41,7 +41,7 @@
                   <td><div class="valueCell valueCellImg value">
                     <img v-if="row['Leveranstyp']==1 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_1.png">
                     <img v-if="row['Leveranstyp']==2 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_2.png">
-                    <img v-if="row['Övrigt'] == 'Hoppa över'" height="18" src="./assets/images/A_Sta_3.png">
+                    <img v-if="row['Övrigt'] == 'Kryssa'" height="18" src="./assets/images/A_Sta_3.png">
                     <img v-if="row['Övrigt'] == 'Avvakta'" height="18" src="./assets/images/A_Sta_4.png">
                   </div></td>
                   <td><div class="valueCell valueCellImg value">
@@ -81,7 +81,7 @@
                   <td><div class="valueCell valueCellImg value">
                     <img v-if="row['Leveranstyp']==1 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_1.png">
                     <img v-if="row['Leveranstyp']==2 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_2.png">
-                    <img v-if="row['Övrigt'] == 'Hoppa över'" height="18" src="./assets/images/A_Sta_3.png">
+                    <img v-if="row['Övrigt'] == 'Kryssa'" height="18" src="./assets/images/A_Sta_3.png">
                     <img v-if="row['Övrigt'] == 'Avvakta'" height="18" src="./assets/images/A_Sta_4.png">
                   </div></td>
                   <td><div class="valueCell valueCellImg value">
@@ -153,7 +153,9 @@
           </div>
           <div class="headingAndDataContainer grid-span-2">
             <h1 class="heading boxBHeading">Hämtas Via</h1>
-            <p class="value boxBData">{{ '?' }}</p>
+            <p v-if="selectedRow['Leveranstyp'] == '1'" class="value boxBData">Rörpost</p>
+            <p v-else-if="selectedRow['Leveranstyp'] == '2'" class="value boxBData">Beredningsfarmaceut</p>
+            <p v-else class="value boxBData">{{ selectedRow['I automat'] == '1' ? 'I automat' : 'Hylla/Vagn/Farmacet' }}</p>
           </div>
           <div class="headingAndDataContainer grid-span-2">
             <h1 class="heading boxBHeading">Kylförvaring</h1>
@@ -195,18 +197,23 @@
               <p class="value boxBData">{{ selectedRow.prescription['Instruktioner för spädning/blandning']}}</p>
             </div>
           </div>
-          <div class="buttonContainer grid-span-4">
-            <button>Anteckning</button>
-            <button>Hoppa över</button>
-            <button>Avvakta</button>
+          <div class="headingAndDataContainer grid-span-4">
+            <h1 class="heading boxBHeading">Anteckning</h1>
+            <div class="data_multipleLines">
+              <p class="value boxBData anteckning">{{ selectedRow['Anteckning']}}</p>
+              <button>Öppna</button>
+            </div>
           </div>
+          <button class="grid-span-2">Iordningställ...</button>
+          <button class="grid-span-1" @click="selectedRow['Övrigt'] = 'Kryssa'">Kryssa</button>
+          <button class="grid-span-1" @click="selectedRow['Övrigt'] = 'Avvakta'">Avvakta</button>
         </div>
       </div>
       <button id="administrationButton">Till Administrering</button>
     </div>
     <div id="contextMenu" class="context-menu" style="display: none">
       <ul class="menu heading">
-        <li @click="rightClickedRow['Övrigt'] = 'Hoppa över'; hideMenu()"><a href="#">Hoppa över</a></li>
+        <li @click="rightClickedRow['Övrigt'] = 'Kryssa'; hideMenu()"><a href="#">Kryssa</a></li>
         <li @click="rightClickedRow['Övrigt'] = 'Avvakta'; hideMenu()"><a href="#">Avvakta</a></li>
       </ul>
     </div>
