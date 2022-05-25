@@ -11,13 +11,13 @@
     <div class="outerDiv" @click="hideMenu">
       <div class="innerDiv">
         <div class="boxA">
-          <div @click="firstTabSelected=true" class="tab" :class="{ selectedTab: firstTabSelected}"><span class="topHeading">Urval</span></div>
-          <div @click="!g_expanded ? firstTabSelected=false : null" class="tab" :class="{ selectedTab: !firstTabSelected, inactiveTab: g_expanded}"><span class="topHeading">Översikt</span></div>
+          <div @click="firstTabSelected ? null: tab_click()" class="tab" :class="{ selectedTab: firstTabSelected}"><span class="topHeading">Urval</span></div>
+          <div @click="firstTabSelected ? tab_click() : null" class="tab" :class="{ selectedTab: !firstTabSelected, inactiveTab: modalWindowIsUp }"><span class="topHeading">Översikt</span></div>
           <div v-if="firstTabSelected" class="tabContent firstTabContent" :class="{ tabContentExpanded: g_expanded}">
             <div class="aboveLists heading">
               <span class="heading">Utdelningstillfälle</span><div class="fakeTimeSelectionBox">08:00 2022-03-04 <button>...</button></div>
-              <img v-if="!g_expanded" @click="g_expanded = !g_expanded; selectedRow = null" id="G_expand" class="G" src="./assets/images/Expand.png"></img>
-              <img v-else @click="g_expanded = !g_expanded" id="G_contract" class="G" src="./assets/images/contract.png"></img>
+              <img v-if="!g_expanded" @click="G_click" id="G_expand" class="G" src="./assets/images/Expand.png"></img>
+              <img v-else @click="G_click" id="G_contract" class="G" src="./assets/images/contract.png"></img>
             </div>
             <div class="topList">
               <table class="list">
@@ -133,7 +133,7 @@
         <div v-if="selectedRow != null" class="boxBContent">
           <div class="headingAndDataContainer grid-span-4">
             <h1 class="heading boxBHeading">Läkemedel</h1>
-            <p class="value boxBData">{{ selectedRow['Namn'] }}</p>
+            <p class="value boxBData bold">{{ selectedRow['Namn'] }}</p>
           </div>
           <div class="headingAndDataContainer grid-span-4">
             <h1 class="heading boxBHeading">Beredningsform</h1>
@@ -176,11 +176,11 @@
           </div>
           <div class="headingAndDataContainer grid-span-4">
             <h1 class="heading boxBHeading">Administrationssätt</h1>
-            <p class="value boxBData">{{ selectedRow['Administrationssätt'] }}</p>
+            <p class="value boxBData">{{ selectedRow.prescription['Administrationssätt'] }}</p>
           </div>
           <div class="headingAndDataContainer grid-span-4">
             <h1 class="heading boxBHeading">Notera vid administrering</h1>
-            <p class="value boxBData">{{ selectedRow['Notera vid administrering'] }}</p>
+            <p class="value boxBData">{{ selectedRow.prescription['Notera vid administrering'] }}</p>
           </div>
           <div class="headingAndDataContainer grid-span-4">
             <h1 class="heading boxBHeading">Ingående substanser</h1>
@@ -201,12 +201,25 @@
             <h1 class="heading boxBHeading">Anteckning</h1>
             <div class="data_multipleLines">
               <p class="value boxBData anteckning">{{ selectedRow['Anteckning']}}</p>
-              <button>Öppna</button>
+              <button @click="note_click">Öppna</button>
             </div>
           </div>
-          <button class="grid-span-2">Iordningställ...</button>
+          <button class="grid-span-2" @click="preparation_click">Iordningställ...</button>
           <button class="grid-span-1" @click="selectedRow['Övrigt'] = 'Kryssa'">Kryssa</button>
           <button class="grid-span-1" @click="selectedRow['Övrigt'] = 'Avvakta'">Avvakta</button>
+          <div v-if="note_expanded" class="modalDialogueBox">
+            <h1 class="heading bold">Anteckning</h1>
+            <p id="note_editable" contenteditable="true" @input="noteEdited = true">{{ selectedRow['Anteckning'] }}</p>
+            <div class="buttonContainer">
+              <button v-if="noteEdited" @click="saveNote()">Spara</button>
+              <button v-if="noteEdited" @click="closeNote()">Avbryt</button>
+              <button v-if="!noteEdited" @click="closeNote()">Stäng</button>
+            </div>
+          </div>
+          <div v-if="preparation_expanded" class="modalDialogueBox">
+            <h1 class="heading bold">Iordningställande</h1>
+    
+          </div>
         </div>
       </div>
       <button id="administrationButton">Till Administrering</button>

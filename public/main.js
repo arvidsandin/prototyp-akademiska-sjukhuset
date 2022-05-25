@@ -15,6 +15,9 @@ Vue.createApp({
             currentPatientId: 'P1',
             firstTabSelected: true,
             g_expanded: false,
+            note_expanded: false,
+            preparation_expanded: false,
+            noteEdited: false,
             selectedRow: null,
             rightClickedRow: null,
         }
@@ -105,9 +108,7 @@ Vue.createApp({
             console.log(prescriptions.filter(presc => presc['OrdinationsId'] == selectedRow.prescription['OrdinationsId']))
         },
         selectRow: function (row) {
-            if (this.g_expanded) {
-                return;
-            }
+            if (this.modalWindowIsUp) { return }
             if (this.selectedRow == row) {
                 this.selectedRow = null;
             }
@@ -124,6 +125,7 @@ Vue.createApp({
             medicineCopy['Övrigt'] = '';
             medicineCopy['Info'] = '';
             medicineCopy['Info Långform'] = '';
+            medicineCopy['Anteckning'] = '';
             medicineCopy.prescription = prescription;
             
             //Endast 'G' om 'Har utbyte skett' är 1
@@ -195,8 +197,26 @@ Vue.createApp({
             }
             return result_sorted;
         },
+        tab_click() {
+            if (this.modalWindowIsUp) { return }
+            this.firstTabSelected = !this.firstTabSelected;
+            this.selectedRow = null;
+        },
+        G_click() {
+            if (this.modalWindowIsUp && !this.g_expanded) { return }
+            this.g_expanded = !this.g_expanded;
+            this.selectedRow = null;
+        },
+        note_click() {
+            if (this.modalWindowIsUp && !this.note_expanded) { return }
+            this.note_expanded = !this.note_expanded;
+        },
+        preparation_click() {
+            if (this.modalWindowIsUp && !this.preparation_expanded) { return }
+            this.preparation_expanded = !this.preparation_expanded;
+        },
         rightClick(event, row) {
-            if (this.g_expanded) { return }
+            if (this.modalWindowIsUp) { return }
             this.rightClickedRow = row;
             this.selectedRow = row;
             if (document.getElementById("contextMenu").style.display == "block") {
@@ -212,8 +232,18 @@ Vue.createApp({
             document.getElementById("contextMenu").style.display = "none";
             this.rightClickedRow = null;
         },
+        saveNote() {
+            this.selectedRow['Anteckning'] = document.getElementById('note_editable').innerText;
+            this.closeNote();
+        },
+        closeNote() {
+            this.noteEdited = false;
+            this.note_expanded = false;
+        },
     },
     computed: {
-
+        modalWindowIsUp(){
+            return this.g_expanded || this.note_expanded || this.preparation_expanded;
+        },
     },
 }).mount('#app')

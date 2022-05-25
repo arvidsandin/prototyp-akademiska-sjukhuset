@@ -78,3 +78,11 @@ button{
 button:hover{
     filter: brightness(0.95);
 }
+
+.bold {
+    font-weight: bold;
+}
+
+p {
+    margin: 0;
+}

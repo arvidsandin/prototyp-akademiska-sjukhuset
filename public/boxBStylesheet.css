@@ -39,7 +39,6 @@
 }
 
 .boxBData {
-    margin: 0;
     font-size: 12pt; /*Otherwise Times New Roman looks smaller than Arial*/
 }
 
@@ -58,8 +57,43 @@
 .anteckning {
     overflow-y: hidden;
     word-wrap: break-word;
+    /* TODO: ellipisis on overflow */
 }
 
 .boxB button {
     padding: 0.5em 1em;
+    margin: auto;
+}
+
+.modalDialogueBox {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 95%;
+    height: 60%;
+    z-index: 10;
+    border: solid black 1px;
+    background-color: white;
+    padding: 0.5em;
+}
+
+.modalDialogueBox > h1 {
+    text-align: center;
+    margin: 0;
+    padding-bottom: 0.5em;
+}
+
+.buttonContainer > button {
+    width: 30%;
+    margin: 0.5em 0 0 0.5em;
+    float: right;
+}
+
+#note_editable {
+    padding: 0.4em;
+    overflow-y: auto;
+    flex-grow: 1;
+    border: solid black 1px;
 }
