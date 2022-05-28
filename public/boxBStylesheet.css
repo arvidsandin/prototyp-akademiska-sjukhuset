@@ -30,7 +30,9 @@
     flex-flow: column;
 }
 
+.grid-span-5 { grid-column-end: span 5 }
 .grid-span-4 { grid-column-end: span 4 }
+.grid-span-3 { grid-column-end: span 3 }
 .grid-span-2 { grid-column-end: span 2 }
 .grid-span-1 { grid-column-end: span 1 }
 
@@ -40,6 +42,12 @@
 
 .boxBData {
     font-size: 12pt; /*Otherwise Times New Roman looks smaller than Arial*/
+}
+
+.data_singleLine {
+    border: solid black 1px;
+    padding: 0.2em 0.5em;
+    height: 1.6em;
 }
 
 .data_multipleLines {
@@ -77,6 +85,13 @@
     border: solid black 1px;
     background-color: white;
     padding: 0.5em;
+}
+
+.preparationDialogue {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 1em;
+    flex-grow: 1;
 }
 
 .modalDialogueBox > h1 {

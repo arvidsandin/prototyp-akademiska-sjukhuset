@@ -204,7 +204,7 @@
               <button @click="note_click">Öppna</button>
             </div>
           </div>
-          <button class="grid-span-2" @click="preparation_click">Iordningställ...</button>
+          <button class="grid-span-2" @click="preparation_click" :disabled="selectedRow['Leveranstyp'] > '2'">Iordningställ...</button>
           <button class="grid-span-1" @click="selectedRow['Övrigt'] = 'Kryssa'">Kryssa</button>
           <button class="grid-span-1" @click="selectedRow['Övrigt'] = 'Avvakta'">Avvakta</button>
           <div v-if="note_expanded" class="modalDialogueBox">
@@ -218,7 +218,54 @@
           </div>
           <div v-if="preparation_expanded" class="modalDialogueBox">
             <h1 class="heading bold">Iordningställande</h1>
-    
+            <div class="preparationDialogue">
+              <div class="headingAndDataContainer grid-span-2">
+                <h1 class="heading boxBHeading">Tid och datum</h1>
+                <div class="data_singleLine">
+                  <p class="value boxBData">{{ timeNow }}</p>
+                </div>
+              </div>
+              <div class="headingAndDataContainer grid-span-5">
+                <h1 class="heading boxBHeading">Iordningställt läkemedel</h1>
+                <div class="data_singleLine">
+                  <p class="value boxBData">{{ selectedRow['G'] == 'g' ? '' : selectedRow.prescription['(läkemedelsnamn)'] }}</p>
+                </div>
+              </div>
+              <div class="headingAndDataContainer grid-span-1">
+                <h1 class="heading boxBHeading">Styrka</h1>
+                <div class="data_singleLine">
+                  <p class="value boxBData">{{ selectedRow.prescription['Mängd som används vid spädning'] }}</p>
+                </div>
+              </div>
+              <div class="headingAndDataContainer grid-span-4">
+                <h1 class="heading boxBHeading">Batchnummer</h1>
+                <div class="data_singleLine">
+                  <p class="value boxBData"></p>
+                </div>
+              </div>
+              <div class="headingAndDataContainer grid-span-5">
+                <h1 class="heading boxBHeading">Beredningsform</h1>
+                <div class="data_singleLine">
+                  <p class="value boxBData">{{ selectedRow['Beredningsform'] }}</p>
+                </div>
+              </div>
+              <div class="headingAndDataContainer grid-span-5">
+                <h1 class="heading boxBHeading">Iordningsställd dos</h1>
+                <div class="data_singleLine">
+                  <p class="value boxBData"></p>
+                </div>
+              </div>
+              <div class="headingAndDataContainer grid-span-5">
+                <h1 class="heading boxBHeading">Kommentar</h1>
+                <div class="data_multipleLines">
+                  <p class="value boxBData"></p>
+                </div>
+              </div>
+              <div class="buttonContainer grid-span-5">
+                <button @click="savePreparation()">Spara</button>
+                <button @click="closePreparation()">Avbryt</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

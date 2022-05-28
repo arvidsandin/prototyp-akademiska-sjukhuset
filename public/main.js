@@ -240,10 +240,22 @@ Vue.createApp({
             this.noteEdited = false;
             this.note_expanded = false;
         },
+        closePreparation() {
+            this.preparation_expanded = false;
+        },
+        savePreparation() {
+            this.preparation_expanded = false;
+        }
     },
     computed: {
         modalWindowIsUp(){
             return this.g_expanded || this.note_expanded || this.preparation_expanded;
         },
+        timeNow(){
+            var today = new Date();
+            var date = today.getFullYear() + '-' + String((today.getMonth() + 1)).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+            var time = String(today.getHours()).padStart(2, '0') + ":" + String(today.getMinutes()).padStart(2, '0') + ":" + String(today.getSeconds()).padStart(2, '0');
+            return date + ' ' + time;
+        }
     },
 }).mount('#app')

@@ -75,7 +75,7 @@ button{
     border: solid black 1px;
 }
 
-button:hover{
+button:hover:enabled{
     filter: brightness(0.95);
 }
 
