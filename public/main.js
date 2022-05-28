@@ -126,6 +126,13 @@ Vue.createApp({
             medicineCopy['Info'] = '';
             medicineCopy['Info Långform'] = '';
             medicineCopy['Anteckning'] = '';
+            medicineCopy['Tid'] = '';
+            medicineCopy['Iordningställt läkemedel'] = '';
+            medicineCopy['Mängd'] = '';
+            medicineCopy['Batchnummer'] = '';
+            medicineCopy['Form'] = '';
+            medicineCopy['Dos'] = '';
+            medicineCopy['Kommentar'] = '';
             medicineCopy.prescription = prescription;
             
             //Endast 'G' om 'Har utbyte skett' är 1
@@ -244,7 +251,25 @@ Vue.createApp({
             this.preparation_expanded = false;
         },
         savePreparation() {
-            this.preparation_expanded = false;
+            this.selectedRow['Övrigt'] = 'Iordningställd';
+            if (document.getElementById('preparedMedication_editable').innerText == this.selectedRow.prescription['(läkemedelsnamn)']) {
+                this.selectedRow['G'] = '';
+                this.selectedRow['Info'] = '';
+            }
+            else{
+                this.selectedRow['G'] = 'G';
+                this.selectedRow['Info'] = document.getElementById('preparedMedication_editable').innerText;
+            }
+            this.selectedRow['Aut'] = '0';
+            this.selectedRow['Kyl'] = '0';
+            this.selectedRow['Tid'] = document.getElementById('time_editable').innerText;
+            this.selectedRow['Iordningställt läkemedel'] = document.getElementById('preparedMedication_editable').innerText
+            this.selectedRow['Mängd'] = document.getElementById('amount_editable').innerText;
+            this.selectedRow['Batchnummer'] = document.getElementById('batchNumber_editable').innerText;
+            this.selectedRow['Form'] = document.getElementById('form_editable').innerText;
+            this.selectedRow['Dos'] = document.getElementById('dose_editable').innerText;
+            this.selectedRow['Kommentar'] = document.getElementById('comment_editable').innerText;
+            this.closePreparation();
         }
     },
     computed: {

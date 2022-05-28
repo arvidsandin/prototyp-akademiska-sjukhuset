@@ -42,6 +42,7 @@
 
 .boxBData {
     font-size: 12pt; /*Otherwise Times New Roman looks smaller than Arial*/
+    outline: none;
 }
 
 .data_singleLine {

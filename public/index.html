@@ -39,10 +39,11 @@
                   <td><div v-bind:title="row['Beredningsform']" class="valueCell value">{{row['Beredningsform, kortversion'] != '' ? row['Beredningsform, kortversion'] : row['Beredningsform']}}</div></td>
                   <td><div v-bind:title="this.currentPatientPrescriptions[index]['Dosering']" class="valueCell value">{{this.currentPatientPrescriptions[index]["Kortform Dosering"]}}</div></td>
                   <td><div class="valueCell valueCellImg value">
-                    <img v-if="row['Leveranstyp']==1 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_1.png">
-                    <img v-if="row['Leveranstyp']==2 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_2.png">
-                    <img v-if="row['Övrigt'] == 'Kryssa'" height="18" src="./assets/images/A_Sta_3.png">
-                    <img v-if="row['Övrigt'] == 'Avvakta'" height="18" src="./assets/images/A_Sta_4.png">
+                    <img v-if="row['Övrigt']=='Iordningställd'" src="./assets/images/A_Sta_5.png">
+                    <img v-else-if="row['Leveranstyp']==1 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_1.png">
+                    <img v-else-if="row['Leveranstyp']==2 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_2.png">
+                    <img v-else-if="row['Övrigt'] == 'Kryssa'" height="18" src="./assets/images/A_Sta_3.png">
+                    <img v-else-if="row['Övrigt'] == 'Avvakta'" height="18" src="./assets/images/A_Sta_4.png">
                   </div></td>
                   <td><div class="valueCell valueCellImg value">
                     <img v-if="row['G'] == 'G'" height="18" src="./assets/images/A_G_1.png">
@@ -79,10 +80,11 @@
                   <td><div v-bind:title="row['Beredningsform']" class="valueCell value">{{row['Beredningsform, kortversion'] != '' ? row['Beredningsform, kortversion'] : row['Beredningsform']}}</div></td>
                   <td><div v-bind:title="this.currentPatientPrescriptions_noTime.concat(generalPrescriptions)[index]['Dosering']" class="valueCell value">{{this.currentPatientPrescriptions_noTime.concat(generalPrescriptions)[index]["Kortform Dosering"]}}</div></td>
                   <td><div class="valueCell valueCellImg value">
-                    <img v-if="row['Leveranstyp']==1 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_1.png">
-                    <img v-if="row['Leveranstyp']==2 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_2.png">
-                    <img v-if="row['Övrigt'] == 'Kryssa'" height="18" src="./assets/images/A_Sta_3.png">
-                    <img v-if="row['Övrigt'] == 'Avvakta'" height="18" src="./assets/images/A_Sta_4.png">
+                    <img v-if="row['Övrigt']=='Iordningställd'" src="./assets/images/A_Sta_5.png">
+                    <img v-else-if="row['Leveranstyp']==1 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_1.png">
+                    <img v-else-if="row['Leveranstyp']==2 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_2.png">
+                    <img v-else-if="row['Övrigt'] == 'Kryssa'" height="18" src="./assets/images/A_Sta_3.png">
+                    <img v-else-if="row['Övrigt'] == 'Avvakta'" height="18" src="./assets/images/A_Sta_4.png">
                   </div></td>
                   <td><div class="valueCell valueCellImg value">
                     <img v-if="row['G'] == 'G'" height="18" src="./assets/images/A_G_1.png">
@@ -222,43 +224,43 @@
               <div class="headingAndDataContainer grid-span-2">
                 <h1 class="heading boxBHeading">Tid och datum</h1>
                 <div class="data_singleLine">
-                  <p class="value boxBData">{{ timeNow }}</p>
+                  <p id="time_editable" contenteditable="true" class="value boxBData">{{ selectedRow['Övrigt'] == 'Iordningställd' ? selectedRow['Tid'] : timeNow }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-5">
                 <h1 class="heading boxBHeading">Iordningställt läkemedel</h1>
                 <div class="data_singleLine">
-                  <p class="value boxBData">{{ selectedRow['G'] == 'g' ? '' : selectedRow.prescription['(läkemedelsnamn)'] }}</p>
+                  <p id="preparedMedication_editable" contenteditable="true" class="value boxBData">{{ selectedRow['G'] == 'g' ? selectedRow['Iordingställt läkemedel'] : selectedRow.prescription['(läkemedelsnamn)'] }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-1">
                 <h1 class="heading boxBHeading">Styrka</h1>
                 <div class="data_singleLine">
-                  <p class="value boxBData">{{ selectedRow.prescription['Mängd som används vid spädning'] }}</p>
+                  <p id="amount_editable" contenteditable="true" class="value boxBData">{{ selectedRow['Övrigt'] == 'Iordningställd' ? selectedRow['Mängd'] : selectedRow.prescription['Mängd som används vid spädning'] }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-4">
                 <h1 class="heading boxBHeading">Batchnummer</h1>
                 <div class="data_singleLine">
-                  <p class="value boxBData"></p>
+                  <p id="batchNumber_editable" contenteditable="true" class="value boxBData">{{ selectedRow['Batchnummer'] }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-5">
                 <h1 class="heading boxBHeading">Beredningsform</h1>
                 <div class="data_singleLine">
-                  <p class="value boxBData">{{ selectedRow['Beredningsform'] }}</p>
+                  <p id="form_editable" contenteditable="true" class="value boxBData">{{ selectedRow['Beredningsform'] }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-5">
                 <h1 class="heading boxBHeading">Iordningsställd dos</h1>
                 <div class="data_singleLine">
-                  <p class="value boxBData"></p>
+                  <p id="dose_editable" contenteditable="true" class="value boxBData">{{ selectedRow['Dos'] }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-5">
                 <h1 class="heading boxBHeading">Kommentar</h1>
                 <div class="data_multipleLines">
-                  <p class="value boxBData"></p>
+                  <p id="comment_editable" contenteditable="true" class="value boxBData">{{ selectedRow['Kommentar'] }}</p>
                 </div>
               </div>
               <div class="buttonContainer grid-span-5">
