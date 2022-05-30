@@ -206,7 +206,7 @@
               <button @click="note_click">Öppna</button>
             </div>
           </div>
-          <button class="grid-span-2" @click="preparation_click" :disabled="selectedRow['Leveranstyp'] > '2'">Iordningställ...</button>
+          <button class="grid-span-2" @click="preparation_click" :disabled="selectedRow['Leveranstyp'] > '2'" :class="{inactive: selectedRow['Leveranstyp'] > '2'}">Iordningställ...</button>
           <button class="grid-span-1" @click="selectedRow['Övrigt'] = 'Kryssa'">Kryssa</button>
           <button class="grid-span-1" @click="selectedRow['Övrigt'] = 'Avvakta'">Avvakta</button>
           <div v-if="note_expanded" class="modalDialogueBox">

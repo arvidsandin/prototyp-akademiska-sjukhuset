@@ -79,6 +79,10 @@ button:hover:enabled{
     filter: brightness(0.95);
 }
 
+button:disabled{
+    filter: grayscale(100%);
+}
+
 .bold {
     font-weight: bold;
 }
