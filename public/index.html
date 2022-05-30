@@ -1,6 +1,6 @@
 <script src="https://unpkg.com/vue@3"></script>
 <script src="./papaparse.min.js"></script>
-<script src="./assets/contextMenu/contextMenu.js"></script>
+<script src="./mousetrap.min.js"></script>
 <link rel="stylesheet" href="globalStylesheet.css">
 <link rel="stylesheet" href="boxAStylesheet.css">
 <link rel="stylesheet" href="boxBStylesheet.css">
@@ -44,6 +44,8 @@
                     <img v-else-if="row['Leveranstyp']==2 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_2.png">
                     <img v-else-if="row['Övrigt'] == 'Kryssa'" height="18" src="./assets/images/A_Sta_3.png">
                     <img v-else-if="row['Övrigt'] == 'Avvakta'" height="18" src="./assets/images/A_Sta_4.png">
+                    <img v-else-if="row['Leveranstyp']==1 && row['Övrigt'] == 'Scanna'" height="18" src="./assets/images/A_Sta_6.png">
+                    <img v-else-if="row['Leveranstyp']==2 && row['Övrigt'] == 'Scanna'" height="18" src="./assets/images/A_Sta_7.png">
                   </div></td>
                   <td><div class="valueCell valueCellImg value">
                     <img v-if="row['G'] == 'G'" height="18" src="./assets/images/A_G_1.png">
@@ -211,7 +213,7 @@
           <button class="grid-span-1" @click="selectedRow['Övrigt'] = 'Avvakta'">Avvakta</button>
           <div v-if="note_expanded" class="modalDialogueBox">
             <h1 class="heading bold">Anteckning</h1>
-            <p id="note_editable" contenteditable="true" @input="noteEdited = true">{{ selectedRow['Anteckning'] }}</p>
+            <p id="note_editable" contenteditable="true" class="mousetrap" @input="noteEdited = true">{{ selectedRow['Anteckning'] }}</p>
             <div class="buttonContainer">
               <button v-if="noteEdited" @click="saveNote()">Spara</button>
               <button v-if="noteEdited" @click="closeNote()">Avbryt</button>
@@ -224,43 +226,43 @@
               <div class="headingAndDataContainer grid-span-2">
                 <h1 class="heading boxBHeading">Tid och datum</h1>
                 <div class="data_singleLine">
-                  <p id="time_editable" contenteditable="true" class="value boxBData">{{ selectedRow['Övrigt'] == 'Iordningställd' ? selectedRow['Tid'] : timeNow }}</p>
+                  <p id="time_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Övrigt'] == 'Iordningställd' ? selectedRow['Tid'] : timeNow }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-5">
                 <h1 class="heading boxBHeading">Iordningställt läkemedel</h1>
                 <div class="data_singleLine">
-                  <p id="preparedMedication_editable" contenteditable="true" class="value boxBData">{{ selectedRow['G'] == 'g' ? selectedRow['Iordingställt läkemedel'] : selectedRow.prescription['(läkemedelsnamn)'] }}</p>
+                  <p id="preparedMedication_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['G'] == 'g' ? selectedRow['Iordingställt läkemedel'] : selectedRow.prescription['(läkemedelsnamn)'] }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-1">
                 <h1 class="heading boxBHeading">Styrka</h1>
                 <div class="data_singleLine">
-                  <p id="amount_editable" contenteditable="true" class="value boxBData">{{ selectedRow['Övrigt'] == 'Iordningställd' ? selectedRow['Mängd'] : selectedRow.prescription['Mängd som används vid spädning'] }}</p>
+                  <p id="amount_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Övrigt'] == 'Iordningställd' ? selectedRow['Mängd'] : selectedRow.prescription['Mängd som används vid spädning'] }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-4">
                 <h1 class="heading boxBHeading">Batchnummer</h1>
                 <div class="data_singleLine">
-                  <p id="batchNumber_editable" contenteditable="true" class="value boxBData">{{ selectedRow['Batchnummer'] }}</p>
+                  <p id="batchNumber_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Batchnummer'] }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-5">
                 <h1 class="heading boxBHeading">Beredningsform</h1>
                 <div class="data_singleLine">
-                  <p id="form_editable" contenteditable="true" class="value boxBData">{{ selectedRow['Beredningsform'] }}</p>
+                  <p id="form_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Beredningsform'] }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-5">
                 <h1 class="heading boxBHeading">Iordningsställd dos</h1>
                 <div class="data_singleLine">
-                  <p id="dose_editable" contenteditable="true" class="value boxBData">{{ selectedRow['Dos'] }}</p>
+                  <p id="dose_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Dos'] }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-5">
                 <h1 class="heading boxBHeading">Kommentar</h1>
                 <div class="data_multipleLines">
-                  <p id="comment_editable" contenteditable="true" class="value boxBData">{{ selectedRow['Kommentar'] }}</p>
+                  <p id="comment_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Kommentar'] }}</p>
                 </div>
               </div>
               <div class="buttonContainer grid-span-5">

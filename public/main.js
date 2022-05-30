@@ -102,6 +102,9 @@ Vue.createApp({
                 console.log(this.currentPatientMedicines_8oclock);
                 console.log(this.currentPatientMedicines_noTime);
             })
+        var self = this;
+        Mousetrap.bind('ctrl+a', function (e) { self.scanMedicine(e, true, 'O2') });
+        Mousetrap.bind('ctrl+e', function (e) { self.scanMedicine(e, false, 'L4') });
     },
     methods: {
         debug(){
@@ -270,9 +273,34 @@ Vue.createApp({
             this.selectedRow['Dos'] = document.getElementById('dose_editable').innerText;
             this.selectedRow['Kommentar'] = document.getElementById('comment_editable').innerText;
             this.closePreparation();
-        }
+        },
+        scanMedicine(event, oneDose, medicineOrPrescriptionId){
+            event.preventDefault();
+            this.g_expanded = false;
+            if (this.note_expanded && window.confirm("Avbryt anteckning?")) {
+                this.closeNote();
+            }
+            else if(this.note_expanded) { return }
+            if (this.preparation_expanded && this.selectedRow?.['LäkemedelsId'] != medicineOrPrescriptionId && window.confirm('Du har skannat ' + medicineOrPrescriptionId + '.Vill du avbryta iordningställandet av ' + this.selectedRow?.['Namn'] + '?')) {
+                this.closePreparation();
+            }
+            else if (this.preparation_expanded && this.selectedRow?.['LäkemedelsId'] == medicineOrPrescriptionId){ return }
+            if (oneDose) {
+                const currentMedicine = this.allMedicines.filter(medicine => medicine.prescription['OrdinationsId'] == medicineOrPrescriptionId)[0];
+                currentMedicine['Övrigt'] = 'Scanna';
+                this.selectRow(currentMedicine);
+            }
+            else {
+                const currentMedicine = this.allMedicines.filter(medicine => medicine['LäkemedelsId'] == medicineOrPrescriptionId)[0];
+                this.selectRow(currentMedicine);
+            }
+            this.preparation_expanded = true;
+        },
     },
     computed: {
+        allMedicines(){
+            return this.currentPatientMedicines.concat(this.currentPatientMedicines_8oclock.concat(this.currentPatientMedicines_noTime));
+        },
         modalWindowIsUp(){
             return this.g_expanded || this.note_expanded || this.preparation_expanded;
         },
