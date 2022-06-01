@@ -12,7 +12,10 @@ Vue.createApp({
             currentPatientMedicines_8oclock: [],
             currentPatientPrescriptions_noTime: [],
             currentPatientMedicines_noTime: [],
+            currentPatientMedicines_noTime_and_general: [],
             currentPatientId: 'P1',
+            topListSortBy: { heading: 'Namn', revAlpha: false }, //revAlpha = revAlpha
+            bottomListSortBy: { heading: 'Namn', revAlpha: false },
             firstTabSelected: true,
             g_expanded: false,
             note_expanded: false,
@@ -95,6 +98,9 @@ Vue.createApp({
                         }
                     }
                 }
+                this.currentPatientMedicines_noTime_and_general = this.currentPatientMedicines_noTime.concat(this.generalMedicines);
+                this.sortMedicines(this.currentPatientMedicines_8oclock, 'Namn', false)
+                this.sortMedicines(this.currentPatientMedicines_noTime_and_general, 'Namn', false)
                 console.log(this.currentPatientPrescriptions);
                 console.log(this.generalPrescriptions);
                 console.log(this.currentPatientMedicines);
@@ -108,7 +114,7 @@ Vue.createApp({
     },
     methods: {
         debug(){
-            console.log(prescriptions.filter(presc => presc['OrdinationsId'] == selectedRow.prescription['OrdinationsId']))
+            console.log('Debugging')
         },
         selectRow: function (row) {
             if (this.modalWindowIsUp) { return }
@@ -187,6 +193,17 @@ Vue.createApp({
                 }
             }
             return result;
+        },
+        sortMedicines(medicines, sortBy, previousState){
+            if (previousState.heading == sortBy) {
+                medicines.reverse();
+                previousState.revAlpha = !previousState.revAlpha;
+            }
+            else{
+                medicines.sort((a, b) => a[sortBy]?.localeCompare(b[sortBy]))
+                previousState.heading = sortBy;
+                previousState.revAlpha = false;
+            }
         },
         getPlaces_sorted(medicine){
             let result = [];

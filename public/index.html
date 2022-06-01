@@ -23,23 +23,44 @@
               <table class="list">
                 <thead>
                 <tr class="headerRow heading">
-                  <th style="width:50ch; width: 40ch">Ordination</th>
-                  <th style="width:35ch; width:30ch">Beredningsform</th>
+                  <th @click="sortMedicines(currentPatientMedicines_8oclock, 'Namn', topListSortBy)" style="width:50ch; width: 35ch">
+                    Ordination
+                    {{ topListSortBy.heading=='Namn'?(topListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                   </th>
+                  <th @click="sortMedicines(currentPatientMedicines_8oclock, 'Beredningsform', topListSortBy)" style="width:35ch; width:23ch">
+                    Beredningsform
+                    {{ topListSortBy.heading=='Beredningsform'?(topListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                  </th>
                   <th style="width:20ch">Dos</th>
-                  <th style="width:2em">Sta</th>
-                  <th style="width:2em">G</th>
-                  <th style="width:25ch">Info</th>
-                  <th style="width:2em">Aut</th>
-                  <th style="width:2em">Kyl</th>
+                  <th @click="sortMedicines(currentPatientMedicines_8oclock, 'Övrigt', topListSortBy)" style="width:4em">
+                    Sta
+                    {{ topListSortBy.heading=='Övrigt'?(topListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                  </th>
+                  <th @click="sortMedicines(currentPatientMedicines_8oclock, 'G', topListSortBy)" style="width:3.5em">
+                    G
+                    {{ topListSortBy.heading=='G'?(topListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                  </th>
+                  <th @click="sortMedicines(currentPatientMedicines_8oclock, 'Info', topListSortBy)" style="width:25ch; width:23ch">
+                    Info
+                    {{ topListSortBy.heading=='Info'?(topListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                  </th>
+                  <th @click="sortMedicines(currentPatientMedicines_8oclock, 'Aut', topListSortBy)" style="width:4em">
+                    Aut
+                    {{ topListSortBy.heading=='Aut'?(topListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                  </th>
+                  <th @click="sortMedicines(currentPatientMedicines_8oclock, 'Kyl', topListSortBy)" style="width:4em">
+                    Kyl
+                    {{ topListSortBy.heading=='Kyl'?(topListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 <tr @click="selectRow(row)" @contextmenu.prevent="rightClick($event, row)" v-for="(row, index) in currentPatientMedicines_8oclock" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
                   <td><div v-bind:title="row['Namn'] + ' ' + row['Styrka']" class="valueCell value">{{row['Namn'] + ' ' + row['Styrka']}}</div></td>
                   <td><div v-bind:title="row['Beredningsform']" class="valueCell value">{{row['Beredningsform, kortversion'] != '' ? row['Beredningsform, kortversion'] : row['Beredningsform']}}</div></td>
-                  <td><div v-bind:title="this.currentPatientPrescriptions[index]['Dosering']" class="valueCell value">{{this.currentPatientPrescriptions[index]["Kortform Dosering"]}}</div></td>
+                  <td><div v-bind:title="row.prescription['Dosering']" class="valueCell value">{{row.prescription["Kortform Dosering"]}}</div></td>
                   <td><div class="valueCell valueCellImg value">
-                    <img v-if="row['Övrigt']=='Iordningställd'" src="./assets/images/A_Sta_5.png">
+                    <img v-if="row['Övrigt']=='Iordningställd'" height="18" src="./assets/images/A_Sta_5.png">
                     <img v-else-if="row['Leveranstyp']==1 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_1.png">
                     <img v-else-if="row['Leveranstyp']==2 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_2.png">
                     <img v-else-if="row['Övrigt'] == 'Kryssa'" height="18" src="./assets/images/A_Sta_3.png">
@@ -66,23 +87,44 @@
             <table class="list">
               <thead>
                 <tr class="headerRow heading">
-                  <th style="width:50ch; width: 40ch">Ej tidssatta ordinationer</th>
-                  <th style="width:35ch; width:30ch">Bered.form</th>
+                  <th @click="sortMedicines(currentPatientMedicines_noTime_and_general, 'Namn', bottomListSortBy)" style="width:50ch; width: 35ch">
+                    Ej tidssatta ordinationer
+                    {{ bottomListSortBy.heading=='Namn'?(bottomListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                  </th>
+                  <th @click="sortMedicines(currentPatientMedicines_noTime_and_general, 'Beredningsform', bottomListSortBy)" style="width:35ch; width:23ch">
+                    Beredningsform
+                    {{ bottomListSortBy.heading=='Beredningsform'?(bottomListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                  </th>
                   <th style="width:20ch">Dos</th>
-                  <th style="width:2em">Sta</th>
-                  <th style="width:2em">G</th>
-                  <th style="width:25ch">Info</th>
-                  <th style="width:2em">Aut</th>
-                  <th style="width:2em">Kyl</th>
+                  <th @click="sortMedicines(currentPatientMedicines_noTime_and_general, 'Övrigt', bottomListSortBy)" style="width:4em">
+                    Sta
+                    {{ bottomListSortBy.heading=='Övrigt'?(bottomListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                  </th>
+                  <th @click="sortMedicines(currentPatientMedicines_noTime_and_general, 'G', bottomListSortBy)" style="width:3.5em">
+                    G
+                    {{ bottomListSortBy.heading=='G'?(bottomListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                  </th>
+                  <th @click="sortMedicines(currentPatientMedicines_noTime_and_general, 'Info', bottomListSortBy)" style="width:25ch; width:23ch">
+                    Info
+                    {{ bottomListSortBy.heading=='Info'?(bottomListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                  </th>
+                  <th @click="sortMedicines(currentPatientMedicines_noTime_and_general, 'Aut', bottomListSortBy)" style="width:4em">
+                    Aut
+                    {{ bottomListSortBy.heading=='Aut'?(bottomListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                  </th>
+                  <th @click="sortMedicines(currentPatientMedicines_noTime_and_general, 'Kyl', bottomListSortBy)" style="width:4em">
+                    Kyl
+                    {{ bottomListSortBy.heading=='Kyl'?(bottomListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                <tr @click="selectRow(row)" @contextmenu.prevent="rightClick($event, row)" v-for="(row, index) in currentPatientMedicines_noTime.concat(generalMedicines)" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
+                <tr @click="selectRow(row)" @contextmenu.prevent="rightClick($event, row)" v-for="(row, index) in currentPatientMedicines_noTime_and_general" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
                   <td><div v-bind:title="row['Namn'] + ' ' + row['Styrka']" class="valueCell value">{{row['Namn'] + ' ' + row['Styrka']}}</div></td>
                   <td><div v-bind:title="row['Beredningsform']" class="valueCell value">{{row['Beredningsform, kortversion'] != '' ? row['Beredningsform, kortversion'] : row['Beredningsform']}}</div></td>
-                  <td><div v-bind:title="this.currentPatientPrescriptions_noTime.concat(generalPrescriptions)[index]['Dosering']" class="valueCell value">{{this.currentPatientPrescriptions_noTime.concat(generalPrescriptions)[index]["Kortform Dosering"]}}</div></td>
+                  <td><div v-bind:title="row.prescription['Dosering']" class="valueCell value">{{row.prescription["Kortform Dosering"]}}</div></td>
                   <td><div class="valueCell valueCellImg value">
-                    <img v-if="row['Övrigt']=='Iordningställd'" src="./assets/images/A_Sta_5.png">
+                    <img v-if="row['Övrigt']=='Iordningställd'" height="18" src="./assets/images/A_Sta_5.png">
                     <img v-else-if="row['Leveranstyp']==1 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_1.png">
                     <img v-else-if="row['Leveranstyp']==2 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_2.png">
                     <img v-else-if="row['Övrigt'] == 'Kryssa'" height="18" src="./assets/images/A_Sta_3.png">
