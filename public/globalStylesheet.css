@@ -24,9 +24,9 @@ body {
     left: calc(100% * calc(1920 - 1685) / 1920);
     padding: 1.5em 2em;
     display: grid;
-    gap: 2em;
+    gap: 1em;
     grid-template-columns: repeat(6, 1fr) 0.5fr repeat(3, 1fr);
-    grid-template-rows: repeat(9, 1fr);
+    grid-template-rows: repeat(8, 1fr) 3em;
 }
 
 .boxA, .boxB{
@@ -46,8 +46,9 @@ body {
 
 #administrationButton{
     width: 15em;
-    height: 3em;
+    height: 100%;
     margin-left: auto;
+    margin-top: auto;
     grid-column-start: 6;
     grid-column-end: 11;
     grid-row-start: 9;

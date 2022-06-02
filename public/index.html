@@ -320,6 +320,7 @@
     </div>
     <div id="contextMenu" class="context-menu" style="display: none">
       <ul class="menu heading">
+        <li @click="this.preparation_expanded = true; hideMenu()"><a href="#">Iordningsställ</a></li>
         <li @click="rightClickedRow['Övrigt'] = 'Kryssa'; hideMenu()"><a href="#">Kryssa</a></li>
         <li @click="rightClickedRow['Övrigt'] = 'Avvakta'; hideMenu()"><a href="#">Avvakta</a></li>
       </ul>
