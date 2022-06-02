@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="boxAStylesheet.css">
 <link rel="stylesheet" href="boxBStylesheet.css">
 <link rel="stylesheet" href="contextMenu.css">
+<link rel="stylesheet" href="confirmDialogue.css">
 
 <body>
   <div id="app" >
@@ -55,7 +56,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr @click="selectRow(row)" @contextmenu.prevent="rightClick($event, row)" v-for="(row, index) in currentPatientMedicines_8oclock" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
+                <tr @click="selectRow(row, true)" @contextmenu.prevent="rightClick($event, row)" v-for="(row, index) in currentPatientMedicines_8oclock" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
                   <td><div v-bind:title="row['Namn'] + ' ' + row['Styrka']" class="valueCell value">{{row['Namn'] + ' ' + row['Styrka']}}</div></td>
                   <td><div v-bind:title="row['Beredningsform']" class="valueCell value">{{row['Beredningsform, kortversion'] != '' ? row['Beredningsform, kortversion'] : row['Beredningsform']}}</div></td>
                   <td><div v-bind:title="row.prescription['Dosering']" class="valueCell value">{{row.prescription["Kortform Dosering"]}}</div></td>
@@ -119,7 +120,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr @click="selectRow(row)" @contextmenu.prevent="rightClick($event, row)" v-for="(row, index) in currentPatientMedicines_noTime_and_general" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
+                <tr @click="selectRow(row, true)" @contextmenu.prevent="rightClick($event, row)" v-for="(row, index) in currentPatientMedicines_noTime_and_general" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
                   <td><div v-bind:title="row['Namn'] + ' ' + row['Styrka']" class="valueCell value">{{row['Namn'] + ' ' + row['Styrka']}}</div></td>
                   <td><div v-bind:title="row['Beredningsform']" class="valueCell value">{{row['Beredningsform, kortversion'] != '' ? row['Beredningsform, kortversion'] : row['Beredningsform']}}</div></td>
                   <td><div v-bind:title="row.prescription['Dosering']" class="valueCell value">{{row.prescription["Kortform Dosering"]}}</div></td>
@@ -322,6 +323,13 @@
         <li @click="rightClickedRow['Övrigt'] = 'Kryssa'; hideMenu()"><a href="#">Kryssa</a></li>
         <li @click="rightClickedRow['Övrigt'] = 'Avvakta'; hideMenu()"><a href="#">Avvakta</a></li>
       </ul>
+    </div>
+    <div id="confirmDialogue" style="display: none">
+      <div id="confirmDialogueBox">
+        <p id="confirmDialogue_question">Vill du bekräfta?</p>
+        <button id="confirmDialogue_confirm" @click="confirmDialogueResult = true; hasAnsweredConfirmDialogue = true">Bekräfta</button>
+        <button id="confirmDialogue_cancel" @click="confirmDialogueResult = false; hasAnsweredConfirmDialogue = true">Avbryt</button>
+      </div>
     </div>
   </div>
 </div>

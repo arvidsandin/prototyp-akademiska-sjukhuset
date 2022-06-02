@@ -16,6 +16,8 @@ Vue.createApp({
             currentPatientId: 'P1',
             topListSortBy: { heading: 'Namn', revAlpha: false }, //revAlpha = revAlpha
             bottomListSortBy: { heading: 'Namn', revAlpha: false },
+            hasAnsweredConfirmDialogue: false,
+            confirmDialogueResult: false,
             firstTabSelected: true,
             g_expanded: false,
             note_expanded: false,
@@ -109,24 +111,21 @@ Vue.createApp({
                 console.log(this.currentPatientMedicines_noTime);
             })
         var self = this;
-        Mousetrap.bind('ctrl+a', function (e) { self.scanMedicine(e, true, 'O2') });
+        Mousetrap.bind('ctrl+a', function (e) { self.scanMedicine(e, true, 'O3') });
         Mousetrap.bind('ctrl+e', function (e) { self.scanMedicine(e, false, 'L4') });
     },
     methods: {
         debug(){
             console.log('Debugging')
         },
-        selectRow: function (row) {
+        selectRow(row, userClickedRow) {
             if (this.modalWindowIsUp) { return }
-            if (this.selectedRow == row) {
+            if (this.selectedRow == row && userClickedRow) {
                 this.selectedRow = null;
             }
             else {
                 this.selectedRow = row;
             }
-        },
-        isSelectedRow: function (row) {
-            return this.selectedRow == row;
         },
         addCustomProperties(medicine, prescription) {
             let medicineCopy = JSON.parse(JSON.stringify(medicine));
@@ -291,25 +290,41 @@ Vue.createApp({
             this.selectedRow['Kommentar'] = document.getElementById('comment_editable').innerText;
             this.closePreparation();
         },
-        scanMedicine(event, oneDose, medicineOrPrescriptionId){
+        async confirmDialogue(questionText, confirmText, cancelText){
+            this.hasAnsweredConfirmDialogue = false;
+            document.getElementById('confirmDialogue_question').innerText = questionText;
+            document.getElementById('confirmDialogue_confirm').innerText = confirmText;
+            document.getElementById('confirmDialogue_cancel').innerText = cancelText;
+            document.getElementById('confirmDialogue').style.display = 'flex';
+            while (!this.hasAnsweredConfirmDialogue) {
+                await new Promise(res => setTimeout(res, 200))
+            }
+            document.getElementById('confirmDialogue').style.display = 'none';
+        },
+        async scanMedicine(event, oneDose, medicineOrPrescriptionId){
             event.preventDefault();
             this.g_expanded = false;
-            if (this.note_expanded && window.confirm("Avbryt anteckning?")) {
-                this.closeNote();
+            if (this.note_expanded) {
+                await this.confirmDialogue('Avbryt anteckning?', 'Ja, avbryt', 'nej, fortsätt');
+                if (this.confirmDialogueResult) { this.closeNote() }
+                else{ return }
             }
-            else if(this.note_expanded) { return }
-            if (this.preparation_expanded && this.selectedRow?.['LäkemedelsId'] != medicineOrPrescriptionId && window.confirm('Du har skannat ' + medicineOrPrescriptionId + '.Vill du avbryta iordningställandet av ' + this.selectedRow?.['Namn'] + '?')) {
-                this.closePreparation();
+            if (this.preparation_expanded && this.selectedRow?.['LäkemedelsId'] != medicineOrPrescriptionId && this.selectedRow?.prescription['OrdinationsId'] != medicineOrPrescriptionId){
+                await this.confirmDialogue(`Du har skannat ${
+                    this.allMedicines.filter(med => med['LäkemedelsId'] == medicineOrPrescriptionId || med.prescription['OrdinationsId'] == medicineOrPrescriptionId)[0]['Namn']
+                }.Vill du avbryta iordningställandet av ${this.selectedRow?.['Namn']}'?`, 'Ja, avbryt', 'Nej, fortsätt');
+                if (this.confirmDialogueResult) { this.closePreparation() }
+                else{ return }
             }
             else if (this.preparation_expanded && this.selectedRow?.['LäkemedelsId'] == medicineOrPrescriptionId){ return }
             if (oneDose) {
                 const currentMedicine = this.allMedicines.filter(medicine => medicine.prescription['OrdinationsId'] == medicineOrPrescriptionId)[0];
                 currentMedicine['Övrigt'] = 'Scanna';
-                this.selectRow(currentMedicine);
+                this.selectRow(currentMedicine, false);
             }
             else {
                 const currentMedicine = this.allMedicines.filter(medicine => medicine['LäkemedelsId'] == medicineOrPrescriptionId)[0];
-                this.selectRow(currentMedicine);
+                this.selectRow(currentMedicine, false);
             }
             this.preparation_expanded = true;
         },
