@@ -144,19 +144,19 @@ Vue.createApp({
             medicineCopy['Dos'] = '';
             medicineCopy['Kommentar'] = '';
             medicineCopy.prescription = prescription;
+            medicineCopy['G'] = '';
             
-            //Endast 'G' om 'Har utbyte skett' är 1
             if (medicineCopy['Läkemedel valt']) {
-                medicineCopy['G'] = prescription['Har utbyte skett'] == '1' ? 'G' : '';
-                //Vid stort G, Info är namnet på det utbytta läkemedlet
+                if(prescription['Har utbyte skett'] == '1'){
+                    medicineCopy['G'] = 'G';
+                    medicineCopy['Info'] = this.getReplacingMedicines(medicineCopy)[0]['Namn']
+                }
             }
             else if (this.getPlaces_sorted(medicine)[0]?.['PlatsId'] == 'PL1') {
-                medicineCopy['G'] = '';
                 medicineCopy['Info'] = 'Finns';
                 medicineCopy['Info Långform'] = 'Finns';
             }
             else {
-                medicineCopy['G'] = '';
                 if (medicineCopy['Kan bytas mot'] != '') {
                     medicineCopy['G'] = 'g';
                     for (const replMed of this.getReplacingMedicines(medicineCopy)) {
@@ -277,9 +277,15 @@ Vue.createApp({
                 this.selectedRow['G'] = '';
                 this.selectedRow['Info'] = '';
             }
+            else if (document.getElementById('preparedMedication_dropdown')){
+                this.selectedRow['G'] = 'G';
+                this.selectedRow['Info'] = document.getElementById('').value;
+                this.selectedRow['Utbytt läkemedel'] = document.getElementById('preparedMedication_dropdown').innerText;
+            }
             else{
                 this.selectedRow['G'] = 'G';
-                this.selectedRow['Info'] = document.getElementById('preparedMedication_dropdown').value;
+                this.selectedRow['Info'] = document.getElementById('preparedMedication_editable').value;
+                this.selectedRow['Utbytt läkemedel'] = document.getElementById('preparedMedication_editable').innerText;
             }
             this.selectedRow['Aut'] = '0';
             this.selectedRow['Kyl'] = '0';

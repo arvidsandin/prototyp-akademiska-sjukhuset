@@ -279,13 +279,13 @@
                   <option v-for="medicine in getReplacingMedicines(selectedRow)" v-bind:value="medicine['Namn']">{{ medicine['Namn'] + getPlaces_sorted(medicine).map(loc=>loc['Kortnamn']).join(', ') }}</option>
                 </select>
                 <div v-else class="data_singleLine">
-                  <p id="preparedMedication_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow.prescription['(läkemedelsnamn)'] }}</p>
+                  <p id="preparedMedication_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Övrigt'] == 'Iordningställd' ? selectedRow['Utbytt läkemedel'] : (selectedRow['G'] == 'G' ? getReplacingMedicines(selectedRow)[0]['Namn'] : selectedRow.prescription['(läkemedelsnamn)']) }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-1">
                 <h1 class="heading boxBHeading">Styrka</h1>
                 <div class="data_singleLine">
-                  <p id="amount_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Övrigt'] == 'Iordningställd' ? selectedRow['Mängd'] : selectedRow.prescription['Mängd som används vid spädning'] }}</p>
+                  <p id="amount_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Övrigt'] == 'Iordningställd' ? selectedRow['Mängd'] : (selectedRow['G'] ? getReplacingMedicines(selectedRow)[0]['Namn'] : selectedRow.prescription['Mängd som används vid spädning']) }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-4">
@@ -297,13 +297,13 @@
               <div class="headingAndDataContainer grid-span-5">
                 <h1 class="heading boxBHeading">Beredningsform</h1>
                 <div class="data_singleLine">
-                  <p id="form_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Beredningsform'] }}</p>
+                  <p id="form_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['G'] ? getReplacingMedicines(selectedRow)[0]['Beredningsform'] : selectedRow[''] }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-5">
                 <h1 class="heading boxBHeading">Iordningsställd dos</h1>
                 <div class="data_singleLine">
-                  <p id="dose_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Dos'] }}</p>
+                  <p id="dose_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Övrigt'] == 'Iordningställd' ? selectedRow['Dos'] : (selectedRow['G'] ? ''/*TODO add something that probably looks something like this: getReplacingMedicines(selectedRow)[0].prescription['Dosering']*/ : selectedRow.prescription['Dosering']) }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-5">
