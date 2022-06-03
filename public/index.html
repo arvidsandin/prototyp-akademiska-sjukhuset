@@ -89,7 +89,7 @@
               <thead>
                 <tr class="headerRow heading">
                   <th @click="sortMedicines(currentPatientMedicines_noTime_and_general, 'Namn', bottomListSortBy)" style="width:50ch; width: 35ch">
-                    Ej tidssatta ordinationer
+                    Saknar administreringstillfälle
                     {{ bottomListSortBy.heading=='Namn'?(bottomListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
                   </th>
                   <th @click="sortMedicines(currentPatientMedicines_noTime_and_general, 'Beredningsform', bottomListSortBy)" style="width:35ch; width:23ch">
@@ -274,8 +274,12 @@
               </div>
               <div class="headingAndDataContainer grid-span-5">
                 <h1 class="heading boxBHeading">Iordningställt läkemedel</h1>
-                <div class="data_singleLine">
-                  <p id="preparedMedication_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['G'] == 'g' ? selectedRow['Iordingställt läkemedel'] : selectedRow.prescription['(läkemedelsnamn)'] }}</p>
+                <select v-if="selectedRow['G'] == 'g'" name="prescription" id="preparedMedication_dropdown" class="data_singleLine boxBdata mousetrap">
+                  <option value="">&ltVälj i listan&gt</option>
+                  <option v-for="medicine in getReplacingMedicines(selectedRow)" v-bind:value="medicine['Namn']">{{ medicine['Namn'] + getPlaces_sorted(medicine).map(loc=>loc['Kortnamn']).join(', ') }}</option>
+                </select>
+                <div v-else class="data_singleLine">
+                  <p id="preparedMedication_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow.prescription['(läkemedelsnamn)'] }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-1">

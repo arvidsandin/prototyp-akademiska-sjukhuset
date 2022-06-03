@@ -273,18 +273,18 @@ Vue.createApp({
         },
         savePreparation() {
             this.selectedRow['Övrigt'] = 'Iordningställd';
-            if (document.getElementById('preparedMedication_editable').innerText == this.selectedRow.prescription['(läkemedelsnamn)']) {
+            if (document.getElementById('preparedMedication_editable')?.innerText == this.selectedRow.prescription['(läkemedelsnamn)']) {
                 this.selectedRow['G'] = '';
                 this.selectedRow['Info'] = '';
             }
             else{
                 this.selectedRow['G'] = 'G';
-                this.selectedRow['Info'] = document.getElementById('preparedMedication_editable').innerText;
+                this.selectedRow['Info'] = document.getElementById('preparedMedication_dropdown').value;
             }
             this.selectedRow['Aut'] = '0';
             this.selectedRow['Kyl'] = '0';
             this.selectedRow['Tid'] = document.getElementById('time_editable').innerText;
-            this.selectedRow['Iordningställt läkemedel'] = document.getElementById('preparedMedication_editable').innerText
+            this.selectedRow['Iordningställt läkemedel'] = document.getElementById('preparedMedication_editable')?.innerText ?? document.getElementById('preparedMedication_dropdown').value;
             this.selectedRow['Mängd'] = document.getElementById('amount_editable').innerText;
             this.selectedRow['Batchnummer'] = document.getElementById('batchNumber_editable').innerText;
             this.selectedRow['Form'] = document.getElementById('form_editable').innerText;
