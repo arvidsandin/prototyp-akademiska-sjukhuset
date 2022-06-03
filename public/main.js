@@ -25,6 +25,7 @@ Vue.createApp({
             noteEdited: false,
             selectedRow: null,
             rightClickedRow: null,
+            scanSound: new Audio('./assets/sound/sound.wav'),
         }
     },
     async mounted() {
@@ -305,6 +306,7 @@ Vue.createApp({
         async scanMedicine(event, oneDose, medicineOrPrescriptionId){
             event.preventDefault();
             this.g_expanded = false;
+            this.scanSound.play();
             if (this.note_expanded) {
                 await this.confirmDialogue('Avbryt anteckning?', 'Ja, avbryt', 'nej, fortsätt');
                 if (this.confirmDialogueResult) { this.closeNote() }
