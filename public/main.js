@@ -112,6 +112,7 @@ Vue.createApp({
         var self = this;
         Mousetrap.bind('ctrl+a', function (e) { self.scanMedicine(e, true, 'O3') });
         Mousetrap.bind('ctrl+e', function (e) { self.scanMedicine(e, false, 'L4') });
+        Mousetrap.bind('ctrl+v', function (e) { self.scanMedicine(e, false, 'L23') });
     },
     methods: {
         debug(){
@@ -309,30 +310,39 @@ Vue.createApp({
             }
             document.getElementById('confirmDialogue').style.display = 'none';
         },
-        async scanMedicine(event, oneDose, medicineOrPrescriptionId){
+        async scanMedicine(event, oneDose, medIdOrPrescId){
             event.preventDefault();
             this.g_expanded = false;
             this.scanSound.play();
+            console.log(this.allMedicines.filter(med => med.prescription['OrdinationsId'] == medIdOrPrescId).length);
+            console.log(this.allMedicines.filter(med => med['LäkemedelsId'] == medIdOrPrescId).length);
+            if (this.allMedicines.filter(med => med.prescription['OrdinationsId'] == medIdOrPrescId).length == 0 && this.allMedicines.filter(med => med['LäkemedelsId'] == medIdOrPrescId).length == 0) {
+                await this.confirmDialogue(`Detta läkemedel ej ordinerat för patienten. Vill du ändå iordningställa detta?`, 'Ja, fortsätt', 'Nej, avbryt');
+                if (this.confirmDialogueResult) {
+                    await this.confirmDialogue('Denna funktion inte implementerad i prototypen', 'Stäng', 'Stäng'); //TODO fix a popup that doesn't have to have two buttons
+                }
+                return
+            }
             if (this.note_expanded) {
                 await this.confirmDialogue('Avbryt anteckning?', 'Ja, avbryt', 'nej, fortsätt');
                 if (this.confirmDialogueResult) { this.closeNote() }
                 else{ return }
             }
-            if (this.preparation_expanded && this.selectedRow?.['LäkemedelsId'] != medicineOrPrescriptionId && this.selectedRow?.prescription['OrdinationsId'] != medicineOrPrescriptionId){
+            if (this.preparation_expanded && this.selectedRow?.['LäkemedelsId'] != medIdOrPrescId && this.selectedRow?.prescription['OrdinationsId'] != medIdOrPrescId){
                 await this.confirmDialogue(`Du har skannat ${
-                    this.allMedicines.filter(med => med['LäkemedelsId'] == medicineOrPrescriptionId || med.prescription['OrdinationsId'] == medicineOrPrescriptionId)[0]['Namn']
+                    this.allMedicines.filter(med => med['LäkemedelsId'] == medIdOrPrescId || med.prescription['OrdinationsId'] == medIdOrPrescId)[0]['Namn']
                 }.Vill du avbryta iordningställandet av ${this.selectedRow?.['Namn']}'?`, 'Ja, avbryt', 'Nej, fortsätt');
                 if (this.confirmDialogueResult) { this.closePreparation() }
                 else{ return }
             }
-            else if (this.preparation_expanded && this.selectedRow?.['LäkemedelsId'] == medicineOrPrescriptionId){ return }
+            else if (this.preparation_expanded && this.selectedRow?.['LäkemedelsId'] == medIdOrPrescId){ return }
             if (oneDose) {
-                const currentMedicine = this.allMedicines.filter(medicine => medicine.prescription['OrdinationsId'] == medicineOrPrescriptionId)[0];
+                const currentMedicine = this.allMedicines.filter(medicine => medicine.prescription['OrdinationsId'] == medIdOrPrescId)[0];
                 currentMedicine['Övrigt'] = 'Scanna';
                 this.selectRow(currentMedicine, false);
             }
             else {
-                const currentMedicine = this.allMedicines.filter(medicine => medicine['LäkemedelsId'] == medicineOrPrescriptionId)[0];
+                const currentMedicine = this.allMedicines.filter(medicine => medicine['LäkemedelsId'] == medIdOrPrescId)[0];
                 this.selectRow(currentMedicine, false);
             }
             this.preparation_expanded = true;
