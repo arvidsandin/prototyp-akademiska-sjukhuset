@@ -1,6 +1,8 @@
 Vue.createApp({
     data() {
         return {
+            view: 'medicines',//'patients',
+            patients: [],
             locations: [],
             medicines: [],
             prescriptions: [],
@@ -70,46 +72,17 @@ Vue.createApp({
                     header: true
                 });
             })
-        for (const prescription of this.prescriptions) {
-            if (prescription['PatientId'] == this.currentPatientId) {
-                this.currentPatientPrescriptions.push(prescription);
-                let medicineId = prescription['LäkemedelsId']
-                for (const medicine of this.medicines) {
-                    if (medicine['LäkemedelsId'] == medicineId) {
-                        let medicineCopy = this.addCustomProperties(medicine, prescription);
-                        this.currentPatientMedicines.push(medicineCopy);
-                        if (prescription['Aktuell kl 08:00'] == '1') {
-                            this.currentPatientMedicines_8oclock.push(medicineCopy);
-                            this.currentPatientPrescriptions_8oclock.push(prescription);
-                        }
-                        else if (prescription['Vid behov'] == '1' || prescription['Ej tidssatta'] == '1') {
-                            this.currentPatientMedicines_noTime.push(medicineCopy);
-                            this.currentPatientPrescriptions_noTime.push(prescription);
-                        }
-                        break;
-                    }
-                }
-            }
-        }
-        for (const prescription of this.generalPrescriptions) {
-            const medicineId = prescription['LäkemedelsId']
-            for (const medicine of this.medicines) {
-                if (medicine['LäkemedelsId'] == medicineId) {
-                    let medicineCopy = this.addCustomProperties(medicine, prescription);
-                    this.generalMedicines.push(medicineCopy);
-                }
-            }
-        }
-        this.currentPatientMedicines_noTime_and_general = this.currentPatientMedicines_noTime.concat(this.generalMedicines);
-        this.sortMedicines(this.currentPatientMedicines_8oclock, 'Namn', false);
-        this.sortMedicines(this.currentPatientMedicines_noTime_and_general, 'Namn', false);
-        document.getElementsByClassName('outerDiv')[0].style.backgroundImage = `url(assets/images/${this.currentPatientId}.png)`;
-        console.log(this.currentPatientPrescriptions);
-        console.log(this.generalPrescriptions);
-        console.log(this.currentPatientMedicines);
-        console.log(this.generalMedicines);
-        console.log(this.currentPatientMedicines_8oclock);
-        console.log(this.currentPatientMedicines_noTime);
+        await fetch('./assets/data/Patienter.csv')
+            .then(response => response.text())
+            .then(text => {
+                Papa.parse(text, {
+                    complete: results => {
+                        this.patients = results.data;
+                    },
+                    header: true
+                });
+            })
+        this.updateBackground();
         var self = this;
         Mousetrap.bind('ctrl+a', function (e) { self.scanMedicine(e, true, 'O3') });
         Mousetrap.bind('ctrl+e', function (e) { self.scanMedicine(e, false, 'L4') });
@@ -118,6 +91,52 @@ Vue.createApp({
     methods: {
         debug(){
             console.log('Debugging')
+        },
+        selectPatient(){
+            for (const prescription of this.prescriptions) {
+                if (prescription['PatientId'] == this.currentPatientId) {
+                    this.currentPatientPrescriptions.push(prescription);
+                    let medicineId = prescription['LäkemedelsId']
+                    for (const medicine of this.medicines) {
+                        if (medicine['LäkemedelsId'] == medicineId) {
+                            let medicineCopy = this.addCustomProperties(medicine, prescription);
+                            this.currentPatientMedicines.push(medicineCopy);
+                            if (prescription['Aktuell kl 08:00'] == '1') {
+                                this.currentPatientMedicines_8oclock.push(medicineCopy);
+                                this.currentPatientPrescriptions_8oclock.push(prescription);
+                            }
+                            else if (prescription['Vid behov'] == '1' || prescription['Ej tidssatta'] == '1') {
+                                this.currentPatientMedicines_noTime.push(medicineCopy);
+                                this.currentPatientPrescriptions_noTime.push(prescription);
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+            for (const prescription of this.generalPrescriptions) {
+                const medicineId = prescription['LäkemedelsId']
+                for (const medicine of this.medicines) {
+                    if (medicine['LäkemedelsId'] == medicineId) {
+                        let medicineCopy = this.addCustomProperties(medicine, prescription);
+                        this.generalMedicines.push(medicineCopy);
+                    }
+                }
+            }
+            this.currentPatientMedicines_noTime_and_general = this.currentPatientMedicines_noTime.concat(this.generalMedicines);
+            this.sortMedicines(this.currentPatientMedicines_8oclock, 'Namn', false);
+            this.sortMedicines(this.currentPatientMedicines_noTime_and_general, 'Namn', false);
+            this.updateBackground();
+        },
+        updateBackground(){
+            console.log(this.currentPatientId);
+            if (this.view == 'patients') {
+                document.getElementsByClassName('outerDiv')[0].style.backgroundImage = '';
+                document.getElementsByClassName('outerDiv')[0].style.backgroundColor = 'rgb(230, 230, 230)'
+            }
+            else{
+                document.getElementsByClassName('outerDiv')[0].style.backgroundImage = `url(assets/images/${this.currentPatientId}.png)`;
+            }
         },
         selectRow(row, userClickedRow) {
             if (this.modalWindowIsUp) { return }

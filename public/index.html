@@ -3,6 +3,7 @@
 <script src="./mousetrap.min.js"></script>
 <link rel="stylesheet" href="globalStylesheet.css">
 <link rel="stylesheet" href="boxAStylesheet.css">
+<link rel="stylesheet" href="patientSelectionStylesheet.css">
 <link rel="stylesheet" href="boxBStylesheet.css">
 <link rel="stylesheet" href="contextMenu.css">
 <link rel="stylesheet" href="confirmDialogue.css">
@@ -10,7 +11,15 @@
 <body>
   <div id="app" >
     <div class="outerDiv" @click="hideMenu">
-      <div class="innerDiv">
+      <div v-if="view=='patients'" class="patientSelectionContent">
+        <div class="patientSelectionBox">
+          <select id="patientSelection" v-model="patientSelection">
+            <option v-for="patient in patients" :value="patient['PatientId']">{{ `${patient['Förnamn']} ${patient['Efternamn']}, ${patient['Pnr']}`}}</option>
+          </select>
+          <button @click="currentPatientId = patientSelection;  view='medicines'; selectPatient();">Välj</button>
+        </div>
+      </div>
+      <div v-if="view=='medicines'" class="innerDiv">
         <div class="boxA">
           <div @click="firstTabSelected ? null: tab_click()" class="tab" :class="{ selectedTab: firstTabSelected}"><span class="topHeading">Urval</span></div>
           <div @click="firstTabSelected ? tab_click() : null" class="tab" :class="{ selectedTab: !firstTabSelected, inactiveText: modalWindowIsUp }"><span class="topHeading">Översikt</span></div>
