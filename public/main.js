@@ -148,7 +148,10 @@ Vue.createApp({
             medicineCopy.prescription = prescription;
             medicineCopy['G'] = '';
             
-            if (medicineCopy['Läkemedel valt']) {
+            if (medicineCopy.prescription['Pausad'] ==  '1') {
+                medicineCopy['Info'] = 'Pausad'
+            }
+            else if (medicineCopy['Läkemedel valt']) {
                 if(prescription['Har utbyte skett'] == '1'){
                     medicineCopy['G'] = 'G';
                     medicineCopy['Info'] = this.getReplacingMedicines(medicineCopy)[0]['Namn']
@@ -235,7 +238,6 @@ Vue.createApp({
         G_click() {
             if (this.modalWindowIsUp && !this.g_expanded) { return }
             this.g_expanded = !this.g_expanded;
-            this.selectedRow = null;
         },
         note_click() {
             if (this.modalWindowIsUp && !this.note_expanded) { return }
@@ -361,6 +363,15 @@ Vue.createApp({
             var date = today.getFullYear() + '-' + String((today.getMonth() + 1)).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
             var time = String(today.getHours()).padStart(2, '0') + ":" + String(today.getMinutes()).padStart(2, '0') + ":" + String(today.getSeconds()).padStart(2, '0');
             return date + ' ' + time;
+        },
+        g_visible(){
+            let result = false;
+            for (const medicine of this.currentPatientMedicines_8oclock.concat(this.currentPatientMedicines_noTime_and_general)) {
+                if (medicine['G'] == 'g') {
+                    result = true;
+                }
+            }
+            return result;
         }
     },
 }).mount('#app')
