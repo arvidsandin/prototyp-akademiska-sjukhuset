@@ -1,0 +1,11 @@
+PatientId;Pnr;Födelsedatum;Ålder i hela år;Antal månader sedan senaste fördelsedag;Kön;Efternamn;Förnamn;Text som beskriver patientens medicinska läge (dock ej läkemedel). 
+P1;470914-003D;47-09-14;74;7;M;Karlsson;Göran;"Grundsjukdomar: Diabetes, benskörhet, högt blodtryck, glaukom, hypothyreos, hyperlipidemi och kroniskt förmaksflimmer. Tidigare haft temporalisarterit som nu sannolikt fär färdigbehandlad (prednisolonet pausat)
+Aktuellt: Falltrauma med höftfraktur, opererad. I efterförloppet utvecklat lite oklar infektion, planeras reoperation med sårrevision, oklart när."
+P2;620912-300F;1962-09-12;59;7;K;Jansson;Annika;"Grundsjukdomar: Bipolär sjukdom
+Aktuellt: Vårdas för en manisk episod"
+P3;561111-401G;1956-11-11;65;5;M;Linusson;Linus;"Grundsjukdomar: leversvikt, nedsatt njurfunktion, tidigare hjärtinfarkt.
+Aktuellt: Pneumoni"
+P4;890406-311E;1989-04-06;32;0;M;Gunnarssen;Robin;"Grundsjukdomar: väsentligen frisk
+Aktuellt: fallit och fått en tibiafraktur, skall opereras idag."
+P5;360328-410D;1936-03-28;86;1;K;Hjortlund;Elisabet;"Grundsjukdomar:
+Aktuellt: Försämrad i hjärtsvikt, oklar infektion."
