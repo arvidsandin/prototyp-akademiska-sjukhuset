@@ -101,8 +101,9 @@ Vue.createApp({
             }
         }
         this.currentPatientMedicines_noTime_and_general = this.currentPatientMedicines_noTime.concat(this.generalMedicines);
-        this.sortMedicines(this.currentPatientMedicines_8oclock, 'Namn', false)
-        this.sortMedicines(this.currentPatientMedicines_noTime_and_general, 'Namn', false)
+        this.sortMedicines(this.currentPatientMedicines_8oclock, 'Namn', false);
+        this.sortMedicines(this.currentPatientMedicines_noTime_and_general, 'Namn', false);
+        document.getElementsByClassName('outerDiv')[0].style.backgroundImage = `url(assets/images/${this.currentPatientId}.png)`;
         console.log(this.currentPatientPrescriptions);
         console.log(this.generalPrescriptions);
         console.log(this.currentPatientMedicines);
