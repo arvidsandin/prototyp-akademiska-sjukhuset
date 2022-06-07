@@ -42,10 +42,7 @@
                     {{ topListSortBy.heading=='Beredningsform'?(topListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
                   </th>
                   <th style="width:20ch">Dos</th>
-                  <th @click="sortMedicines(currentPatientMedicines_8oclock, 'Övrigt', topListSortBy)" style="width:4em">
-                    Sta
-                    {{ topListSortBy.heading=='Övrigt'?(topListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
-                  </th>
+                  <th style="width:2.5em">Sta</th>
                   <th @click="sortMedicines(currentPatientMedicines_8oclock, 'G', topListSortBy)" style="width:3.5em">
                     G
                     {{ topListSortBy.heading=='G'?(topListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
@@ -54,13 +51,13 @@
                     Info
                     {{ topListSortBy.heading=='Info'?(topListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
                   </th>
-                  <th @click="sortMedicines(currentPatientMedicines_8oclock, 'Aut', topListSortBy)" style="width:4em">
+                  <th @click="sortMedicines(currentPatientMedicines_8oclock, 'I automat', topListSortBy)" style="width:4em">
                     Aut
-                    {{ topListSortBy.heading=='Aut'?(topListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                    {{ topListSortBy.heading=='I automat'?(topListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
                   </th>
-                  <th @click="sortMedicines(currentPatientMedicines_8oclock, 'Kyl', topListSortBy)" style="width:4em">
+                  <th @click="sortMedicines(currentPatientMedicines_8oclock, 'Kylförvaras', topListSortBy)" style="width:4em">
                     Kyl
-                    {{ topListSortBy.heading=='Kyl'?(topListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                    {{ topListSortBy.heading=='Kylförvaras'?(topListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
                   </th>
                 </tr>
               </thead>
@@ -106,10 +103,7 @@
                     {{ bottomListSortBy.heading=='Beredningsform'?(bottomListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
                   </th>
                   <th style="width:20ch">Dos</th>
-                  <th @click="sortMedicines(currentPatientMedicines_noTime_and_general, 'Övrigt', bottomListSortBy)" style="width:4em">
-                    Sta
-                    {{ bottomListSortBy.heading=='Övrigt'?(bottomListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
-                  </th>
+                  <th style="width:2.5em">Sta</th>
                   <th @click="sortMedicines(currentPatientMedicines_noTime_and_general, 'G', bottomListSortBy)" style="width:3.5em">
                     G
                     {{ bottomListSortBy.heading=='G'?(bottomListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
@@ -118,13 +112,13 @@
                     Info
                     {{ bottomListSortBy.heading=='Info'?(bottomListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
                   </th>
-                  <th @click="sortMedicines(currentPatientMedicines_noTime_and_general, 'Aut', bottomListSortBy)" style="width:4em">
+                  <th @click="sortMedicines(currentPatientMedicines_noTime_and_general, 'I automat', bottomListSortBy)" style="width:4em">
                     Aut
-                    {{ bottomListSortBy.heading=='Aut'?(bottomListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                    {{ bottomListSortBy.heading=='I automat'?(bottomListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
                   </th>
-                  <th @click="sortMedicines(currentPatientMedicines_noTime_and_general, 'Kyl', bottomListSortBy)" style="width:4em">
+                  <th @click="sortMedicines(currentPatientMedicines_noTime_and_general, 'Kylförvaras', bottomListSortBy)" style="width:4em">
                     Kyl
-                    {{ bottomListSortBy.heading=='Kyl'?(bottomListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                    {{ bottomListSortBy.heading=='Kylförvaras'?(bottomListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
                   </th>
                 </tr>
               </thead>
@@ -207,13 +201,13 @@
                     Info
                     {{ overviewListSortBy.heading=='Info'?(overviewListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
                   </th>
-                  <th @click="sortMedicines(currentPatientMedicines, 'Aut', overviewListSortBy)" style="width:4em">
+                  <th @click="sortMedicines(currentPatientMedicines, 'I automat', overviewListSortBy)" style="width:4em">
                     Aut
-                    {{ overviewListSortBy.heading=='Aut'?(overviewListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                    {{ overviewListSortBy.heading=='I automat'?(overviewListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
                   </th>
-                  <th @click="sortMedicines(currentPatientMedicines, 'Kyl', overviewListSortBy)" style="width:4em">
+                  <th @click="sortMedicines(currentPatientMedicines, 'Kylförvaras', overviewListSortBy)" style="width:4em">
                     Kyl
-                    {{ overviewListSortBy.heading=='Kyl'?(overviewListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                    {{ overviewListSortBy.heading=='Kylförvaras'?(overviewListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
                   </th>
                 </tr>
               </thead>
