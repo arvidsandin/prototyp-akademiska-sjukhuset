@@ -66,7 +66,7 @@
               </thead>
               <tbody>
                 <tr @click="selectRow(row, true)" @contextmenu.prevent="rightClick($event, row)" v-for="(row, index) in currentPatientMedicines_8oclock" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
-                  <td><div v-bind:title="row['Namn'] + ' ' + row['Styrka']" class="valueCell value" :class="{ inactiveText: row.prescription['Pausad']=='1' }">{{row['Namn'] + ' ' + row['Styrka']}}</div></td>
+                  <td><div v-bind:title="row['Namn'] + ' ' + row['Styrka']" class="valueCell value" :class="{ inactiveText: row.prescription['Pausad']=='1', italic: row.prescription['Aktuell kl 08:00']=='0'}">{{row['Namn'] + ' ' + row['Styrka']}}</div></td>
                   <td><div v-bind:title="row['Beredningsform']" class="valueCell value">{{row['Beredningsform, kortversion'] != '' ? row['Beredningsform, kortversion'] : row['Beredningsform']}}</div></td>
                   <td><div v-bind:title="row.prescription['Dosering']" class="valueCell value">{{row.prescription["Kortform Dosering"]}}</div></td>
                   <td><div class="valueCell valueCellImg value">
@@ -177,8 +177,100 @@
             </div>
           </div>
         </div>
-        <div v-else class="tabContent secondTabContent">
-          <!-- TODO -->
+        <div v-else class="tabContent secondTabContent" :class="{ tabContentExpanded: g_expanded}">
+          <div class="aboveLists heading" id="aboveListsInfoTextOnly">
+            <span class="heading italic">De ordinationer som finns med under fliken ”Urval” har ett ”U” i första kolumnen.</span>
+          </div>
+          <div class="overviewList">
+            <table class="list">
+              <thead>
+                <tr class="headerRow heading">
+                  <th style="width: 2.5em">&nbsp U</th>
+                  <th @click="sortMedicines(currentPatientMedicines, 'Namn', overviewListSortBy)"
+                    style="width:50ch; width: 35ch">
+                    Ordination
+                    {{ overviewListSortBy.heading=='Namn'?(overviewListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                  </th>
+                  <th @click="sortMedicines(currentPatientMedicines, 'Beredningsform', overviewListSortBy)"
+                    style="width:35ch; width:23ch">
+                    Beredningsform
+                    {{ overviewListSortBy.heading=='Beredningsform'?(overviewListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                  </th>
+                  <th style="width:20ch">Dos</th>
+                  <th style="width:2.5em">Sta</th>
+                  <th @click="sortMedicines(currentPatientMedicines, 'G', overviewListSortBy)" style="width:3.5em">
+                    G
+                    {{ overviewListSortBy.heading=='G'?(overviewListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                  </th>
+                  <th @click="sortMedicines(currentPatientMedicines, 'Info', overviewListSortBy)"
+                    style="width:25ch; width:23ch">
+                    Info
+                    {{ overviewListSortBy.heading=='Info'?(overviewListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                  </th>
+                  <th @click="sortMedicines(currentPatientMedicines, 'Aut', overviewListSortBy)" style="width:4em">
+                    Aut
+                    {{ overviewListSortBy.heading=='Aut'?(overviewListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                  </th>
+                  <th @click="sortMedicines(currentPatientMedicines, 'Kyl', overviewListSortBy)" style="width:4em">
+                    Kyl
+                    {{ overviewListSortBy.heading=='Kyl'?(overviewListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr @click="selectRow(row, true)" @contextmenu.prevent="rightClick($event, row)" v-for="(row, index) in currentPatientMedicines" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
+                  <td>
+                    <div class="valueCell valueCellImg value">
+                      <img v-if="row.prescription['Aktuell kl 08:00'] == '1'" height="18" src="./assets/images/U_1.png">
+                    </div>
+                  </td>
+                  <td>
+                    <div v-bind:title="row['Namn'] + ' ' + row['Styrka']" class="valueCell value"
+                      :class="{ inactiveText: row.prescription['Pausad']=='1' }">{{row['Namn'] + ' ' + row['Styrka']}}</div>
+                  </td>
+                  <td>
+                    <div v-bind:title="row['Beredningsform']" class="valueCell value">{{row['Beredningsform, kortversion'] != '' ?
+                      row['Beredningsform, kortversion'] : row['Beredningsform']}}</div>
+                  </td>
+                  <td>
+                    <div v-bind:title="row.prescription['Dosering']" class="valueCell value">{{row.prescription["Kortform Dosering"]}}</div>
+                  </td>
+                  <td>
+                    <div class="valueCell valueCellImg value">
+                      <img v-if="row['Övrigt']=='Iordningställd'" height="18" src="./assets/images/A_Sta_5.png">
+                      <img v-else-if="row['Leveranstyp']==1 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_1.png">
+                      <img v-else-if="row['Leveranstyp']==2 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_2.png">
+                      <img v-else-if="row['Övrigt'] == 'Kryssa'" height="18" src="./assets/images/A_Sta_3.png">
+                      <img v-else-if="row['Övrigt'] == 'Avvakta'" height="18" src="./assets/images/A_Sta_4.png">
+                      <img v-else-if="row['Leveranstyp']==1 && row['Övrigt'] == 'Scanna'" height="18"
+                        src="./assets/images/A_Sta_6.png">
+                      <img v-else-if="row['Leveranstyp']==2 && row['Övrigt'] == 'Scanna'" height="18"
+                        src="./assets/images/A_Sta_7.png">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="valueCell valueCellImg value">
+                      <img v-if="row['G'] == 'G'" height="18" src="./assets/images/A_G_1.png">
+                      <img v-if="row['G'] == 'g'" height="18" src="./assets/images/A_G_2.png">
+                    </div>
+                  </td>
+                  <td>
+                    <div v-bind:title="row['Info Långform']" class="valueCell value">{{row['Info']}}</div>
+                  </td>
+                  <td>
+                    <div class="valueCell valueCellImg value">
+                      <img v-if="row['I automat'] == '1'" height="18" src="./assets/images/A_Aut.png">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="valueCell valueCellImg value">
+                      <img v-if="row['Kylförvaras'] == '1'" height="18" src="./assets/images/A_Kyl.png">
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       <div class="arrow">
@@ -260,7 +352,7 @@
               <button @click="note_click">Öppna</button>
             </div>
           </div>
-          <button class="grid-span-2" @click="preparation_click" :disabled="selectedRow['Leveranstyp'] > '2'" :class="{inactive: selectedRow['Leveranstyp'] > '2'}">Iordningställ...</button>
+          <button class="grid-span-2" @click="preparation_click" :disabled="selectedRow['Leveranstyp'] < '3'" :class="{inactive: selectedRow['Leveranstyp'] < '3'}">Iordningställ...</button>
           <button class="grid-span-1" @click="selectedRow['Övrigt'] = 'Kryssa'">Kryssa</button>
           <button class="grid-span-1" @click="selectedRow['Övrigt'] = 'Avvakta'">Avvakta</button>
           <div v-if="note_expanded" class="modalDialogueBox">

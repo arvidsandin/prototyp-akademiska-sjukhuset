@@ -16,8 +16,9 @@ Vue.createApp({
             currentPatientMedicines_noTime: [],
             currentPatientMedicines_noTime_and_general: [],
             currentPatientId: 'P1',
-            topListSortBy: { heading: 'Namn', revAlpha: false }, //revAlpha = revAlpha
+            topListSortBy: { heading: 'Namn', revAlpha: false }, //revAlpha = reverse Alphabetical
             bottomListSortBy: { heading: 'Namn', revAlpha: false },
+            overviewListSortBy: { heading: 'Namn', revAlpha: false },
             hasAnsweredConfirmDialogue: false,
             confirmDialogueResult: false,
             firstTabSelected: true,
@@ -124,12 +125,12 @@ Vue.createApp({
                 }
             }
             this.currentPatientMedicines_noTime_and_general = this.currentPatientMedicines_noTime.concat(this.generalMedicines);
-            this.sortMedicines(this.currentPatientMedicines_8oclock, 'Namn', false);
-            this.sortMedicines(this.currentPatientMedicines_noTime_and_general, 'Namn', false);
+            this.sortMedicines(this.currentPatientMedicines_8oclock, 'Namn', { heading: '', revAlpha: false });
+            this.sortMedicines(this.currentPatientMedicines_noTime_and_general, 'Namn', { heading: '', revAlpha: false });
+            this.sortMedicines(this.currentPatientMedicines, 'Namn', { heading: '', revAlpha: false });
             this.updateBackground();
         },
         updateBackground(){
-            console.log(this.currentPatientId);
             if (this.view == 'patients') {
                 document.getElementsByClassName('outerDiv')[0].style.backgroundImage = '';
                 document.getElementsByClassName('outerDiv')[0].style.backgroundColor = 'rgb(230, 230, 230)'
@@ -319,6 +320,10 @@ Vue.createApp({
             this.selectedRow['Form'] = document.getElementById('form_editable').innerText;
             this.selectedRow['Dos'] = document.getElementById('dose_editable').innerText;
             this.selectedRow['Kommentar'] = document.getElementById('comment_editable').innerText;
+            if (this.selectedRow.prescription?.['Aktuell kl 08:00'] != '1' && !this.currentPatientMedicines_noTime_and_general.includes(this.selectedRow)) {
+                this.currentPatientMedicines_8oclock.push(this.selectedRow);
+                this.sortMedicines(this.currentPatientMedicines_8oclock, this.topListSortBy.heading, { heading: '', revAlpha:false });
+            }
             this.closePreparation();
         },
         async confirmDialogue(questionText, confirmText, cancelText){
@@ -336,8 +341,6 @@ Vue.createApp({
             event.preventDefault();
             this.g_expanded = false;
             this.scanSound.play();
-            console.log(this.allMedicines.filter(med => med.prescription['OrdinationsId'] == medIdOrPrescId).length);
-            console.log(this.allMedicines.filter(med => med['LäkemedelsId'] == medIdOrPrescId).length);
             if (this.allMedicines.filter(med => med.prescription['OrdinationsId'] == medIdOrPrescId).length == 0 && this.allMedicines.filter(med => med['LäkemedelsId'] == medIdOrPrescId).length == 0) {
                 await this.confirmDialogue(`Detta läkemedel ej ordinerat för patienten. Vill du ändå iordningställa detta?`, 'Ja, fortsätt', 'Nej, avbryt');
                 if (this.confirmDialogueResult) {

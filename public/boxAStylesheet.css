@@ -61,6 +61,10 @@
     height: 8%;
 }
 
+#aboveListsInfoTextOnly{
+    width: 100%;
+}
+
 .aboveLists > :is(span, div) {
     display: flex;
     align-items: center;
@@ -102,6 +106,12 @@
     width: 970px;
     height: 41%;
     padding-top: 1em;
+    overflow-y: auto;
+}
+
+.overviewList {
+    /* width: 970px; */
+    height: 92%;
     overflow-y: auto;
 }
 
