@@ -1,7 +1,7 @@
 Vue.createApp({
     data() {
         return {
-            view: 'medicines',//'patients',
+            view: 'administration',//'medicines',//'patients',
             patients: [],
             locations: [],
             medicines: [],
@@ -88,6 +88,7 @@ Vue.createApp({
         Mousetrap.bind('ctrl+a', function (e) { self.scanMedicine(e, true, 'O3') });
         Mousetrap.bind('ctrl+e', function (e) { self.scanMedicine(e, false, 'L4') });
         Mousetrap.bind('ctrl+v', function (e) { self.scanMedicine(e, false, 'L23') });
+        this.selectPatient();
     },
     methods: {
         debug(){
@@ -372,6 +373,17 @@ Vue.createApp({
             }
             this.preparation_expanded = true;
         },
+        toAdministration(){
+            this.view = 'administration';
+            this.selectedRow = null;
+        },
+        async backToPreparation(){
+            await this.confirmDialogue(`Vill du avbryta administreringen?`, 'Ja, avbryt', 'Nej, fortsätt');
+            if (this.confirmDialogueResult) {
+                this.view = 'medicines';
+                this.selectedRow = null;
+            }
+        }
     },
     computed: {
         allMedicines(){

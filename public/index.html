@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="patientSelectionStylesheet.css">
 <link rel="stylesheet" href="boxBStylesheet.css">
 <link rel="stylesheet" href="contextMenu.css">
+<link rel="stylesheet" href="administrationView.css">
 <link rel="stylesheet" href="confirmDialogue.css">
 
 <body>
@@ -19,7 +20,7 @@
           <button @click="currentPatientId = patientSelection;  view='medicines'; selectPatient();">Välj</button>
         </div>
       </div>
-      <div v-if="view=='medicines'" class="innerDiv">
+      <div v-if="view=='medicines'" class="innerDiv" id="innerDiv1">
         <div class="boxA">
           <div @click="firstTabSelected ? null: tab_click()" class="tab" :class="{ selectedTab: firstTabSelected}"><span class="topHeading">Urval</span></div>
           <div @click="firstTabSelected ? tab_click() : null" class="tab" :class="{ selectedTab: !firstTabSelected, inactiveText: modalWindowIsUp }"><span class="topHeading">Översikt</span></div>
@@ -267,46 +268,46 @@
           </div>
         </div>
       </div>
-      <div class="arrow">
+      <div class="arrow" id="arrow1">
         <img v-if="selectedRow != null" src="./assets/images/AtoB_arrow_active.png">
         <img v-else src="./assets/images/AtoB_arrow_inactive.png">
       </div>
       <div class="boxB" :class="{ inactive: selectedRow == null}">
-        <div v-if="selectedRow != null" class="boxBContent">
+        <div class="boxBContent">
           <div class="headingAndDataContainer grid-span-4">
             <h1 class="heading boxBHeading">Läkemedel</h1>
-            <p class="value boxBData bold">{{ selectedRow['Namn'] }}</p>
+            <p v-if="selectedRow != null" class="value boxBData bold">{{ selectedRow['Namn'] }}</p>
           </div>
           <div class="headingAndDataContainer grid-span-4">
             <h1 class="heading boxBHeading">Beredningsform</h1>
-            <p class="value boxBData">{{ selectedRow['Beredningsform'] }}</p>
+            <p v-if="selectedRow != null" class="value boxBData">{{ selectedRow['Beredningsform'] }}</p>
           </div>
           <div class="headingAndDataContainer grid-span-1">
             <h1 class="heading boxBHeading">Styrka</h1>
-            <p class="value boxBData">{{ selectedRow['Styrka'] }}</p>
+            <p v-if="selectedRow != null" class="value boxBData">{{ selectedRow['Styrka'] }}</p>
           </div>
           <div class="headingAndDataContainer grid-span-1">
             <h1 class="heading boxBHeading">Slutlig Konc</h1>
-            <p class="value boxBData">{{ selectedRow.prescription['Koncentration av huvudsubstans i färdigspädd lösning'] }}</p>
+            <p v-if="selectedRow != null" class="value boxBData">{{ selectedRow.prescription['Koncentration av huvudsubstans i färdigspädd lösning'] }}</p>
           </div>
           <div class="headingAndDataContainer grid-span-2">
             <h1 class="heading boxBHeading">Behandlingsorsak</h1>
-            <p class="value boxBData">{{ selectedRow.prescription['Behandlingsorsak'] }}</p>
+            <p v-if="selectedRow != null" class="value boxBData">{{ selectedRow.prescription['Behandlingsorsak'] }}</p>
           </div>
           <div class="headingAndDataContainer grid-span-2">
             <h1 class="heading boxBHeading">Hämtas Via</h1>
-            <p v-if="selectedRow['Leveranstyp'] == '1'" class="value boxBData">Rörpost</p>
-            <p v-else-if="selectedRow['Leveranstyp'] == '2'" class="value boxBData">Beredningsfarmaceut</p>
-            <p v-else class="value boxBData">{{ selectedRow['I automat'] == '1' ? 'I automat' : 'Hylla/Vagn/Farmacet' }}</p>
+            <p v-if="selectedRow != null && selectedRow['Leveranstyp'] == '1'" class="value boxBData">Rörpost</p>
+            <p v-else-if="selectedRow != null && selectedRow['Leveranstyp'] == '2'" class="value boxBData">Beredningsfarmaceut</p>
+            <p v-else-if="selectedRow != null" class="value boxBData">{{ selectedRow['I automat'] == '1' ? 'I automat' : 'Hylla/Vagn/Farmacet' }}</p>
           </div>
           <div class="headingAndDataContainer grid-span-2">
             <h1 class="heading boxBHeading">Kylförvaring</h1>
-            <p class="value boxBData">{{ selectedRow['Kylförvaras'] ? 'Ja' : 'Nej' }}</p>
+            <p v-if="selectedRow != null" class="value boxBData">{{ selectedRow['Kylförvaras'] ? 'Ja' : 'Nej' }}</p>
           </div>
           <div class="headingAndDataContainer grid-span-4">
             <h1 class="heading boxBHeading">Möjliga utbyten</h1>
             <div class="data_multipleLines">
-              <p v-for="medicine in getReplacingMedicines(selectedRow)" class="value boxBData">
+              <p v-if="selectedRow != null" v-for="medicine in getReplacingMedicines(selectedRow)" class="value boxBData">
                 {{ medicine['Namn'] }}
                 {{ getPlaces_sorted(medicine).map(loc=>loc['Kortnamn']).join(', ') }}
               </p>
@@ -314,20 +315,20 @@
           </div>
           <div class="headingAndDataContainer grid-span-4">
             <h1 class="heading boxBHeading">Dosering</h1>
-            <p class="value boxBData">{{ selectedRow.prescription['Dosering'] }}</p>
+            <p v-if="selectedRow != null" class="value boxBData">{{ selectedRow.prescription['Dosering'] }}</p>
           </div>
           <div class="headingAndDataContainer grid-span-4">
             <h1 class="heading boxBHeading">Administrationssätt</h1>
-            <p class="value boxBData">{{ selectedRow.prescription['Administrationssätt'] }}</p>
+            <p v-if="selectedRow != null" class="value boxBData">{{ selectedRow.prescription['Administrationssätt'] }}</p>
           </div>
           <div class="headingAndDataContainer grid-span-4">
             <h1 class="heading boxBHeading">Notera vid administrering</h1>
-            <p class="value boxBData">{{ selectedRow.prescription['Notera vid administrering'] }}</p>
+            <p v-if="selectedRow != null" class="value boxBData">{{ selectedRow.prescription['Notera vid administrering'] }}</p>
           </div>
           <div class="headingAndDataContainer grid-span-4">
             <h1 class="heading boxBHeading">Ingående substanser</h1>
             <div class="data_multipleLines">
-              <p v-for="prescription in prescriptions.filter(presc => presc['OrdinationsId'] == selectedRow.prescription['OrdinationsId'])" class="value boxBData">
+              <p v-if="selectedRow != null" v-for="prescription in prescriptions.filter(presc => presc['OrdinationsId'] == selectedRow.prescription['OrdinationsId'])" class="value boxBData">
                 {{ prescription['(läkemedelsnamn)'] }}
                 {{ prescription['Mängd som används vid spädning'] }}
               </p>
@@ -336,19 +337,19 @@
           <div class="headingAndDataContainer grid-span-4">
             <h1 class="heading boxBHeading">Instruktioner för spädning/blandning</h1>
             <div class="data_multipleLines">
-              <p class="value boxBData">{{ selectedRow.prescription['Instruktioner för spädning/blandning']}}</p>
+              <p v-if="selectedRow != null" class="value boxBData">{{ selectedRow.prescription['Instruktioner för spädning/blandning']}}</p>
             </div>
           </div>
           <div class="headingAndDataContainer grid-span-4">
             <h1 class="heading boxBHeading">Anteckning</h1>
             <div class="data_multipleLines">
-              <p class="value boxBData anteckning">{{ selectedRow['Anteckning']}}</p>
-              <button @click="note_click">Öppna</button>
+              <p v-if="selectedRow != null" class="value boxBData anteckning">{{ selectedRow['Anteckning']}}</p>
+              <button v-if="selectedRow != null" @click="note_click">Öppna</button>
             </div>
           </div>
-          <button class="grid-span-2" @click="preparation_click" :disabled="selectedRow['Leveranstyp'] < '3'" :class="{inactive: selectedRow['Leveranstyp'] < '3'}">Iordningställ...</button>
-          <button class="grid-span-1" @click="selectedRow['Övrigt'] = 'Kryssa'">Kryssa</button>
-          <button class="grid-span-1" @click="selectedRow['Övrigt'] = 'Avvakta'">Avvakta</button>
+          <button v-if="selectedRow != null" class="grid-span-2" @click="preparation_click" :disabled="selectedRow['Leveranstyp'] < '3'" :class="{inactive: selectedRow['Leveranstyp'] < '3'}">Iordningställ...</button>
+          <button v-if="selectedRow != null" class="grid-span-1" @click="selectedRow['Övrigt'] = 'Kryssa'">Kryssa</button>
+          <button v-if="selectedRow != null" class="grid-span-1" @click="selectedRow['Övrigt'] = 'Avvakta'">Avvakta</button>
           <div v-if="note_expanded" class="modalDialogueBox">
             <h1 class="heading bold">Anteckning</h1>
             <p id="note_editable" contenteditable="true" class="mousetrap" @input="noteEdited = true">{{ selectedRow['Anteckning'] }}</p>
@@ -364,47 +365,57 @@
               <div class="headingAndDataContainer grid-span-2">
                 <h1 class="heading boxBHeading">Tid och datum</h1>
                 <div class="data_singleLine">
-                  <p id="time_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Övrigt'] == 'Iordningställd' ? selectedRow['Tid'] : timeNow }}</p>
+                  <p id="time_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Övrigt'] == 'Iordningställd' || selectedRow['Övrigt'] == 'klar' ? selectedRow['Tid'] : timeNow }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-5">
                 <h1 class="heading boxBHeading">Iordningställt läkemedel</h1>
-                <select v-if="selectedRow['G'] == 'g'" name="prescription" id="preparedMedication_dropdown" class="data_singleLine boxBdata mousetrap">
+                <select v-if="selectedRow['G'] == 'g'" name="prescription" id="preparedMedication_dropdown"
+                  class="data_singleLine boxBdata mousetrap">
                   <option value="">&ltVälj i listan&gt</option>
-                  <option v-for="medicine in getReplacingMedicines(selectedRow)" v-bind:value="medicine['Namn']">{{ medicine['Namn'] + getPlaces_sorted(medicine).map(loc=>loc['Kortnamn']).join(', ') }}</option>
+                  <option v-for="medicine in getReplacingMedicines(selectedRow)" v-bind:value="medicine['Namn']">{{ medicine['Namn']
+                    + getPlaces_sorted(medicine).map(loc=>loc['Kortnamn']).join(', ') }}</option>
                 </select>
                 <div v-else class="data_singleLine">
-                  <p id="preparedMedication_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Övrigt'] == 'Iordningställd' ? selectedRow['Utbytt läkemedel'] : (selectedRow['G'] == 'G' ? getReplacingMedicines(selectedRow)[0]['Namn'] : selectedRow.prescription['(läkemedelsnamn)']) }}</p>
+                  <p id="preparedMedication_editable" contenteditable="true" class="value boxBData mousetrap">{{
+                    selectedRow['Övrigt'] == 'Iordningställd'|| selectedRow['Övrigt'] == 'klar' ? selectedRow['Utbytt läkemedel'] :
+                    (selectedRow['G'] == 'G' ? getReplacingMedicines(selectedRow)[0]['Namn'] :
+                    selectedRow.prescription['(läkemedelsnamn)']) }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-1">
                 <h1 class="heading boxBHeading">Styrka</h1>
                 <div class="data_singleLine">
-                  <p id="amount_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Övrigt'] == 'Iordningställd' ? selectedRow['Mängd'] : (selectedRow['G'] ? getReplacingMedicines(selectedRow)[0]['Namn'] : selectedRow.prescription['Mängd som används vid spädning']) }}</p>
+                  <p id="amount_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Övrigt'] == 'Iordningställd'|| selectedRow['Övrigt'] == 'klar' ? selectedRow['Mängd'] : (selectedRow['G'] ?
+                    getReplacingMedicines(selectedRow)[0]['Namn'] : selectedRow.prescription['Mängd som används vid spädning']) }}
+                  </p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-4">
                 <h1 class="heading boxBHeading">Batchnummer</h1>
                 <div class="data_singleLine">
-                  <p id="batchNumber_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Batchnummer'] }}</p>
+                  <p id="batchNumber_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Batchnummer']
+                    }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-5">
                 <h1 class="heading boxBHeading">Beredningsform</h1>
                 <div class="data_singleLine">
-                  <p id="form_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['G'] ? getReplacingMedicines(selectedRow)[0]['Beredningsform'] : selectedRow[''] }}</p>
+                  <p id="form_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['G'] ?
+                    getReplacingMedicines(selectedRow)[0]['Beredningsform'] : selectedRow[''] }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-5">
-                <h1 class="heading boxBHeading">Iordningsställd dos</h1>
+                <h1 class="heading boxBHeading">Iordningställd dos</h1>
                 <div class="data_singleLine">
-                  <p id="dose_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Övrigt'] == 'Iordningställd' ? selectedRow['Dos'] : (selectedRow['G'] ? ''/*TODO add something that probably looks something like this: getReplacingMedicines(selectedRow)[0].prescription['Dosering']*/ : selectedRow.prescription['Dosering']) }}</p>
+                  <p id="dose_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Övrigt'] == 'Iordningställd'|| selectedRow['Övrigt'] == 'klar' ? selectedRow['Dos'] : (selectedRow['G'] ? ''/*TODO add something that probably looks something like this: getReplacingMedicines(selectedRow)[0].prescription['Dosering']*/ : selectedRow.prescription['Dosering']) }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-5">
                 <h1 class="heading boxBHeading">Kommentar</h1>
                 <div class="data_multipleLines">
-                  <p id="comment_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Kommentar'] }}</p>
+                  <p id="comment_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Kommentar'] }}
+                  </p>
                 </div>
               </div>
               <div class="buttonContainer grid-span-5">
@@ -415,11 +426,206 @@
           </div>
         </div>
       </div>
-      <button id="administrationButton">Till Administrering</button>
+      <button @click="toAdministration()" id="administrationButton">Till Administrering</button>
+    </div>
+    <div v-if="view=='administration'" class="innerDiv" id="innerDiv2">
+      <div class="boxD">
+        <div class="boxBContent">
+          <div class="headingAndDataContainer grid-span-4">
+            <h1 class="heading boxBHeading">Läkemedel</h1>
+            <p v-if="selectedRow != null" class="value boxBData bold">{{ selectedRow['Namn'] }}</p>
+          </div>
+          <div class="headingAndDataContainer grid-span-4">
+            <h1 class="heading boxBHeading">Beredningsform</h1>
+            <p v-if="selectedRow != null" class="value boxBData">{{ selectedRow['Beredningsform'] }}</p>
+          </div>
+          <div class="headingAndDataContainer grid-span-1">
+            <h1 class="heading boxBHeading">Styrka</h1>
+            <p v-if="selectedRow != null" class="value boxBData">{{ selectedRow['Styrka'] }}</p>
+          </div>
+          <div class="headingAndDataContainer grid-span-1">
+            <h1 class="heading boxBHeading">Slutlig Konc</h1>
+            <p v-if="selectedRow != null" class="value boxBData">{{ selectedRow.prescription['Koncentration av huvudsubstans i färdigspädd lösning'] }}</p>
+          </div>
+          <div class="headingAndDataContainer grid-span-2">
+            <h1 class="heading boxBHeading">Behandlingsorsak</h1>
+            <p v-if="selectedRow != null" class="value boxBData">{{ selectedRow.prescription['Behandlingsorsak'] }}</p>
+          </div>
+          <div class="headingAndDataContainer grid-span-2">
+            <h1 class="heading boxBHeading">Hämtas Via</h1>
+            <p v-if="selectedRow != null && selectedRow['Leveranstyp'] == '1'" class="value boxBData">Rörpost</p>
+            <p v-else-if="selectedRow != null && selectedRow['Leveranstyp'] == '2'" class="value boxBData">Beredningsfarmaceut</p>
+            <p v-else-if="selectedRow != null" class="value boxBData">{{ selectedRow['I automat'] == '1' ? 'I automat' : 'Hylla/Vagn/Farmacet' }}</p>
+          </div>
+          <div class="headingAndDataContainer grid-span-2">
+            <h1 class="heading boxBHeading">Kylförvaring</h1>
+            <p v-if="selectedRow != null" class="value boxBData">{{ selectedRow['Kylförvaras'] ? 'Ja' : 'Nej' }}</p>
+          </div>
+          <div class="headingAndDataContainer grid-span-4">
+            <h1 class="heading boxBHeading">Möjliga utbyten</h1>
+            <div class="data_multipleLines">
+              <p v-if="selectedRow != null" v-for="medicine in getReplacingMedicines(selectedRow)" class="value boxBData">
+                {{ medicine['Namn'] }}
+                {{ getPlaces_sorted(medicine).map(loc=>loc['Kortnamn']).join(', ') }}
+              </p>
+            </div>
+          </div>
+          <div class="headingAndDataContainer grid-span-4">
+            <h1 class="heading boxBHeading">Dosering</h1>
+            <p v-if="selectedRow != null" class="value boxBData">{{ selectedRow.prescription['Dosering'] }}</p>
+          </div>
+          <div class="headingAndDataContainer grid-span-4">
+            <h1 class="heading boxBHeading">Administrationssätt</h1>
+            <p v-if="selectedRow != null" class="value boxBData">{{ selectedRow.prescription['Administrationssätt'] }}</p>
+          </div>
+          <div class="headingAndDataContainer grid-span-4">
+            <h1 class="heading boxBHeading">Notera vid administrering</h1>
+            <p v-if="selectedRow != null" class="value boxBData">{{ selectedRow.prescription['Notera vid administrering'] }}</p>
+          </div>
+          <div class="headingAndDataContainer grid-span-4">
+            <h1 class="heading boxBHeading">Ingående substanser</h1>
+            <div class="data_multipleLines">
+              <p v-if="selectedRow != null" v-for="prescription in prescriptions.filter(presc => presc['OrdinationsId'] == selectedRow.prescription['OrdinationsId'])" class="value boxBData">
+                {{ prescription['(läkemedelsnamn)'] }}
+                {{ prescription['Mängd som används vid spädning'] }}
+              </p>
+            </div>
+          </div>
+          <div class="headingAndDataContainer grid-span-4">
+            <h1 class="heading boxBHeading">Instruktioner för spädning/blandning</h1>
+            <div class="data_multipleLines">
+              <p v-if="selectedRow != null" class="value boxBData">{{ selectedRow.prescription['Instruktioner för spädning/blandning']}}</p>
+            </div>
+          </div>
+          <div class="headingAndDataContainer grid-span-4">
+            <h1 class="heading boxBHeading">Anteckning</h1>
+            <div class="data_multipleLines">
+              <p v-if="selectedRow != null" class="value boxBData anteckning">{{ selectedRow['Anteckning']}}</p>
+              <button v-if="selectedRow != null" @click="note_click">Öppna</button>
+            </div>
+          </div>
+          <button v-if="selectedRow != null && selectedRow['Leveranstyp'] > '2'" class="grid-span-2" @click="selectedRow['Övrigt'] = 'klar'">Klar för patient</button>
+          <button v-if="selectedRow != null" class="grid-span-1" @click="selectedRow['Övrigt'] = 'Kryssa'">Kryssa</button>
+          <button v-if="selectedRow != null" class="grid-span-1" @click="selectedRow['Övrigt'] = 'Avvakta'">Avvakta</button>
+          <div v-if="note_expanded" class="modalDialogueBox">
+            <h1 class="heading bold">Anteckning</h1>
+            <p id="note_editable" contenteditable="true" class="mousetrap" @input="noteEdited = true">{{ selectedRow['Anteckning'] }}</p>
+            <div class="buttonContainer">
+              <button v-if="noteEdited" @click="saveNote()">Spara</button>
+              <button v-if="noteEdited" @click="closeNote()">Avbryt</button>
+              <button v-if="!noteEdited" @click="closeNote()">Stäng</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button @click="backToPreparation" id="preparationButton">Till iordningställande</button>
+      <div class="arrow" id="arrow2">
+        <img v-if="selectedRow != null" src="./assets/images/CtoB_arrow_active.png">
+        <img v-else src="./assets/images/CtoB_arrow_inactive.png">
+      </div>
+      <div class="boxC">
+        <div class="tabContent">
+          <div class="aboveLists heading" id="aboveListsInfoTextOnly">
+            <span class="heading italic">De ordinationer som finns med under fliken ”Urval” har ett ”U” i första
+              kolumnen.</span>
+          </div>
+          <div class="administrationList">
+              <table class="list">
+                <thead>
+                  <tr class="headerRow heading">
+                    <th style="width: 2.5em">Klar</th>
+                    <th @click="sortMedicines(currentPatientMedicines, 'Namn', overviewListSortBy)"
+                      style="width:50ch; width: 35ch">
+                      Ordination
+                      {{ overviewListSortBy.heading=='Namn'?(overviewListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                    </th>
+                    <th @click="sortMedicines(currentPatientMedicines, 'Beredningsform', overviewListSortBy)"
+                      style="width:35ch; width:23ch">
+                      Beredningsform
+                      {{ overviewListSortBy.heading=='Beredningsform'?(overviewListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                    </th>
+                    <th style="width:20ch">Dos</th>
+                    <th style="width:2.5em">Sta</th>
+                    <th @click="sortMedicines(currentPatientMedicines, 'G', overviewListSortBy)" style="width:3.5em">
+                      G
+                      {{ overviewListSortBy.heading=='G'?(overviewListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                    </th>
+                    <th @click="sortMedicines(currentPatientMedicines, 'Info', overviewListSortBy)"
+                      style="width:25ch; width:23ch">
+                      Info
+                      {{ overviewListSortBy.heading=='Info'?(overviewListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                    </th>
+                    <!-- <th @click="sortMedicines(currentPatientMedicines, 'I automat', overviewListSortBy)" style="width:4em">
+                      Aut
+                      {{ overviewListSortBy.heading=='I automat'?(overviewListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                    </th>
+                    <th @click="sortMedicines(currentPatientMedicines, 'Kylförvaras', overviewListSortBy)" style="width:4em">
+                      Kyl
+                      {{ overviewListSortBy.heading=='Kylförvaras'?(overviewListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
+                    </th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr @click="selectRow(row, true)" @contextmenu.prevent="rightClick($event, row)" v-for="(row, index) in currentPatientMedicines.filter((med)=>med['Övrigt']=='Iordningställd'|| med['Övrigt'] == 'klar')" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
+                    <td>
+                      <div class="valueCell valueCellImg value">
+                        <img v-if="row.prescription['Aktuell kl 08:00'] == '1'" height="18" src="./assets/images/U_1.png">
+                      </div>
+                    </td>
+                    <td>
+                      <div v-bind:title="row['Namn'] + ' ' + row['Styrka']" class="valueCell value"
+                        :class="{ inactiveText: row.prescription['Pausad']=='1' }">{{row['Namn'] + ' ' + row['Styrka']}}</div>
+                    </td>
+                    <td>
+                      <div v-bind:title="row['Beredningsform']" class="valueCell value">{{row['Beredningsform, kortversion'] != '' ?
+                        row['Beredningsform, kortversion'] : row['Beredningsform']}}</div>
+                    </td>
+                    <td>
+                      <div v-bind:title="row.prescription['Dosering']" class="valueCell value">{{row.prescription["Kortform Dosering"]}}</div>
+                    </td>
+                    <td>
+                      <div class="valueCell valueCellImg value">
+                        <img v-if="row['Övrigt']=='Iordningställd'" height="18" src="./assets/images/A_Sta_5.png">
+                        <img v-else-if="row['Leveranstyp']==1 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_1.png">
+                        <img v-else-if="row['Leveranstyp']==2 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_2.png">
+                        <img v-else-if="row['Övrigt'] == 'Kryssa'" height="18" src="./assets/images/A_Sta_3.png">
+                        <img v-else-if="row['Övrigt'] == 'Avvakta'" height="18" src="./assets/images/A_Sta_4.png">
+                        <img v-else-if="row['Leveranstyp']==1 && row['Övrigt'] == 'Scanna'" height="18"
+                          src="./assets/images/A_Sta_6.png">
+                        <img v-else-if="row['Leveranstyp']==2 && row['Övrigt'] == 'Scanna'" height="18"
+                          src="./assets/images/A_Sta_7.png">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="valueCell valueCellImg value">
+                        <img v-if="row['G'] == 'G'" height="18" src="./assets/images/A_G_1.png">
+                        <img v-if="row['G'] == 'g'" height="18" src="./assets/images/A_G_2.png">
+                      </div>
+                    </td>
+                    <td>
+                      <div v-bind:title="row['Info Långform']" class="valueCell value">{{row['Info']}}</div>
+                    </td>
+                    <!-- <td>
+                      <div class="valueCell valueCellImg value">
+                        <img v-if="row['I automat'] == '1'" height="18" src="./assets/images/A_Aut.png">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="valueCell valueCellImg value">
+                        <img v-if="row['Kylförvaras'] == '1'" height="18" src="./assets/images/A_Kyl.png">
+                      </div>
+                    </td> -->
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+      </div>
     </div>
     <div id="contextMenu" class="context-menu" style="display: none">
       <ul class="menu heading">
-        <li @click="this.preparation_expanded = true; hideMenu()"><a href="#">Iordningsställ</a></li>
+        <li v-if="view=='medicines'" @click="this.preparation_expanded = true; hideMenu()"><a href="#">Iordningställ</a></li>
+        <li v-if="view=='administration' && selectedRow != null && selectedRow['Leveranstyp'] > 2" @click="selectedRow['Övrigt'] = 'klar'; hideMenu()"><a href="#">Klar för patient</a></li>
         <li @click="rightClickedRow['Övrigt'] = 'Kryssa'; hideMenu()"><a href="#">Kryssa</a></li>
         <li @click="rightClickedRow['Övrigt'] = 'Avvakta'; hideMenu()"><a href="#">Avvakta</a></li>
       </ul>
