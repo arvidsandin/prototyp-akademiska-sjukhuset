@@ -95,6 +95,10 @@ body {
     font-style: italic;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 .value {
     font-size: 10pt;
     font-family: 'Times New Roman', Times, serif;

@@ -63,6 +63,7 @@
 
 #aboveListsInfoTextOnly{
     width: 100%;
+    display: block;
 }
 
 .aboveLists > :is(span, div) {
