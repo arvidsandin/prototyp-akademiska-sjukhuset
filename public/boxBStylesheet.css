@@ -71,9 +71,28 @@
 }
 
 .boxB button {
-    padding: 0.5em 1.3em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    width: 6em;
+    /* 1.3em; */
     margin: auto;
 }
+
+.buttons_boxB{
+    /* padding-right: 0.5em; */
+}
+
+.buttons_boxB > button{
+    float: right;
+    margin: 0 0.5em
+}
+
+#prepare_button {
+    padding: 0.5em 1em;
+    width: unset;
+    float:left;
+}
+
 
 .modalDialogueBox {
     display: flex;

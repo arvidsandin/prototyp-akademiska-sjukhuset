@@ -347,13 +347,15 @@
               <button v-if="selectedRow != null" @click="note_click">Öppna</button>
             </div>
           </div>
-          <button v-if="selectedRow != null" class="grid-span-2" @click="preparation_click" :disabled="selectedRow['Leveranstyp'] < '3'" :class="{inactive: selectedRow['Leveranstyp'] < '3'}">Iordningställ...</button>
-          <button v-if="selectedRow != null" class="grid-span-1" @click="selectedRow['Övrigt'] = 'Kryssa'">Kryssa</button>
-          <button v-if="selectedRow != null" class="grid-span-1" @click="selectedRow['Övrigt'] = 'Avvakta'">Avvakta</button>
+          <div :class="{invisible: selectedRow == null}" class="buttons_boxB grid-span-4">
+            <button v-if="selectedRow != null" id="prepare_button" @click="preparation_click" :disabled="selectedRow['Leveranstyp'] < '3'" :class="{inactive: selectedRow['Leveranstyp'] < '3'}">Iordningställ...</button>
+            <button @click="selectedRow['Övrigt'] = 'Kryssa'">Kryssa</button>
+            <button @click="selectedRow['Övrigt'] = 'Avvakta'">Avvakta</button>
+          </div>
           <div v-if="note_expanded" class="modalDialogueBox">
             <h1 class="heading bold">Anteckning</h1>
             <p id="note_editable" contenteditable="true" class="mousetrap" @input="noteEdited = true">{{ selectedRow['Anteckning'] }}</p>
-            <div class="buttonContainer">
+            <div class="buttonContainer_notes">
               <button v-if="noteEdited" @click="saveNote()">Spara</button>
               <button v-if="noteEdited" @click="closeNote()">Avbryt</button>
               <button v-if="!noteEdited" @click="closeNote()">Stäng</button>
@@ -502,9 +504,12 @@
               <button v-if="selectedRow != null" @click="note_click">Öppna</button>
             </div>
           </div>
-          <button v-if="selectedRow != null && selectedRow['Leveranstyp'] > '2'" class="grid-span-2" @click="selectedRow['Övrigt'] = 'klar'">Klar för patient</button>
-          <button v-if="selectedRow != null" class="grid-span-1" @click="selectedRow['Övrigt'] = 'Kryssa'">Kryssa</button>
-          <button v-if="selectedRow != null" class="grid-span-1" @click="selectedRow['Övrigt'] = 'Avvakta'">Avvakta</button>
+          <div :class="{invisible: selectedRow == null}" class="buttons_boxD grid-span-4">
+            <button v-if="selectedRow != null" id="ready_button"  @click="selectedRow['Övrigt'] = 'klar'" :class="{invisible:selectedRow['Leveranstyp'] < 3}">Klar för patient</button>
+            <button @click="selectedRow['Övrigt'] = 'Kryssa'">Kryssa</button>
+            <button @click="selectedRow['Övrigt'] = 'Avvakta'">Avvakta</button>
+          </div>
+
           <div v-if="note_expanded" class="modalDialogueBox">
             <h1 class="heading bold">Anteckning</h1>
             <p id="note_editable" contenteditable="true" class="mousetrap" @input="noteEdited = true">{{ selectedRow['Anteckning'] }}</p>

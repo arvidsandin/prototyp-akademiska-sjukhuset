@@ -20,6 +20,29 @@
     grid-template-rows: repeat(4, 1fr) 3fr repeat(3, 1fr) 3fr 6fr minmax(0, 2.3fr) 1fr;
 }
 
+.boxD button {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    width: 6em;
+    /* 1.3em; */
+    margin: auto;
+}
+
+.buttons_boxD {
+    /* padding-right: 0.5em; */
+}
+
+.buttons_boxD > button {
+    float: right;
+    margin: 0 0.5em
+}
+
+#ready_button {
+    padding: 0.5em 1em;
+    width: unset;
+    float: left;
+}
+
 .boxC {
     width: 100%;
     height: 100%;
