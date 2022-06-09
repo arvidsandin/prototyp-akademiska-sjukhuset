@@ -63,7 +63,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr @click="selectRow(row, true)" @contextmenu.prevent="rightClick($event, row)" v-for="(row, index) in currentPatientMedicines_8oclock" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
+                <tr @click="selectRow(row, true)" @contextmenu.prevent="rightClick($event, row)" v-for="(row, index) in currentPatientMedicines_8oclock" :class="{ selectedRow: isSelectedRow(row) && this.selectedRow['Övrigt'] != 'Scannar' }" class="valueRow">
                   <td><div v-bind:title="row['Namn'] + ' ' + row['Styrka']" class="valueCell value" :class="{ inactiveText: row.prescription['Pausad']=='1', italic: row.prescription['Aktuell kl 08:00']=='0'}">{{row['Namn'] + ' ' + row['Styrka']}}</div></td>
                   <td><div v-bind:title="row['Beredningsform']" class="valueCell value">{{row['Beredningsform, kortversion'] != '' ? row['Beredningsform, kortversion'] : row['Beredningsform']}}</div></td>
                   <td><div v-bind:title="row.prescription['Dosering']" class="valueCell value">{{row.prescription["Kortform Dosering"]}}</div></td>
@@ -124,7 +124,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr @click="selectRow(row, true)" @contextmenu.prevent="rightClick($event, row)" v-for="(row, index) in currentPatientMedicines_noTime_and_general" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
+                <tr @click="selectRow(row, true)" @contextmenu.prevent="rightClick($event, row)" v-for="(row, index) in currentPatientMedicines_noTime_and_general" :class="{ selectedRow: isSelectedRow(row) && this.selectedRow['Övrigt'] != 'Scannar' }" class="valueRow">
                   <td><div v-bind:title="row['Namn'] + ' ' + row['Styrka']" class="valueCell value">{{row['Namn'] + ' ' + row['Styrka']}}</div></td>
                   <td><div v-bind:title="row['Beredningsform']" class="valueCell value">{{row['Beredningsform, kortversion'] != '' ? row['Beredningsform, kortversion'] : row['Beredningsform']}}</div></td>
                   <td><div v-bind:title="row.prescription['Dosering']" class="valueCell value">{{row.prescription["Kortform Dosering"]}}</div></td>
@@ -215,7 +215,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr @click="selectRow(row, true)" @contextmenu.prevent="rightClick($event, row)" v-for="(row, index) in currentPatientMedicines" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
+                <tr @click="selectRow(row, true)" @contextmenu.prevent="rightClick($event, row)" v-for="(row, index) in currentPatientMedicines" :class="{ selectedRow: isSelectedRow(row) && this.selectedRow['Övrigt'] != 'Scannar' }" class="valueRow">
                   <td>
                     <div class="valueCell valueCellImg value">
                       <img v-if="row.prescription['Aktuell kl 08:00'] == '1'" height="18" src="./assets/images/U_1.png">
@@ -272,7 +272,7 @@
         <img v-if="selectedRow != null" src="./assets/images/AtoB_arrow_active.png">
         <img v-else src="./assets/images/AtoB_arrow_inactive.png">
       </div>
-      <div class="boxB" :class="{ inactive: selectedRow == null}">
+      <div class="boxB" :class="{ inactive: (selectedRow == null || selectedRow['Övrigt'] == 'Scannar')}">
         <div class="boxBContent">
           <div class="headingAndDataContainer grid-span-4">
             <h1 class="heading boxBHeading">Läkemedel</h1>
@@ -348,8 +348,8 @@
             </div>
           </div>
           <div :class="{invisible: selectedRow == null}" class="buttons_boxB grid-span-4">
-            <button v-if="selectedRow != null" id="prepare_button" @click="preparation_click" :disabled="selectedRow['Leveranstyp'] < '3'" :class="{inactive: selectedRow['Leveranstyp'] < '3'}">Iordningställ...</button>
-            <button @click="selectedRow['Övrigt'] = 'Kryssa'">Kryssa</button>
+            <button v-if="selectedRow != null" id="prepare_button" @click="preparation_click" :disabled="selectedRow['Leveranstyp'] < '3'" :class="{invisible: selectedRow['Leveranstyp'] < '3'}">Iordningställ...</button>
+            <button v-if="selectedRow != null" @click="selectedRow['Övrigt'] = 'Kryssa'" :class="{invisible: selectedRow.prescription['Pausad'] == '1'}">Kryssa</button>
             <button @click="selectedRow['Övrigt'] = 'Avvakta'">Avvakta</button>
           </div>
           <div v-if="note_expanded" class="modalDialogueBox">
@@ -557,7 +557,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr @click="selectRow(row, true)" @contextmenu.prevent="rightClick($event, row)" v-for="(row, index) in allMedicines.filter((med)=>med['Övrigt']=='Iordningställd'||med['Övrigt']=='Scannat'|| med['Övrigt'] == 'klar')" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
+                  <tr @click="selectRow(row, true)" @contextmenu.prevent="rightClick($event, row)" v-for="(row, index) in allMedicines.filter((med)=>med['Övrigt']=='Iordningställd'||med['Övrigt']=='Scannat'|| med['Övrigt'] == 'klar')" :class="{ selectedRow: isSelectedRow(row) && this.selectedRow['Övrigt'] != 'Scannar' }" class="valueRow">
                     <td>
                       <div class="valueCell valueCellImg value">
                         <img v-if="row['Övrigt'] == 'klar'" height="18" src="./assets/images/Klar.png">
@@ -604,9 +604,9 @@
     </div>
     <div id="contextMenu" class="context-menu" style="display: none">
       <ul class="menu heading">
-        <li v-if="view=='medicines'" @click="this.preparation_expanded = true; hideMenu()"><a href="#">Iordningställ</a></li>
+        <li v-if="view=='medicines' && selectedRow != null && selectedRow['Leveranstyp'] > '2'" @click="this.preparation_expanded = true; hideMenu()"><a href="#">Iordningställ</a></li>
         <li v-if="view=='administration' && selectedRow != null && selectedRow['Leveranstyp'] > 2" @click="selectedRow['Övrigt'] = 'klar'; hideMenu()"><a href="#">Klar för patient</a></li>
-        <li @click="rightClickedRow['Övrigt'] = 'Kryssa'; hideMenu()"><a href="#">Kryssa</a></li>
+        <li v-if="selectedRow != null && selectedRow.prescription['Pausad'] != '1'" @click="rightClickedRow['Övrigt'] = 'Kryssa'; hideMenu()"><a href="#">Kryssa</a></li>
         <li @click="rightClickedRow['Övrigt'] = 'Avvakta'; hideMenu()"><a href="#">Avvakta</a></li>
       </ul>
     </div>

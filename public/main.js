@@ -329,6 +329,7 @@ Vue.createApp({
                 this.currentPatientMedicines_8oclock.push(this.selectedRow);
                 this.sortMedicines(this.currentPatientMedicines_8oclock, this.topListSortBy.heading, { heading: '', revAlpha:false });
             }
+            this.selectedRow = null;
             this.closePreparation();
         },
         async confirmDialogue(questionText, confirmText, cancelText) {
@@ -350,7 +351,6 @@ Vue.createApp({
         async scanMedicine(event, oneDose, medIdOrPrescId){
             event.preventDefault();
             this.g_expanded = false;
-            this.scanSound.play();
             if (this.view == 'administration') {
                 if (this.allMedicines.filter((med) => ((med['Övrigt'] == 'Iordningställd' || med['Övrigt'] == 'Scannat' || med['Övrigt'] == 'klar') && (med.prescription['OrdinationsId'] == medIdOrPrescId || med['LäkemedelsId'] == medIdOrPrescId))).length == 0) {
                     this.errorSound.play();
@@ -358,22 +358,25 @@ Vue.createApp({
                     return
                 }
                 if (oneDose) {
+                    this.scanSound.play();
                     const currentMedicine = this.allMedicines.filter(medicine => medicine.prescription['OrdinationsId'] == medIdOrPrescId)[0];
                     currentMedicine['Övrigt'] = 'klar';
                 }
                 else {
+                    this.errorSound.play();
                     await this.errorDialogue(`Detta läkemedel är inte dosförpackat. Ange att ordinationen är klar att administrera genom att ange detta via knapp i detaljvyn eller via högerklicksmeny`);
-                    const currentMedicine = this.allMedicines.filter(medicine => medicine['LäkemedelsId'] == medIdOrPrescId)[0];
                 }
             }
             else if (this.view == 'medicines') {
                 if (this.allMedicines.filter(med => med.prescription['OrdinationsId'] == medIdOrPrescId).length == 0 && this.allMedicines.filter(med => med['LäkemedelsId'] == medIdOrPrescId).length == 0) {
+                    this.errorSound.play();
                     await this.confirmDialogue(`Detta läkemedel ej ordinerat för patienten. Vill du avbryta iordningsställandet eller fortsätta ändå?`, 'Avbryt', 'Fortsätt');
                     if (!this.confirmDialogueResult) {
                         await this.errorDialogue('Denna funktion inte implementerad i prototypen'); 
                     }
                     return
                 }
+                this.scanSound.play();
                 if (this.note_expanded) {
                     await this.confirmDialogue('Avbryt anteckning?', 'Ja, avbryt', 'Nej, fortsätt');
                     if (this.confirmDialogueResult) { this.closeNote() }
@@ -391,12 +394,14 @@ Vue.createApp({
                     const currentMedicine = this.allMedicines.filter(medicine => medicine.prescription['OrdinationsId'] == medIdOrPrescId)[0];
                     currentMedicine['Övrigt'] = 'Scannar';
                     this.selectRow(currentMedicine, false);
+                    this.preparation_expanded = true;
+                    setTimeout(this.savePreparation, 10);
                 }
                 else {
                     const currentMedicine = this.allMedicines.filter(medicine => medicine['LäkemedelsId'] == medIdOrPrescId)[0];
                     this.selectRow(currentMedicine, false);
-                }
                 this.preparation_expanded = true;
+                }
             }
         },
         toAdministration(){
