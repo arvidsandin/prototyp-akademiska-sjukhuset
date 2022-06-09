@@ -15,9 +15,14 @@ An web application to demo an alternative layout for administration of medicines
 ### Prerequisites
 
 * npm
-    ```sh
+    
+    Follow the instructions [here](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) to install npm
+    
+    Or, if it's already installed, run
+    ```
     npm install npm@latest -g
     ```
+    
 * http-server
     ```
     npm install --global http-server
