@@ -23,7 +23,7 @@ body {
     left: calc(100% * calc(1920 - 1720) / 1920);
     padding: 1.5em 2em;
     display: grid;
-    gap: 1em;
+    row-gap: 1em;
     grid-template-rows: repeat(8, 1fr) 3em;
 }
 
@@ -113,7 +113,8 @@ body {
 }
 
 button{
-    background-color: rgb(255, 242, 204);
+    color: white;
+    background-color: #01579B;
     border: solid black 1px;
 }
 

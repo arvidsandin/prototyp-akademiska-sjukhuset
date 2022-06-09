@@ -28,7 +28,8 @@ Vue.createApp({
             noteEdited: false,
             selectedRow: null,
             rightClickedRow: null,
-            scanSound: new Audio('./assets/sound/sound.wav'),
+            scanSound: new Audio('./assets/sound/Scanning_ok.wav'),
+            errorSound: new Audio('./assets/sound/Scanning_error.wav'),
         }
     },
     async mounted() {
@@ -352,18 +353,17 @@ Vue.createApp({
             this.scanSound.play();
             if (this.view == 'administration') {
                 if (this.allMedicines.filter((med) => ((med['Övrigt'] == 'Iordningställd' || med['Övrigt'] == 'Scannat' || med['Övrigt'] == 'klar') && (med.prescription['OrdinationsId'] == medIdOrPrescId || med['LäkemedelsId'] == medIdOrPrescId))).length == 0) {
+                    this.errorSound.play();
                     await this.errorDialogue(`Detta läkemedel ej iordningställt. Gå tillbaka till iordningsställande om du vill lägga till det.`);
                     return
                 }
                 if (oneDose) {
                     const currentMedicine = this.allMedicines.filter(medicine => medicine.prescription['OrdinationsId'] == medIdOrPrescId)[0];
                     currentMedicine['Övrigt'] = 'klar';
-                    this.selectRow(currentMedicine, false);
                 }
                 else {
                     await this.errorDialogue(`Detta läkemedel är inte dosförpackat. Ange att ordinationen är klar att administrera genom att ange detta via knapp i detaljvyn eller via högerklicksmeny`);
                     const currentMedicine = this.allMedicines.filter(medicine => medicine['LäkemedelsId'] == medIdOrPrescId)[0];
-                    this.selectRow(currentMedicine, false);
                 }
             }
             else if (this.view == 'medicines') {

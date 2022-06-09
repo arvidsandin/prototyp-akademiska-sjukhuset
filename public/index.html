@@ -382,14 +382,14 @@
                   </p>
                 </div>
               </div>
-              <div class="headingAndDataContainer grid-span-1">
+              <div class="headingAndDataContainer grid-span-2">
                 <h1 class="heading boxBHeading">Styrka</h1>
                 <div class="data_singleLine">
-                  <p id="amount_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Övrigt'] == 'Iordningställd' || selectedRow['Övrigt'] == 'Scannat' || selectedRow['Övrigt'] == 'klar' ? selectedRow['Mängd'] : (selectedRow['G'] ? getReplacingMedicines(selectedRow)[0]['Namn'] : selectedRow.prescription['Mängd som används vid spädning']) }}
+                  <p id="amount_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Övrigt'] == 'Iordningställd' || selectedRow['Övrigt'] == 'Scannat' || selectedRow['Övrigt'] == 'klar' ? selectedRow['Mängd'] : selectedRow['Styrka'] }}
                   </p>
                 </div>
               </div>
-              <div class="headingAndDataContainer grid-span-4">
+              <div class="headingAndDataContainer grid-span-3">
                 <h1 class="heading boxBHeading">Batchnummer</h1>
                 <div class="data_singleLine">
                   <p id="batchNumber_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Batchnummer'] }}</p>
