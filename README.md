@@ -39,6 +39,9 @@ An web application to demo an alternative layout for administration of medicines
    cd prototyp-akademiska-sjukhuset/public
    http-server -p 80
    ```
+3. Add sound files(optional)
+
+    If you want scanning sounds, add two custom files named `Scanning_ok.wav` and `Scanning_error.wav` in `assets/sound`
 4. Visit `localhost` in your web browser
 
 ## License
