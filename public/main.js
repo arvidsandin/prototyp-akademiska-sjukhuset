@@ -170,6 +170,7 @@ Vue.createApp({
             medicineCopy['Kommentar'] = '';
             medicineCopy.prescription = prescription;
             medicineCopy['G'] = '';
+            medicineCopy['Klar'] = false;
             
             if (medicineCopy.prescription['Pausad'] ==  '1') {
                 medicineCopy['Info'] = 'Pausad'
@@ -360,7 +361,7 @@ Vue.createApp({
                 if (oneDose) {
                     this.scanSound.play();
                     const currentMedicine = this.allMedicines.filter(medicine => medicine.prescription['OrdinationsId'] == medIdOrPrescId)[0];
-                    currentMedicine['Övrigt'] = 'klar';
+                    currentMedicine['Klar'] = true;
                 }
                 else {
                     this.errorSound.play();
@@ -413,6 +414,9 @@ Vue.createApp({
             await this.confirmDialogue(`Vill du avbryta administreringen?`, 'Ja, avbryt', 'Nej, fortsätt');
             if (this.confirmDialogueResult) {
                 this.view = 'medicines';
+                for (const medicine of this.allMedicines) {
+                    medicine['Klar'] = false;
+                }
                 this.selectedRow = null;
             }
         }
