@@ -103,6 +103,10 @@ body {
     visibility: hidden;
 }
 
+.unselectable {
+    user-select: none;
+}
+
 .value {
     font-size: 10pt;
     font-family: 'Times New Roman', Times, serif;

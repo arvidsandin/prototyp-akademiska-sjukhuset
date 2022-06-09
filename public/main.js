@@ -343,6 +343,23 @@ Vue.createApp({
             event.preventDefault();
             this.g_expanded = false;
             this.scanSound.play();
+            if (this.view == 'administration') {
+                if (this.allMedicines.filter((med) => ((med['Övrigt'] == 'Iordningställd' || med['Övrigt'] == 'Scannat' || med['Övrigt'] == 'klar') && (med.prescription['OrdinationsId'] == medIdOrPrescId || med['LäkemedelsId'] == medIdOrPrescId))).length == 0) {
+                    await this.confirmDialogue(`Detta läkemedel ej iordningställt. Gå tillbaka till iordningsställande om du vill lägga till det.`, 'Stäng', 'Stäng');
+                    return
+                }
+                if (oneDose) {
+                    const currentMedicine = this.allMedicines.filter(medicine => medicine.prescription['OrdinationsId'] == medIdOrPrescId)[0];
+                    currentMedicine['Övrigt'] = 'klar';
+                    this.selectRow(currentMedicine, false);
+                }
+                else {
+                    await this.confirmDialogue(`Detta läkemedel är inte dosförpackat. Ange att ordinationen är klar att administrera genom att ange detta via knapp i detaljvyn eller via högerklicksmeny`, 'Stäng', 'Stäng');
+                    const currentMedicine = this.allMedicines.filter(medicine => medicine['LäkemedelsId'] == medIdOrPrescId)[0];
+                    this.selectRow(currentMedicine, false);
+                }
+            }
+            else if (this.view == 'medicines') {
             if (this.allMedicines.filter(med => med.prescription['OrdinationsId'] == medIdOrPrescId).length == 0 && this.allMedicines.filter(med => med['LäkemedelsId'] == medIdOrPrescId).length == 0) {
                 await this.confirmDialogue(`Detta läkemedel ej ordinerat för patienten. Vill du avbryta iordningsställandet eller fortsätta ändå?`, 'Avbryt', 'Fortsätt');
                 if (!this.confirmDialogueResult) {
@@ -373,8 +390,10 @@ Vue.createApp({
                 this.selectRow(currentMedicine, false);
             }
             this.preparation_expanded = true;
+            }
         },
         toAdministration(){
+            if (this.modalWindowIsUp) { return }
             this.view = 'administration';
             this.selectedRow = null;
         },

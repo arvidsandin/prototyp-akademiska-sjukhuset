@@ -22,8 +22,8 @@
       </div>
       <div v-if="view=='medicines'" class="innerDiv" id="innerDiv1">
         <div class="boxA">
-          <div @click="firstTabSelected ? null: tab_click()" class="tab" :class="{ selectedTab: firstTabSelected}"><span class="topHeading">Urval</span></div>
-          <div @click="firstTabSelected ? tab_click() : null" class="tab" :class="{ selectedTab: !firstTabSelected, inactiveText: modalWindowIsUp }"><span class="topHeading">Översikt</span></div>
+          <div @click="firstTabSelected ? null: tab_click()" class="tab unselectable" :class="{ selectedTab: firstTabSelected}"><span class="topHeading">Urval</span></div>
+          <div @click="firstTabSelected ? tab_click() : null" class="tab unselectable" :class="{ selectedTab: !firstTabSelected, inactiveText: modalWindowIsUp }"><span class="topHeading">Översikt</span></div>
           <div v-if="firstTabSelected" class="tabContent firstTabContent" :class="{ tabContentExpanded: g_expanded}">
             <div class="aboveLists heading">
               <span class="heading">Utdelningstillfälle</span><div class="fakeTimeSelectionBox">08:00 2022-03-04 <button>...</button></div>
@@ -33,7 +33,7 @@
             <div class="topList">
               <table class="list">
                 <thead>
-                <tr class="headerRow heading">
+                <tr class="headerRow heading unselectable">
                   <th @click="sortMedicines(currentPatientMedicines_8oclock, 'Namn', topListSortBy)" style="width:50ch; width: 35ch">
                     Ordination
                     {{ topListSortBy.heading=='Namn'?(topListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
@@ -94,7 +94,7 @@
           <div class="bottomList">
             <table class="list">
               <thead>
-                <tr class="headerRow heading">
+                <tr class="headerRow heading unselectable">
                   <th @click="sortMedicines(currentPatientMedicines_noTime_and_general, 'Namn', bottomListSortBy)" style="width:50ch; width: 35ch">
                     Saknar administreringstillfälle
                     {{ bottomListSortBy.heading=='Namn'?(bottomListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
@@ -268,7 +268,7 @@
           </div>
         </div>
       </div>
-      <div class="arrow" id="arrow1">
+      <div class="arrow unselectable" id="arrow1">
         <img v-if="selectedRow != null" src="./assets/images/AtoB_arrow_active.png">
         <img v-else src="./assets/images/AtoB_arrow_inactive.png">
       </div>
@@ -519,7 +519,7 @@
         </div>
       </div>
       <button @click="backToPreparation" id="preparationButton">Till iordningställande</button>
-      <div class="arrow" id="arrow2">
+      <div class="arrow unselectable" id="arrow2">
         <img v-if="selectedRow != null" src="./assets/images/CtoB_arrow_active.png">
         <img v-else src="./assets/images/CtoB_arrow_inactive.png">
       </div>
@@ -532,7 +532,7 @@
           <div class="administrationList">
               <table class="list">
                 <thead>
-                  <tr class="headerRow heading">
+                  <tr class="headerRow heading unselectable">
                     <th style="width: 2.5em">Klar</th>
                     <th @click="sortMedicines(currentPatientMedicines, 'Namn', overviewListSortBy)"
                       style="width:50ch; width: 35ch">

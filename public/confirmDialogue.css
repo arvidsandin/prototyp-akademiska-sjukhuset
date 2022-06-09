@@ -12,14 +12,14 @@
 }
 
 #confirmDialogueBox {
-    height: 20%;
-    width: 20%;
+    height: 23%;
+    width: 23%;
     background-color: white;
     border: 1px solid black;
     padding: 2em;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 2fr 1fr;
     gap: 2em;
 }
 
