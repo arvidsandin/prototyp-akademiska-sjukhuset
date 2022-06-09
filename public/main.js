@@ -33,7 +33,7 @@ Vue.createApp({
         }
     },
     async mounted() {
-        await fetch('./assets/data/Läkemedel.csv')
+        await fetch('./assets/data/Läkemedel.csv', { cache: "no-cache" })
             .then(response => response.text())
             .then(text => {
                 Papa.parse(text, {
@@ -43,7 +43,7 @@ Vue.createApp({
                     header: true
                 });
             })
-        await fetch('./assets/data/Ordinationer.csv')
+        await fetch('./assets/data/Ordinationer.csv', { cache: "no-cache" })
             .then(response => response.text())
             .then(text => {
                 Papa.parse(text, {
@@ -53,7 +53,7 @@ Vue.createApp({
                     header: true
                 });
             })
-        await fetch('./assets/data/Generella_ordinationer.csv')
+        await fetch('./assets/data/Generella_ordinationer.csv', { cache: "no-cache" })
             .then(response => response.text())
             .then(text => {
                 Papa.parse(text, {
@@ -64,7 +64,7 @@ Vue.createApp({
                 });
             })
     
-        await fetch('./assets/data/Platser.csv')
+        await fetch('./assets/data/Platser.csv', { cache: "no-cache" })
             .then(response => response.text())
             .then(text => {
                 Papa.parse(text, {
@@ -74,7 +74,7 @@ Vue.createApp({
                     header: true
                 });
             })
-        await fetch('./assets/data/Patienter.csv')
+        await fetch('./assets/data/Patienter.csv', { cache: "no-cache" })
             .then(response => response.text())
             .then(text => {
                 Papa.parse(text, {
@@ -84,12 +84,22 @@ Vue.createApp({
                     header: true
                 });
             })
-        this.updateBackground();
+        let bindings = [];
+        await fetch('./assets/data/Kortkommandon.csv', { cache: "no-cache" })
+            .then(response => response.text())
+            .then(text => {
+                Papa.parse(text, {
+                    complete: results => {
+                        bindings = results.data;
+                    },
+                    header: true
+                });
+            })
         var self = this;
-        Mousetrap.bind('ctrl+a', function (e) { self.scanMedicine(e, false, 'L3') });
-        Mousetrap.bind('ctrl+m', function (e) { self.scanMedicine(e, true, 'O20') });
-        Mousetrap.bind('ctrl+e', function (e) { self.scanMedicine(e, true, 'O4') });
-        Mousetrap.bind('ctrl+v', function (e) { self.scanMedicine(e, false, 'L23') });
+        for (const binding of bindings) {
+            Mousetrap.bind(binding['Tangenter'], function (e) { self.scanMedicine(e, binding['Id'].charAt(0)=='O', binding['Id']) })
+        }
+        this.updateBackground();
     },
     methods: {
         debug(){

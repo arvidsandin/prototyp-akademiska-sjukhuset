@@ -415,14 +415,14 @@
                 </div>
               </div>
               <div class="buttonContainer grid-span-5">
-                <button @click="savePreparation()">Spara</button>
+                <button @click="savePreparation()">Klar</button>
                 <button @click="closePreparation()">Avbryt</button>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <button @click="toAdministration()" id="administrationButton">Till Administrering</button>
+      <button @click="toAdministration()" id="administrationButton">Till Administrering &#x2794</button>
     </div>
     <div v-if="view=='administration'" class="innerDiv" id="innerDiv2">
       <div class="boxD" :class="{ inactive: selectedRow == null}">
@@ -517,7 +517,7 @@
           </div>
         </div>
       </div>
-      <button @click="backToPreparation" id="preparationButton">Till iordningställande</button>
+      <button @click="backToPreparation" id="preparationButton">&#x1F814 Till iordningställande</button>
       <div class="arrow unselectable" id="arrow2">
         <img v-if="selectedRow != null" src="./assets/images/CtoB_arrow_active.png">
         <img v-else src="./assets/images/CtoB_arrow_inactive.png">
