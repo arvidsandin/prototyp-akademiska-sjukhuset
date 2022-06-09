@@ -349,8 +349,8 @@
           </div>
           <div :class="{invisible: selectedRow == null}" class="buttons_boxB grid-span-4">
             <button v-if="selectedRow != null" id="prepare_button" @click="preparation_click" :disabled="selectedRow['Leveranstyp'] < '3'" :class="{invisible: selectedRow['Leveranstyp'] < '3'}">Iordningställ...</button>
-            <button v-if="selectedRow != null" @click="selectedRow['Övrigt'] = 'Kryssa'" :class="{invisible: selectedRow.prescription['Pausad'] == '1'}">Kryssa</button>
-            <button @click="selectedRow['Övrigt'] = 'Avvakta'">Avvakta</button>
+            <button v-if="selectedRow != null" @click="selectedRow['Övrigt'] = 'Kryssa';selectedRow = null" :class="{invisible: selectedRow.prescription['Pausad'] == '1'}">Kryssa</button>
+            <button @click="selectedRow['Övrigt'] = 'Avvakta';selectedRow = null">Avvakta</button>
           </div>
           <div v-if="note_expanded" class="modalDialogueBox">
             <h1 class="heading bold">Anteckning</h1>
@@ -502,8 +502,8 @@
           </div>
           <div :class="{invisible: selectedRow == null}" class="buttons_boxD grid-span-4">
             <button v-if="selectedRow != null" id="ready_button"  @click="selectedRow['Övrigt'] = 'klar'" :class="{invisible:selectedRow['Leveranstyp'] < 3}">Klar för patient</button>
-            <button @click="selectedRow['Övrigt'] = 'Kryssa'">Kryssa</button>
-            <button @click="selectedRow['Övrigt'] = 'Avvakta'">Avvakta</button>
+            <button @click="selectedRow['Övrigt'] = 'Kryssa'; selectedRow = null">Kryssa</button>
+            <button @click="selectedRow['Övrigt'] = 'Avvakta'; selectedRow = null">Avvakta</button>
           </div>
 
           <div v-if="note_expanded" class="modalDialogueBox">
@@ -606,8 +606,8 @@
       <ul class="menu heading">
         <li v-if="view=='medicines' && selectedRow != null && selectedRow['Leveranstyp'] > '2'" @click="this.preparation_expanded = true; hideMenu()"><a href="#">Iordningställ</a></li>
         <li v-if="view=='administration' && selectedRow != null && selectedRow['Leveranstyp'] > 2" @click="selectedRow['Övrigt'] = 'klar'; hideMenu()"><a href="#">Klar för patient</a></li>
-        <li v-if="selectedRow != null && selectedRow.prescription['Pausad'] != '1'" @click="rightClickedRow['Övrigt'] = 'Kryssa'; hideMenu()"><a href="#">Kryssa</a></li>
-        <li @click="rightClickedRow['Övrigt'] = 'Avvakta'; hideMenu()"><a href="#">Avvakta</a></li>
+        <li v-if="selectedRow != null && selectedRow.prescription['Pausad'] != '1'" @click="rightClickedRow['Övrigt'] = 'Kryssa'; hideMenu(); selectedRow = null"><a href="#">Kryssa</a></li>
+        <li @click="rightClickedRow['Övrigt'] = 'Avvakta'; hideMenu(); selectedRow = null"><a href="#">Avvakta</a></li>
       </ul>
     </div>
     <div id="confirmDialogue" style="display: none">
