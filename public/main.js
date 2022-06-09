@@ -89,7 +89,6 @@ Vue.createApp({
         Mousetrap.bind('ctrl+m', function (e) { self.scanMedicine(e, true, 'O20') });
         Mousetrap.bind('ctrl+e', function (e) { self.scanMedicine(e, true, 'O4') });
         Mousetrap.bind('ctrl+v', function (e) { self.scanMedicine(e, false, 'L23') });
-        this.selectPatient();
     },
     methods: {
         debug(){
