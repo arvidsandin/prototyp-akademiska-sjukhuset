@@ -85,8 +85,9 @@ Vue.createApp({
             })
         this.updateBackground();
         var self = this;
-        Mousetrap.bind('ctrl+a', function (e) { self.scanMedicine(e, true, 'O3') });
-        Mousetrap.bind('ctrl+e', function (e) { self.scanMedicine(e, false, 'L4') });
+        Mousetrap.bind('ctrl+a', function (e) { self.scanMedicine(e, false, 'L3') });
+        Mousetrap.bind('ctrl+m', function (e) { self.scanMedicine(e, true, 'O20') });
+        Mousetrap.bind('ctrl+e', function (e) { self.scanMedicine(e, true, 'O4') });
         Mousetrap.bind('ctrl+v', function (e) { self.scanMedicine(e, false, 'L23') });
         this.selectPatient();
     },
@@ -297,8 +298,8 @@ Vue.createApp({
             this.preparation_expanded = false;
         },
         savePreparation() {
-            this.selectedRow['Övrigt'] = 'Iordningställd';
-            if (document.getElementById('preparedMedication_editable')?.innerText == this.selectedRow.prescription['(läkemedelsnamn)']) {
+            this.selectedRow['Övrigt'] = this.selectedRow['Övrigt'] == 'Scannar' ? 'Scannat' :'Iordningställd'
+            if (document.getElementById('preparedMedication_editable')?.innerText == this.selectedRow['Namn']) {
                 this.selectedRow['G'] = '';
                 this.selectedRow['Info'] = '';
             }
@@ -343,8 +344,8 @@ Vue.createApp({
             this.g_expanded = false;
             this.scanSound.play();
             if (this.allMedicines.filter(med => med.prescription['OrdinationsId'] == medIdOrPrescId).length == 0 && this.allMedicines.filter(med => med['LäkemedelsId'] == medIdOrPrescId).length == 0) {
-                await this.confirmDialogue(`Detta läkemedel ej ordinerat för patienten. Vill du ändå iordningställa detta?`, 'Ja, fortsätt', 'Nej, avbryt');
-                if (this.confirmDialogueResult) {
+                await this.confirmDialogue(`Detta läkemedel ej ordinerat för patienten. Vill du avbryta iordningsställandet eller fortsätta ändå?`, 'Avbryt', 'Fortsätt');
+                if (!this.confirmDialogueResult) {
                     await this.confirmDialogue('Denna funktion inte implementerad i prototypen', 'Stäng', 'Stäng'); //TODO fix a popup that doesn't have to have two buttons
                 }
                 return
@@ -364,7 +365,7 @@ Vue.createApp({
             else if (this.preparation_expanded && this.selectedRow?.['LäkemedelsId'] == medIdOrPrescId){ return }
             if (oneDose) {
                 const currentMedicine = this.allMedicines.filter(medicine => medicine.prescription['OrdinationsId'] == medIdOrPrescId)[0];
-                currentMedicine['Övrigt'] = 'Scanna';
+                currentMedicine['Övrigt'] = 'Scannar';
                 this.selectRow(currentMedicine, false);
             }
             else {

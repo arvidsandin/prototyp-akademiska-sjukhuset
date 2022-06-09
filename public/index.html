@@ -69,12 +69,12 @@
                   <td><div v-bind:title="row.prescription['Dosering']" class="valueCell value">{{row.prescription["Kortform Dosering"]}}</div></td>
                   <td><div class="valueCell valueCellImg value">
                     <img v-if="row['Övrigt']=='Iordningställd'" height="18" src="./assets/images/A_Sta_5.png">
-                    <img v-else-if="row['Leveranstyp']==1 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_1.png">
-                    <img v-else-if="row['Leveranstyp']==2 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_2.png">
+                    <img v-else-if="row['Leveranstyp']==1 && (row['Övrigt'] == '' || row['Övrigt'] == 'Scannar')" height="18" src="./assets/images/A_Sta_1.png">
+                    <img v-else-if="row['Leveranstyp']==2 && (row['Övrigt'] == '' || row['Övrigt'] == 'Scannar')" height="18" src="./assets/images/A_Sta_2.png">
                     <img v-else-if="row['Övrigt'] == 'Kryssa'" height="18" src="./assets/images/A_Sta_3.png">
                     <img v-else-if="row['Övrigt'] == 'Avvakta'" height="18" src="./assets/images/A_Sta_4.png">
-                    <img v-else-if="row['Leveranstyp']==1 && row['Övrigt'] == 'Scanna'" height="18" src="./assets/images/A_Sta_6.png">
-                    <img v-else-if="row['Leveranstyp']==2 && row['Övrigt'] == 'Scanna'" height="18" src="./assets/images/A_Sta_7.png">
+                    <img v-else-if="row['Leveranstyp']==1 && row['Övrigt'] == 'Scannat'" height="18" src="./assets/images/A_Sta_6.png">
+                    <img v-else-if="row['Leveranstyp']==2 && row['Övrigt'] == 'Scannat'" height="18" src="./assets/images/A_Sta_7.png">
                   </div></td>
                   <td><div class="valueCell valueCellImg value">
                     <img v-if="row['G'] == 'G'" height="18" src="./assets/images/A_G_1.png">
@@ -130,10 +130,12 @@
                   <td><div v-bind:title="row.prescription['Dosering']" class="valueCell value">{{row.prescription["Kortform Dosering"]}}</div></td>
                   <td><div class="valueCell valueCellImg value">
                     <img v-if="row['Övrigt']=='Iordningställd'" height="18" src="./assets/images/A_Sta_5.png">
-                    <img v-else-if="row['Leveranstyp']==1 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_1.png">
-                    <img v-else-if="row['Leveranstyp']==2 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_2.png">
+                    <img v-else-if="row['Leveranstyp']==1 && (row['Övrigt'] == '' || row['Övrigt'] == 'Scannar')" height="18" src="./assets/images/A_Sta_1.png">
+                    <img v-else-if="row['Leveranstyp']==2 && (row['Övrigt'] == '' || row['Övrigt'] == 'Scannar')" height="18" src="./assets/images/A_Sta_2.png">
                     <img v-else-if="row['Övrigt'] == 'Kryssa'" height="18" src="./assets/images/A_Sta_3.png">
                     <img v-else-if="row['Övrigt'] == 'Avvakta'" height="18" src="./assets/images/A_Sta_4.png">
+                    <img v-else-if="row['Leveranstyp']==1 && row['Övrigt'] == 'Scannat'" height="18" src="./assets/images/A_Sta_6.png">
+                    <img v-else-if="row['Leveranstyp']==2 && row['Övrigt'] == 'Scannat'" height="18" src="./assets/images/A_Sta_7.png">
                   </div></td>
                   <td><div class="valueCell valueCellImg value">
                     <img v-if="row['G'] == 'G'" height="18" src="./assets/images/A_G_1.png">
@@ -232,15 +234,13 @@
                   </td>
                   <td>
                     <div class="valueCell valueCellImg value">
-                      <img v-if="row['Övrigt']=='Iordningställd'" height="18" src="./assets/images/A_Sta_5.png">
-                      <img v-else-if="row['Leveranstyp']==1 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_1.png">
-                      <img v-else-if="row['Leveranstyp']==2 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_2.png">
-                      <img v-else-if="row['Övrigt'] == 'Kryssa'" height="18" src="./assets/images/A_Sta_3.png">
-                      <img v-else-if="row['Övrigt'] == 'Avvakta'" height="18" src="./assets/images/A_Sta_4.png">
-                      <img v-else-if="row['Leveranstyp']==1 && row['Övrigt'] == 'Scanna'" height="18"
-                        src="./assets/images/A_Sta_6.png">
-                      <img v-else-if="row['Leveranstyp']==2 && row['Övrigt'] == 'Scanna'" height="18"
-                        src="./assets/images/A_Sta_7.png">
+                    <img v-if="row['Övrigt']=='Iordningställd'" height="18" src="./assets/images/A_Sta_5.png">
+                    <img v-else-if="row['Leveranstyp']==1 && (row['Övrigt'] == '' || row['Övrigt'] == 'Scannar')" height="18" src="./assets/images/A_Sta_1.png">
+                    <img v-else-if="row['Leveranstyp']==2 && (row['Övrigt'] == '' || row['Övrigt'] == 'Scannar')" height="18" src="./assets/images/A_Sta_2.png">
+                    <img v-else-if="row['Övrigt'] == 'Kryssa'" height="18" src="./assets/images/A_Sta_3.png">
+                    <img v-else-if="row['Övrigt'] == 'Avvakta'" height="18" src="./assets/images/A_Sta_4.png">
+                    <img v-else-if="row['Leveranstyp']==1 && row['Övrigt'] == 'Scannat'" height="18" src="./assets/images/A_Sta_6.png">
+                    <img v-else-if="row['Leveranstyp']==2 && row['Övrigt'] == 'Scannat'" height="18" src="./assets/images/A_Sta_7.png">
                     </div>
                   </td>
                   <td>
@@ -372,17 +372,14 @@
               </div>
               <div class="headingAndDataContainer grid-span-5">
                 <h1 class="heading boxBHeading">Iordningställt läkemedel</h1>
-                <select v-if="selectedRow['G'] == 'g'" name="prescription" id="preparedMedication_dropdown"
-                  class="data_singleLine boxBdata mousetrap">
+                <select v-if="selectedRow['G'] == 'g'" name="prescription" id="preparedMedication_dropdown" class="data_singleLine boxBdata mousetrap">
                   <option value="">&ltVälj i listan&gt</option>
-                  <option v-for="medicine in getReplacingMedicines(selectedRow)" v-bind:value="medicine['Namn']">{{ medicine['Namn']
-                    + getPlaces_sorted(medicine).map(loc=>loc['Kortnamn']).join(', ') }}</option>
+                  <option v-for="medicine in getReplacingMedicines(selectedRow)" v-bind:value="medicine['Namn']">{{ medicine['Namn'] + getPlaces_sorted(medicine).map(loc=>loc['Kortnamn']).join(', ') }}</option>
                 </select>
                 <div v-else class="data_singleLine">
-                  <p id="preparedMedication_editable" contenteditable="true" class="value boxBData mousetrap">{{
-                    selectedRow['Övrigt'] == 'Iordningställd'|| selectedRow['Övrigt'] == 'klar' ? selectedRow['Utbytt läkemedel'] :
-                    (selectedRow['G'] == 'G' ? getReplacingMedicines(selectedRow)[0]['Namn'] :
-                    selectedRow.prescription['(läkemedelsnamn)']) }}</p>
+                  <p id="preparedMedication_editable" contenteditable="true" class="value boxBData mousetrap">
+                    {{selectedRow['Övrigt'] == 'Iordningställd'|| selectedRow['Övrigt'] == 'klar' ? selectedRow['Utbytt läkemedel'] : (selectedRow['G'] == 'G' ? getReplacingMedicines(selectedRow)[0]['Namn'] : selectedRow['Namn']) }}
+                  </p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-1">
@@ -558,21 +555,13 @@
                       Info
                       {{ overviewListSortBy.heading=='Info'?(overviewListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
                     </th>
-                    <!-- <th @click="sortMedicines(currentPatientMedicines, 'I automat', overviewListSortBy)" style="width:4em">
-                      Aut
-                      {{ overviewListSortBy.heading=='I automat'?(overviewListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
-                    </th>
-                    <th @click="sortMedicines(currentPatientMedicines, 'Kylförvaras', overviewListSortBy)" style="width:4em">
-                      Kyl
-                      {{ overviewListSortBy.heading=='Kylförvaras'?(overviewListSortBy.revAlpha ? '&#9650' : '&#9660') : '' }}
-                    </th> -->
                   </tr>
                 </thead>
                 <tbody>
-                  <tr @click="selectRow(row, true)" @contextmenu.prevent="rightClick($event, row)" v-for="(row, index) in currentPatientMedicines.filter((med)=>med['Övrigt']=='Iordningställd'|| med['Övrigt'] == 'klar')" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
+                  <tr @click="selectRow(row, true)" @contextmenu.prevent="rightClick($event, row)" v-for="(row, index) in allMedicines.filter((med)=>med['Övrigt']=='Iordningställd'||med['Övrigt']=='Scannat'|| med['Övrigt'] == 'klar')" :class="{ selectedRow: isSelectedRow(row) }" class="valueRow">
                     <td>
                       <div class="valueCell valueCellImg value">
-                        <img v-if="row.prescription['Aktuell kl 08:00'] == '1'" height="18" src="./assets/images/U_1.png">
+                        <img v-if="row['Övrigt'] == 'klar'" height="18" src="./assets/images/Klar.png">
                       </div>
                     </td>
                     <td>
@@ -588,15 +577,14 @@
                     </td>
                     <td>
                       <div class="valueCell valueCellImg value">
-                        <img v-if="row['Övrigt']=='Iordningställd'" height="18" src="./assets/images/A_Sta_5.png">
-                        <img v-else-if="row['Leveranstyp']==1 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_1.png">
-                        <img v-else-if="row['Leveranstyp']==2 && row['Övrigt'] == ''" height="18" src="./assets/images/A_Sta_2.png">
-                        <img v-else-if="row['Övrigt'] == 'Kryssa'" height="18" src="./assets/images/A_Sta_3.png">
-                        <img v-else-if="row['Övrigt'] == 'Avvakta'" height="18" src="./assets/images/A_Sta_4.png">
-                        <img v-else-if="row['Leveranstyp']==1 && row['Övrigt'] == 'Scanna'" height="18"
-                          src="./assets/images/A_Sta_6.png">
-                        <img v-else-if="row['Leveranstyp']==2 && row['Övrigt'] == 'Scanna'" height="18"
-                          src="./assets/images/A_Sta_7.png">
+                    <img v-if="row['Övrigt']=='Iordningställd'" height="18" src="./assets/images/A_Sta_5.png">
+                    <img v-else-if="row['Leveranstyp']==1 && (row['Övrigt'] == '' || row['Övrigt'] == 'Scannar')" height="18" src="./assets/images/A_Sta_1.png">
+                    <img v-else-if="row['Leveranstyp']==2 && (row['Övrigt'] == '' || row['Övrigt'] == 'Scannar')" height="18" src="./assets/images/A_Sta_2.png">
+                    <img v-else-if="row['Övrigt'] == 'Kryssa'" height="18" src="./assets/images/A_Sta_3.png">
+                    <img v-else-if="row['Övrigt'] == 'Avvakta'" height="18" src="./assets/images/A_Sta_4.png">
+                    <img v-else-if="row['Leveranstyp']==1 && row['Övrigt'] == 'Scannat'" height="18" src="./assets/images/A_Sta_6.png">
+                    <img v-else-if="row['Leveranstyp']==2 && row['Övrigt'] == 'Scannat'" height="18" src="./assets/images/A_Sta_7.png">
+
                       </div>
                     </td>
                     <td>
@@ -608,16 +596,6 @@
                     <td>
                       <div v-bind:title="row['Info Långform']" class="valueCell value">{{row['Info']}}</div>
                     </td>
-                    <!-- <td>
-                      <div class="valueCell valueCellImg value">
-                        <img v-if="row['I automat'] == '1'" height="18" src="./assets/images/A_Aut.png">
-                      </div>
-                    </td>
-                    <td>
-                      <div class="valueCell valueCellImg value">
-                        <img v-if="row['Kylförvaras'] == '1'" height="18" src="./assets/images/A_Kyl.png">
-                      </div>
-                    </td> -->
                   </tr>
                 </tbody>
               </table>
