@@ -162,6 +162,7 @@ Vue.createApp({
             medicineCopy['Tid'] = '';
             medicineCopy['Iordningställt läkemedel'] = '';
             medicineCopy['Mängd'] = '';
+            medicineCopy['Beredningsform_edited'] = '';
             medicineCopy['Batchnummer'] = '';
             medicineCopy['Form'] = '';
             medicineCopy['Dos'] = '';
@@ -301,6 +302,7 @@ Vue.createApp({
             if (document.getElementById('preparedMedication_editable')?.innerText == this.selectedRow['Namn']) {
                 this.selectedRow['G'] = '';
                 this.selectedRow['Info'] = '';
+                this.selectedRow['Utbytt läkemedel'] = this.selectedRow['Namn'];
             }
             else if (document.getElementById('preparedMedication_dropdown')){
                 this.selectedRow['G'] = 'G';
@@ -317,6 +319,7 @@ Vue.createApp({
             this.selectedRow['Tid'] = document.getElementById('time_editable').innerText;
             this.selectedRow['Iordningställt läkemedel'] = document.getElementById('preparedMedication_editable')?.innerText ?? document.getElementById('preparedMedication_dropdown').value;
             this.selectedRow['Mängd'] = document.getElementById('amount_editable').innerText;
+            this.selectedRow['Beredningsform_edited'] = document.getElementById('form_editable').innerText;
             this.selectedRow['Batchnummer'] = document.getElementById('batchNumber_editable').innerText;
             this.selectedRow['Form'] = document.getElementById('form_editable').innerText;
             this.selectedRow['Dos'] = document.getElementById('dose_editable').innerText;
@@ -372,7 +375,7 @@ Vue.createApp({
                     return
                 }
                 if (this.note_expanded) {
-                    await this.confirmDialogue('Avbryt anteckning?', 'Ja, avbryt', 'nej, fortsätt');
+                    await this.confirmDialogue('Avbryt anteckning?', 'Ja, avbryt', 'Nej, fortsätt');
                     if (this.confirmDialogueResult) { this.closeNote() }
                     else{ return }
                 }

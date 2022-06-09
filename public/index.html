@@ -355,7 +355,7 @@
           <div v-if="note_expanded" class="modalDialogueBox">
             <h1 class="heading bold">Anteckning</h1>
             <p id="note_editable" contenteditable="true" class="mousetrap" @input="noteEdited = true">{{ selectedRow['Anteckning'] }}</p>
-            <div class="buttonContainer_notes">
+            <div class="buttonContainer">
               <button v-if="noteEdited" @click="saveNote()">Spara</button>
               <button v-if="noteEdited" @click="closeNote()">Avbryt</button>
               <button v-if="!noteEdited" @click="closeNote()">Stäng</button>
@@ -367,7 +367,7 @@
               <div class="headingAndDataContainer grid-span-3">
                 <h1 class="heading boxBHeading">Tid och datum</h1>
                 <div class="data_singleLine">
-                  <p id="time_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Övrigt'] == 'Iordningställd' || selectedRow['Övrigt'] == 'klar' ? selectedRow['Tid'] : timeNow }}</p>
+                  <p id="time_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Övrigt'] == 'Iordningställd' || selectedRow['Övrigt'] == 'Scannat' || selectedRow['Övrigt'] == 'klar' ? selectedRow['Tid'] : timeNow }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-5">
@@ -378,15 +378,14 @@
                 </select>
                 <div v-else class="data_singleLine">
                   <p id="preparedMedication_editable" contenteditable="true" class="value boxBData mousetrap">
-                    {{selectedRow['Övrigt'] == 'Iordningställd'|| selectedRow['Övrigt'] == 'klar' ? selectedRow['Utbytt läkemedel'] : (selectedRow['G'] == 'G' ? getReplacingMedicines(selectedRow)[0]['Namn'] : selectedRow['Namn']) }}
+                    {{selectedRow['Övrigt'] == 'Iordningställd' || selectedRow['Övrigt'] == 'Scannat' || selectedRow['Övrigt'] == 'klar' ? selectedRow['Iordningställt läkemedel'] : (selectedRow['G'] == 'G' ? getReplacingMedicines(selectedRow)[0]['Namn'] : selectedRow['Namn']) }}
                   </p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-1">
                 <h1 class="heading boxBHeading">Styrka</h1>
                 <div class="data_singleLine">
-                  <p id="amount_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Övrigt'] == 'Iordningställd'|| selectedRow['Övrigt'] == 'klar' ? selectedRow['Mängd'] : (selectedRow['G'] ?
-                    getReplacingMedicines(selectedRow)[0]['Namn'] : selectedRow.prescription['Mängd som används vid spädning']) }}
+                  <p id="amount_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Övrigt'] == 'Iordningställd' || selectedRow['Övrigt'] == 'Scannat' || selectedRow['Övrigt'] == 'klar' ? selectedRow['Mängd'] : (selectedRow['G'] ? getReplacingMedicines(selectedRow)[0]['Namn'] : selectedRow.prescription['Mängd som används vid spädning']) }}
                   </p>
                 </div>
               </div>
@@ -399,13 +398,13 @@
               <div class="headingAndDataContainer grid-span-5">
                 <h1 class="heading boxBHeading">Beredningsform</h1>
                 <div class="data_singleLine">
-                  <p id="form_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['G'] ? getReplacingMedicines(selectedRow)[0]['Beredningsform'] : selectedRow[''] }}</p>
+                  <p id="form_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Övrigt'] == 'Iordningställd' || selectedRow['Övrigt'] == 'Scannat' || selectedRow['Övrigt'] == 'klar' ? selectedRow['Beredningsform_edited'] : (selectedRow['G'] ? getReplacingMedicines(selectedRow)[0]['Beredningsform'] : selectedRow['Beredningsform']) }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-5">
                 <h1 class="heading boxBHeading">Iordningställd dos</h1>
                 <div class="data_singleLine">
-                  <p id="dose_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Övrigt'] == 'Iordningställd'|| selectedRow['Övrigt'] == 'klar' ? selectedRow['Dos'] : selectedRow.prescription['Dosering'] }}</p>
+                  <p id="dose_editable" contenteditable="true" class="value boxBData mousetrap">{{ selectedRow['Övrigt'] == 'Iordningställd'|| selectedRow['Övrigt'] == 'Scannat' || selectedRow['Övrigt'] == 'klar' ? selectedRow['Dos'] : selectedRow.prescription['Dosering'] }}</p>
                 </div>
               </div>
               <div class="headingAndDataContainer grid-span-5">
