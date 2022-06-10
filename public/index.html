@@ -298,7 +298,7 @@
             <h1 class="heading boxBHeading">Hämtas Via</h1>
             <p v-if="selectedRow != null && selectedRow['Leveranstyp'] == '1'" class="value boxBData">Rörpost</p>
             <p v-else-if="selectedRow != null && selectedRow['Leveranstyp'] == '2'" class="value boxBData">Beredningsfarmaceut</p>
-            <p v-else-if="selectedRow != null" class="value boxBData">{{ selectedRow['I automat'] == '1' ? 'I automat' : 'Hylla/Vagn/Farmacet' }}</p>
+            <p v-else-if="selectedRow != null" class="value boxBData">{{ selectedRow['I automat'] == '1' ? 'I automat' : 'Hylla/Vagn/Farmaceut' }}</p>
           </div>
           <div class="headingAndDataContainer grid-span-2">
             <h1 class="heading boxBHeading">Kylförvaring</h1>
@@ -451,7 +451,7 @@
             <h1 class="heading boxBHeading">Hämtas Via</h1>
             <p v-if="selectedRow != null && selectedRow['Leveranstyp'] == '1'" class="value boxBData">Rörpost</p>
             <p v-else-if="selectedRow != null && selectedRow['Leveranstyp'] == '2'" class="value boxBData">Beredningsfarmaceut</p>
-            <p v-else-if="selectedRow != null" class="value boxBData">{{ selectedRow['I automat'] == '1' ? 'I automat' : 'Hylla/Vagn/Farmacet' }}</p>
+            <p v-else-if="selectedRow != null" class="value boxBData">{{ selectedRow['I automat'] == '1' ? 'I automat' : 'Hylla/Vagn/Farmaceut' }}</p>
           </div>
           <div class="headingAndDataContainer grid-span-2">
             <h1 class="heading boxBHeading">Kylförvaring</h1>
@@ -501,7 +501,7 @@
             </div>
           </div>
           <div :class="{invisible: selectedRow == null}" class="buttons_boxD grid-span-4">
-            <button v-if="selectedRow != null" id="ready_button"  @click="selectedRow['Klar'] = true" :class="{invisible:selectedRow['Leveranstyp'] < 3}">Klar för patient</button>
+            <button v-if="selectedRow != null" id="ready_button"  @click="selectedRow['Klar'] = true; selectedRow = null" :class="{invisible:selectedRow['Leveranstyp'] < 3}">Klar för patient</button>
             <button @click="selectedRow['Övrigt'] = 'Kryssa'; selectedRow = null">Kryssa</button>
             <button @click="selectedRow['Övrigt'] = 'Avvakta'; selectedRow = null">Avvakta</button>
           </div>
@@ -605,7 +605,7 @@
     <div id="contextMenu" class="context-menu" style="display: none">
       <ul class="menu heading">
         <li v-if="view=='medicines' && selectedRow != null && selectedRow['Leveranstyp'] > '2'" @click="this.preparation_expanded = true; hideMenu()"><a href="#">Iordningställ</a></li>
-        <li v-if="view=='administration' && selectedRow != null && selectedRow['Leveranstyp'] > 2" @click="selectedRow['Klar'] = true; hideMenu()"><a href="#">Klar för patient</a></li>
+        <li v-if="view=='administration' && selectedRow != null && selectedRow['Leveranstyp'] > 2" @click="selectedRow['Klar'] = true; hideMenu();selectedRow = null"><a href="#">Klar för patient</a></li>
         <li v-if="selectedRow != null && selectedRow.prescription['Pausad'] != '1'" @click="rightClickedRow['Övrigt'] = 'Kryssa'; hideMenu(); selectedRow = null"><a href="#">Kryssa</a></li>
         <li @click="rightClickedRow['Övrigt'] = 'Avvakta'; hideMenu(); selectedRow = null"><a href="#">Avvakta</a></li>
       </ul>
